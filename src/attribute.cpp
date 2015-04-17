@@ -1,4 +1,5 @@
 #include "Attribute.h"
+#include "attribute-manager.h"
 #include <algorithm>
 
 static void qlist_append(QQmlListProperty<Bonus> *p, Bonus *v);
@@ -9,6 +10,7 @@ static void qlist_clear(QQmlListProperty<Bonus> *p);
 Attribute::Attribute(QQuickItem *parent)
     : QQuickItem(parent)
 {
+    AttributeManager::instance().addAttribute(this);
 }
 
 Attribute::~Attribute()
@@ -26,10 +28,24 @@ int Attribute::value() const
     return std::accumulate(m_modifiers.begin(), m_modifiers.end(), 0, Bonus::add);
 }
 
+QString Attribute::name() const
+{
+    return m_name;
+}
+
 void Attribute::onModifierChanged(Bonus *m)
 {
     Q_UNUSED(m)
     emit valueChanged(value());
+}
+
+void Attribute::setName(QString arg)
+{
+    if (m_name == arg)
+        return;
+
+    m_name = arg;
+    emit nameChanged(arg);
 }
 
 static void qlist_append(QQmlListProperty<Bonus> *p, Bonus *v) {
