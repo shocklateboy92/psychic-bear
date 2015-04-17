@@ -5,9 +5,9 @@
 
 class AttributeManager
 {
+public:
     using AttributeList = QList<Attribute*>;
 
-public:
     ~AttributeManager();
 
     static AttributeManager& instance();

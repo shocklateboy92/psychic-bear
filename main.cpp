@@ -1,14 +1,18 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlComponent>
+#include <QQmlContext>
 
 #include <src/attribute-manager.h>
 #include <src/bonus-source.h>
+#include <src/project-context.h>
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     QQmlApplicationEngine engine;
+    engine.rootContext()->setContextProperty("psychic_bear",
+                                             new ProjectContext(&engine));
 
     qmlRegisterType<Attribute>("org.lasath.psychic_bear", 1, 0, "Attribute");
     qmlRegisterType<Bonus>("org.lasath.psychic_bear", 1, 0, "Bonus");
@@ -21,8 +25,6 @@ int main(int argc, char *argv[])
     for (Attribute* a : AttributeManager::instance().attributes()) {
         qDebug() << a->name();
     }
-
-    return 0;
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 //    engine.load(QUrl(QStringLiteral("qrc:/Character.qml")));

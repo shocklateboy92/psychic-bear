@@ -9,10 +9,12 @@ SOURCES += main.cpp \
     src/attribute.cpp \
     src/bonus.cpp \
     src/attribute-manager.cpp \
-    src/bonus-source.cpp
+    src/bonus-source.cpp \
+    src/project-context.cpp
 
 RESOURCES += qml.qrc \
-    sheet/character.qrc
+    sheet/character.qrc \
+    ui/ui.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -24,4 +26,5 @@ HEADERS += \
     src/attribute.h \
     src/bonus.h \
     src/attribute-manager.h \
-    src/bonus-source.h
+    src/bonus-source.h \
+    src/project-context.h
