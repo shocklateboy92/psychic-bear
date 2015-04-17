@@ -20,6 +20,11 @@ QString Bonus::name() const
     return m_name;
 }
 
+Bonus::Source Bonus::source() const
+{
+    return m_source;
+}
+
 int Bonus::add(int acc, const Bonus *a)
 {
     return acc + a->amount();
@@ -41,5 +46,14 @@ void Bonus::setName(QString arg)
 
     m_name = arg;
     emit nameChanged(arg);
+}
+
+void Bonus::setSource(Source arg)
+{
+    if (m_source == arg)
+        return;
+
+    m_source = arg;
+    emit sourceChanged(arg);
 }
 
