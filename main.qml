@@ -3,6 +3,8 @@ import QtQuick.Controls 1.3
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
 
+import "ui"
+
 ApplicationWindow {
     title: qsTr("Hello World")
     width: 640
@@ -23,11 +25,8 @@ ApplicationWindow {
         }
     }
 
-    MainForm {
+    MainSheet {
         anchors.fill: parent
-        button1.onClicked: messageDialog.show(qsTr("Button 1 pressed"))
-        button2.onClicked: messageDialog.show(qsTr("Button 2 pressed"))
-        button3.onClicked: messageDialog.show(qsTr("Button 3 pressed"))
     }
 
     MessageDialog {
