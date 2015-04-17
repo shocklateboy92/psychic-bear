@@ -16,13 +16,16 @@ int main(int argc, char *argv[])
 
     QQmlComponent character(&engine);
     character.loadUrl(QUrl(QStringLiteral("qrc:/Character.qml")));
+    character.create();
 
     for (Attribute* a : AttributeManager::instance().attributes()) {
-        qDebug() << a->objectName();
+        qDebug() << a->name();
     }
 
-//    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-    engine.load(QUrl(QStringLiteral("qrc:/Character.qml")));
+    return 0;
+
+    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+//    engine.load(QUrl(QStringLiteral("qrc:/Character.qml")));
 
     return app.exec();
 }

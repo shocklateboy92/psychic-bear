@@ -15,20 +15,8 @@ Item {
 	}
 
 	AbilityScore {
-		id: intelligence
-		name: "Intelligence"
-
-		permanent.modifiers: [
-			Bonus {
-				source: pointBuy
-				amount: 1
-			}
-		]
-	}
-
-	AbilityScore {
         id: dexterity
-		name: "Intelligence"
+        name: "Dexterity"
 
 		permanent.modifiers: [
 			Bonus {
@@ -41,6 +29,30 @@ Item {
             }
 		]
 	}
+
+    AbilityScore {
+        id: constitution
+        name: "Constitution"
+
+        permanent.modifiers: [
+            Bonus {
+                source: pointBuy
+                amount: 5
+            }
+        ]
+    }
+
+    AbilityScore {
+        id: intelligence
+        name: "Intelligence"
+
+        permanent.modifiers: [
+            Bonus {
+                source: pointBuy
+                amount: 1
+            }
+        ]
+    }
 
 	BonusSource {
 		id: pointBuy
