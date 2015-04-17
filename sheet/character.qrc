@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/">
+    <qresource prefix="/sheet">
         <file>AbilityScore.qml</file>
         <file>Character.qml</file>
     </qresource>

@@ -3,7 +3,7 @@
 #include <QQmlComponent>
 
 #include <src/attribute-manager.h>
-#include <bonus-source.h>
+#include <src/bonus-source.h>
 
 int main(int argc, char *argv[])
 {
@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<BonusSource>("org.lasath.psychic_bear", 1, 0, "BonusSource");
 
     QQmlComponent character(&engine);
-    character.loadUrl(QUrl(QStringLiteral("qrc:/Character.qml")));
+    character.loadUrl(QUrl(QStringLiteral("qrc:/sheet/Character.qml")));
     character.create();
 
     for (Attribute* a : AttributeManager::instance().attributes()) {

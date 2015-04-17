@@ -9,7 +9,7 @@ SOURCES += main.cpp \
     src/attribute.cpp \
     src/bonus.cpp \
     src/attribute-manager.cpp \
-    bonus-source.cpp
+    src/bonus-source.cpp
 
 RESOURCES += qml.qrc \
     sheet/character.qrc
@@ -24,4 +24,4 @@ HEADERS += \
     src/attribute.h \
     src/bonus.h \
     src/attribute-manager.h \
-    bonus-source.h
+    src/bonus-source.h
