@@ -3,7 +3,9 @@ import QtQuick.Controls 1.2
 
 ListView {
     Component.onCompleted: {
-        console.debug(psychic_bear.all_attributes);
+        for (var v in psychic_bear.all_attributes) {
+            console.debug(psychic_bear.all_attributes[v]);
+        }
     }
 }
 

@@ -8,21 +8,20 @@
 class ProjectContext : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(AttributeManager::AttributeList all_attributes READ all_attributes NOTIFY all_attributesChanged)
+    Q_PROPERTY(QQmlListProperty<Attribute> all_attributes READ all_attributes)
+    using AttributeList = QQmlListProperty<Attribute>;
 
 public:
     explicit ProjectContext(QObject *parent = 0);
     ~ProjectContext();
 
-AttributeManager::AttributeList all_attributes() const;
+    AttributeList all_attributes();
 
 signals:
-    void all_attributesChanged(AttributeManager::AttributeList arg);
 
 public slots:
 
 private:
-    AttributeManager::AttributeList m_all_attributes;
 };
 
 #endif // PROJECTCONTEXT_H

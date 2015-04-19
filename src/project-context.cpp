@@ -1,8 +1,8 @@
 #include "project-context.h"
 
-ProjectContext::ProjectContext(QObject *parent) : QObject(parent)
+ProjectContext::ProjectContext(QObject *parent)
+    : QObject(parent)
 {
-
 }
 
 ProjectContext::~ProjectContext()
@@ -10,8 +10,8 @@ ProjectContext::~ProjectContext()
 
 }
 
-AttributeManager::AttributeList ProjectContext::all_attributes() const
+ProjectContext::AttributeList ProjectContext::all_attributes()
 {
-    return m_all_attributes;
+    return AttributeList(this, AttributeManager::instance().attributes());
 }
 
