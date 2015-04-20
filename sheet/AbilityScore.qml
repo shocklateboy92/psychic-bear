@@ -6,12 +6,12 @@ Item {
 	property string name
 
 	property Attribute permanent: Attribute {
-		name: root.name + " Permanent Value"
+        name: root.name
 		property int mod: Math.floor((value - 10) / 2)
 	}
 
 	property Attribute temporary: Attribute {
-		name: root.name + " Temporary Value"
+        name: root.name + " (Temp)"
 		property int mod: Math.floor((value - 10) / 2)
 
 		modifiers: [
