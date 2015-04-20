@@ -8,8 +8,6 @@ Item {
     property color text_color: palette.text
 
     id: root
-    width: text_row.width
-    height: text_row.height + padding
 
     SystemPalette {
         id: palette
@@ -23,23 +21,6 @@ Item {
         radius: 2
     }
 
-    Row {
-        id: text_row
-        anchors.verticalCenter: parent.verticalCenter
-        spacing: 10
-
-        Label {
-            text: model.value
-            font.pointSize: 16
-            width: 24
-            horizontalAlignment: Text.AlignRight
-        }
-        Label {
-            text: model.name
-            verticalAlignment: Text.AlignVCenter
-            height: parent.height
-        }
-    }
 
     Item {
         height: 1

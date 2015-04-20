@@ -13,8 +13,9 @@ GroupBox {
         anchors.fill: parent
 
         model: psychic_bear.all_attributes
-        delegate: ListDelegate {
-            width: parent.width
+        delegate: AttributeDelegate {
+           width: parent.width
+           attr: modelData
         }
     }
 }
