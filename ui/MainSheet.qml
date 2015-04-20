@@ -5,18 +5,20 @@ import QtQuick.Layouts 1.1
 
 import org.lasath.psychic_bear 1.0
 
-GroupBox {
-    title: "Character Attributes (all) :"
-    anchors.margins: 10
-
-    ListView {
+Rectangle {
+    GroupBox {
+        title: "Character Attributes (all) :"
+        anchors.margins: 10
         anchors.fill: parent
 
-        model: psychic_bear.all_attributes
-        delegate: AttributeDelegate {
-           width: parent.width
-           attr: modelData
+        ListView {
+            anchors.fill: parent
+
+            model: psychic_bear.all_attributes
+            delegate: AttributeDelegate {
+                width: parent.width
+                attr: modelData
+            }
         }
     }
 }
-
