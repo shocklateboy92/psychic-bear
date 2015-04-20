@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.1
 import org.lasath.psychic_bear 1.0
 
 Rectangle {
+    property Attribute activeAttribute
     GroupBox {
         title: "Character Attributes (all) :"
         anchors.margins: 10
@@ -18,6 +19,11 @@ Rectangle {
             delegate: AttributeDelegate {
                 width: parent.width
                 attr: modelData
+
+                active: activeAttribute == modelData
+                onActivationRequest: {
+                    activeAttribute = modelData;
+                }
             }
         }
     }

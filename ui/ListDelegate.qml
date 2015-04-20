@@ -6,21 +6,14 @@ import QtQuick.Layouts 1.1
 Item {
     property int padding: 10
     property color text_color: palette.text
+    property bool active: false
+    signal activationRequest
 
     id: root
 
     SystemPalette {
         id: palette
     }
-
-    Rectangle {
-        id: highlight
-        color: palette.highlight
-        anchors.fill: parent
-        visible: false
-        radius: 2
-    }
-
 
     Item {
         height: 1
@@ -56,10 +49,23 @@ Item {
         }
     }
 
+    Rectangle {
+        id: highlight
+        anchors.fill: parent
+        anchors.bottomMargin: -2
+
+        color: palette.base
+        border.width: 0
+        radius: 2
+
+        visible: false
+    }
+
     MouseArea {
         id: mouse_area
         hoverEnabled: true
         anchors.fill: parent
+        onClicked: activationRequest()
     }
 
     states: [
@@ -69,6 +75,7 @@ Item {
             changes: [
                 PropertyChanges {
                     target: highlight
+                    color: palette.highlight
                     visible: true
                 },
                 PropertyChanges {
@@ -76,6 +83,17 @@ Item {
                     text_color: palette.highlightedText
                 }
             ]
+        },
+        State {
+            name: "activated"
+            when: active
+            PropertyChanges {
+                target: highlight
+                border.color: palette.highlight
+                border.width: 2
+                radius: 0
+                visible: true
+            }
         }
     ]
 }
