@@ -56,9 +56,11 @@ Item {
 
 	BonusSource {
 		id: pointBuy
+        name: "Point Buy"
 	}
 
 	BonusSource {
 		id: race
+        name: "Race (Human)"
 	}
 }

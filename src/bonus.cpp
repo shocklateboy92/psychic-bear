@@ -1,4 +1,5 @@
-#include "Bonus.h"
+#include "bonus.h"
+#include "bonus-source.h"
 
 Bonus::Bonus(QQuickItem *parent)
     : QQuickItem(parent), m_amount(0)
@@ -17,6 +18,10 @@ int Bonus::amount() const
 
 QString Bonus::name() const
 {
+    if (m_name.isNull() && m_source != nullptr) {
+        return m_source->name();
+    }
+
     return m_name;
 }
 
