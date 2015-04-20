@@ -22,12 +22,7 @@ int main(int argc, char *argv[])
     character.loadUrl(QUrl(QStringLiteral("qrc:/sheet/Character.qml")));
     character.create();
 
-    for (Attribute* a : AttributeManager::instance().attributes()) {
-        qDebug() << a->name();
-    }
-
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-//    engine.load(QUrl(QStringLiteral("qrc:/Character.qml")));
 
     return app.exec();
 }
