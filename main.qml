@@ -32,11 +32,11 @@ ApplicationWindow {
         orientation: Qt.Horizontal
 
         MainSheet {
+            id: sheet
             width: root.width /2
         }
-        MainSheet {
-            // temporary placeholder, till the second list
-            // appears (most likely Modifiers) appears.
+        ModifiersView {
+            targetAttribute: sheet.activeAttribute
         }
     }
 

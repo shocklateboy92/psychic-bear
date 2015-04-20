@@ -6,25 +6,22 @@ import QtQuick.Layouts 1.1
 import org.lasath.psychic_bear 1.0
 
 Rectangle {
-    property Attribute activeAttribute
+    property Attribute targetAttribute
+
     GroupBox {
-        title: "Character Attributes (all) :"
+        title: "Attribute Modifiers :"
         anchors.margins: 10
         anchors.fill: parent
 
         ListView {
             anchors.fill: parent
 
-            model: psychic_bear.all_attributes
+            model: targetAttribute.modifiers
             delegate: AttributeDelegate {
                 width: parent.width
-                text: model.name
-                value: model.value
 
-                active: activeAttribute == modelData
-                onActivationRequest: {
-                    activeAttribute = modelData;
-                }
+                text: model.name
+                value: model.amount
             }
         }
     }

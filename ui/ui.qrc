@@ -3,5 +3,6 @@
         <file>MainSheet.qml</file>
         <file>ListDelegate.qml</file>
         <file>AttributeDelegate.qml</file>
+        <file>ModifiersView.qml</file>
     </qresource>
 </RCC>
