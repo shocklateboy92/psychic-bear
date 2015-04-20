@@ -8,6 +8,13 @@ Item {
 	property Attribute permanent: Attribute {
         name: root.name
 		property int mod: Math.floor((value - 10) / 2)
+
+        modifiers: [
+            Bonus {
+                name: "Default Value"
+                amount: 10
+            }
+        ]
 	}
 
 	property Attribute temporary: Attribute {
