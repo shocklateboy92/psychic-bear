@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick widgets
+QT += qml quick widgets sql
 CONFIG += c++14
 
 QMAKE_CXXFLAGS += -Wall
@@ -10,7 +10,8 @@ SOURCES += main.cpp \
     src/bonus.cpp \
     src/attribute-manager.cpp \
     src/bonus-source.cpp \
-    src/project-context.cpp
+    src/project-context.cpp \
+    db.cpp
 
 RESOURCES += qml.qrc \
     sheet/character.qrc \
@@ -27,4 +28,5 @@ HEADERS += \
     src/bonus.h \
     src/attribute-manager.h \
     src/bonus-source.h \
-    src/project-context.h
+    src/project-context.h \
+    db.h

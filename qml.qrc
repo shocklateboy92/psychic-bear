@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>MainForm.ui.qml</file>
+        <file>db/schema.sql</file>
     </qresource>
 </RCC>
