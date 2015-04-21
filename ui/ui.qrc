@@ -4,5 +4,6 @@
         <file>ListDelegate.qml</file>
         <file>AttributeDelegate.qml</file>
         <file>ModifiersView.qml</file>
+        <file>NewModifierDialog.qml</file>
     </qresource>
 </RCC>
