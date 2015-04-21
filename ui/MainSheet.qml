@@ -13,6 +13,7 @@ Rectangle {
         anchors.fill: parent
 
         ListView {
+            id: listView
             anchors.fill: parent
 
             model: psychic_bear.all_attributes
@@ -25,6 +26,8 @@ Rectangle {
                 onActivationRequest: {
                     activeAttribute = modelData;
                 }
+
+                separator_visible: index !== (listView.count - 1)
             }
         }
     }

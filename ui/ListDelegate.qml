@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.1
 Item {
     property int padding: 10
     property color text_color: palette.text
+    property alias separator_visible: bottom_separator.visible
     property bool active: false
     signal activationRequest
 
