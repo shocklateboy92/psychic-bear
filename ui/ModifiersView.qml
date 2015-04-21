@@ -25,4 +25,8 @@ Rectangle {
             }
         }
     }
+
+    onTargetAttributeChanged: {
+        targetAttribute.updateStaticModifiers();
+    }
 }

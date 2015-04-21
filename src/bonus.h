@@ -1,11 +1,11 @@
 #ifndef BONUS_H
 #define BONUS_H
 
-#include <QQuickItem>
+#include <QObject>
 
 class BonusSource;
 
-class Bonus : public QQuickItem
+class Bonus : public QObject
 {
     using Source = BonusSource*;
 
@@ -15,7 +15,7 @@ class Bonus : public QQuickItem
     Q_PROPERTY(BonusSource* source READ source WRITE setSource NOTIFY sourceChanged)
 
 public:
-    Bonus(QQuickItem *parent = nullptr);
+    Bonus(QObject *parent = nullptr);
     ~Bonus();
 
     int amount() const;

@@ -1,8 +1,8 @@
 #include "bonus.h"
 #include "bonus-source.h"
 
-Bonus::Bonus(QQuickItem *parent)
-    : QQuickItem(parent), m_amount(0)
+Bonus::Bonus(QObject *parent)
+    : QObject(parent), m_amount(0)
 {
 }
 

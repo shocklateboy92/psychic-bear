@@ -8,7 +8,7 @@ static Bonus *qlist_at(QQmlListProperty<Bonus> *p, int idx);
 static void qlist_clear(QQmlListProperty<Bonus> *p);
 
 Attribute::Attribute(QQuickItem *parent)
-    : QQuickItem(parent)
+    : QQuickItem(parent), m_readOnly(false)
 {
     AttributeManager::instance().addAttribute(this);
 }
@@ -16,6 +16,17 @@ Attribute::Attribute(QQuickItem *parent)
 Attribute::~Attribute()
 {
 
+}
+
+bool Attribute::fetchId()
+{
+    bool success = m_db.fetchId(uri());
+    if (!success) {
+        qWarning() << "Failed to find Database entry for "
+                   << name() << ":" << uri();
+    }
+
+    return success;
 }
 
 QQmlListProperty<Bonus> Attribute::modifiers()
@@ -36,6 +47,11 @@ QString Attribute::name() const
 QString Attribute::uri() const
 {
     return m_uri;
+}
+
+bool Attribute::readOnly() const
+{
+    return m_readOnly || m_db.error();
 }
 
 void Attribute::onModifierChanged(Bonus *m)
@@ -60,6 +76,25 @@ void Attribute::setUri(QString arg)
 
     m_uri = arg;
     emit uriChanged(arg);
+}
+
+void Attribute::setReadOnly(bool arg)
+{
+    if (m_readOnly == arg)
+        return;
+
+    m_readOnly = arg;
+    emit readOnlyChanged(readOnly());
+}
+
+void Attribute::updateStaticModifiers()
+{
+    if (m_db.error()) {
+        qWarning() << "Static modifiers disabled on"
+                   << uri() << "due to previous errors";
+        return;
+    }
+    qDebug() << m_db.readModifiers(this);
 }
 
 static void qlist_append(QQmlListProperty<Bonus> *p, Bonus *v) {

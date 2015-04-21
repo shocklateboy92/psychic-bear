@@ -1,3 +1,4 @@
+#include "Bonus.h"
 #include "db-attribute.h"
 
 #include <QSqlQuery>
@@ -15,26 +16,57 @@ DBAttribute::~DBAttribute()
 
 }
 
+bool DBAttribute::executeQuery(QSqlQuery &query)
+{
+    bool result = query.exec();
+    if (!result) {
+        qWarning() << "Failed to execute query "
+                 << query.executedQuery()
+                 << ":" << query.lastError();
+    }
+    return result;
+}
+
 bool DBAttribute::fetchId(const QString &uri)
 {
     QSqlQuery query;
     query.prepare("SELECT id FROM Attributes WHERE Uri = :uri");
     query.bindValue(":uri", uri);
 
-    bool result = query.exec();
-    if (!result) {
-        qDebug() << "Failed to execute query "
-                 << query.executedQuery()
-                 << ":" << query.lastError();
-    }
+    bool result = executeQuery(query);
 
     result &= query.next();
-    if (query.next()) {
+    if (result) {
         m_id = query.value(0).toInt(&result);
     }
 
+    m_error = !result;
     return result;
 }
+
+QList<Bonus*> DBAttribute::readModifiers(QObject *parent)
+{
+    QList<Bonus*> ret;
+    if (m_error) {
+        qWarning() << "Attribute read disabled from previous failure";
+    }
+
+    QSqlQuery query;
+    query.prepare("SELECT name, amount FROM Modifiers WHERE attribute = :attr");
+    query.bindValue(":attr", m_id);
+
+    if (executeQuery(query)) {
+        while (query.next()) {
+            Bonus *b = new Bonus(parent);
+            b->setName(query.value(0).toString());
+            b->setAmount(query.value(1).toInt());
+            ret.append(b);
+        }
+    }
+
+    return ret;
+}
+
 bool DBAttribute::error() const
 {
     return m_error;

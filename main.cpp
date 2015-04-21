@@ -6,6 +6,7 @@
 #include <src/attribute-manager.h>
 #include <src/bonus-source.h>
 #include <src/project-context.h>
+#include "db.h"
 
 int main(int argc, char *argv[])
 {
@@ -21,6 +22,12 @@ int main(int argc, char *argv[])
     QQmlComponent character(&engine);
     character.loadUrl(QUrl(QStringLiteral("qrc:/sheet/Character.qml")));
     character.create();
+
+    db::initialize();
+
+    for (Attribute *a : AttributeManager::instance().attributes()) {
+        a->fetchId();
+    }
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
