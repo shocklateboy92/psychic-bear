@@ -47,9 +47,6 @@ bool DBAttribute::fetchId(const QString &uri)
 QList<Bonus*> DBAttribute::readModifiers(QObject *parent)
 {
     QList<Bonus*> ret;
-    if (m_error) {
-        qWarning() << "Attribute read disabled from previous failure";
-    }
 
     QSqlQuery query;
     query.prepare("SELECT name, amount FROM Modifiers WHERE attribute = :attr");

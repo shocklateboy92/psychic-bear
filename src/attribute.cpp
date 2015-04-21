@@ -2,11 +2,6 @@
 #include "attribute-manager.h"
 #include <algorithm>
 
-static void qlist_append(QQmlListProperty<Bonus> *p, Bonus *v);
-static int qlist_count(QQmlListProperty<Bonus> *p);
-static Bonus *qlist_at(QQmlListProperty<Bonus> *p, int idx);
-static void qlist_clear(QQmlListProperty<Bonus> *p);
-
 Attribute::Attribute(QQuickItem *parent)
     : QQuickItem(parent), m_readOnly(false)
 {
@@ -94,23 +89,36 @@ void Attribute::updateStaticModifiers()
                    << uri() << "due to previous errors";
         return;
     }
-    qDebug() << m_db.readModifiers(this);
+
+    for (Bonus *b : m_static_modifiers) {
+        b->deleteLater();
+    }
+    m_static_modifiers.clear();
+    m_static_modifiers = m_db.readModifiers(this);
+
+    emit modifiersChanged(modifiers());
+    emit valueChanged(value());
 }
 
-static void qlist_append(QQmlListProperty<Bonus> *p, Bonus *v) {
+void Attribute::qlist_append(QQmlListProperty<Bonus> *p, Bonus *v) {
     reinterpret_cast<QList<Bonus *> *>(p->data)->append(v);
     auto atr = qobject_cast<Attribute*>(p->object);
     atr->onModifierChanged(v);
     QObject::connect(v, &Bonus::amountChanged,
                      atr, &Attribute::valueChanged);
 }
-static int qlist_count(QQmlListProperty<Bonus> *p) {
-    return reinterpret_cast<QList<Bonus *> *>(p->data)->count();
+int Attribute::qlist_count(QQmlListProperty<Bonus> *p) {
+    auto attr = qobject_cast<Attribute*>(p->object);
+    return attr->m_modifiers.count() + attr->m_static_modifiers.count();
 }
-static Bonus *qlist_at(QQmlListProperty<Bonus> *p, int idx) {
-    return reinterpret_cast<QList<Bonus *> *>(p->data)->at(idx);
+Bonus* Attribute::qlist_at(QQmlListProperty<Bonus> *p, int idx) {
+    auto attr = qobject_cast<Attribute*>(p->object);
+    int split = attr->m_modifiers.count();
+    return idx < split
+            ? attr->m_modifiers.at(idx)
+            : attr->m_static_modifiers.at(idx - split);
 }
-static void qlist_clear(QQmlListProperty<Bonus> *p) {
+void Attribute::qlist_clear(QQmlListProperty<Bonus> *p) {
     return reinterpret_cast<QList<Bonus *> *>(p->data)->clear();
     Attribute* atr = qobject_cast<Attribute*>(p->object);
     atr->valueChanged(atr->value());

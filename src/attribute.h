@@ -51,6 +51,12 @@ private:
     QString m_uri;
     DBAttribute m_db;
     bool m_readOnly;
+    QList<Bonus*> m_static_modifiers;
+
+    static void qlist_append(QQmlListProperty<Bonus> *p, Bonus *v);
+    static int qlist_count(QQmlListProperty<Bonus> *p);
+    static Bonus *qlist_at(QQmlListProperty<Bonus> *p, int idx);
+    static void qlist_clear(QQmlListProperty<Bonus> *p);
 };
 
 #endif // ATTRIBUTE_H
