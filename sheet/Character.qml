@@ -21,7 +21,7 @@ Item {
 		permanent.modifiers: [
 			Bonus {
 				source: pointBuy
-				amount: 1
+                amount: 6
             },
             Bonus {
                 source: race
