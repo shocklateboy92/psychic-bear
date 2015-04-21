@@ -64,6 +64,21 @@ QList<Bonus*> DBAttribute::readModifiers(QObject *parent)
     return ret;
 }
 
+bool DBAttribute::createModifier(int amount, const QString &name)
+{
+    Q_ASSERT(amount != 0);
+    Q_ASSERT(!name.isEmpty());
+
+    QSqlQuery query;
+    query.prepare("INSERT INTO Modifiers (attribute, name, amount) "
+                  "VALUES (:attribute, :name, :amount)");
+    query.bindValue(":attribute", m_id);
+    query.bindValue(":name", name);
+    query.bindValue(":amount", amount);
+
+    return executeQuery(query);
+}
+
 bool DBAttribute::error() const
 {
     return m_error;

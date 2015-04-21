@@ -31,7 +31,14 @@ QQmlListProperty<Bonus> Attribute::modifiers()
 
 int Attribute::value() const
 {
-    return std::accumulate(m_modifiers.begin(), m_modifiers.end(), 0, Bonus::add);
+    auto sum = std::accumulate(
+                m_modifiers.begin(),
+                m_modifiers.end(),
+                0, Bonus::add);
+    return std::accumulate(
+                m_static_modifiers.begin(),
+                m_static_modifiers.end(),
+                sum, Bonus::add);
 }
 
 QString Attribute::name() const
@@ -98,6 +105,16 @@ void Attribute::updateStaticModifiers()
 
     emit modifiersChanged(modifiers());
     emit valueChanged(value());
+}
+
+bool Attribute::createStaticModifier(int amount, const QString &name)
+{
+    bool success = m_db.createModifier(amount, name);
+
+    // Refresh view whether update was successful or not
+    updateStaticModifiers();
+
+    return success;
 }
 
 void Attribute::qlist_append(QQmlListProperty<Bonus> *p, Bonus *v) {

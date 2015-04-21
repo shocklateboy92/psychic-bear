@@ -16,6 +16,7 @@ public:
 
     bool fetchId(const QString &uri);
     QList<Bonus *> readModifiers(QObject *parent);
+    bool createModifier(int amount, const QString &name);
 
     bool error() const;
 

@@ -43,7 +43,9 @@ public slots:
     void setName(QString arg);
     void setUri(QString arg);
     void setReadOnly(bool arg);
+
     void updateStaticModifiers();
+    bool createStaticModifier(int amount, const QString &name);
 
 private:
     QList<Bonus*> m_modifiers;
