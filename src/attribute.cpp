@@ -31,14 +31,16 @@ QQmlListProperty<Bonus> Attribute::modifiers()
 
 int Attribute::value() const
 {
-    auto sum = std::accumulate(
-                m_modifiers.begin(),
-                m_modifiers.end(),
-                0, Bonus::add);
     return std::accumulate(
                 m_static_modifiers.begin(),
                 m_static_modifiers.end(),
-                sum, Bonus::add);
+                std::accumulate(
+                    m_modifiers.begin(),
+                    m_modifiers.end(),
+                    0,
+                    Bonus::add
+                ),
+                Bonus::add);
 }
 
 QString Attribute::name() const
