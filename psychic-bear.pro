@@ -12,7 +12,8 @@ SOURCES += main.cpp \
     src/bonus-source.cpp \
     src/project-context.cpp \
     db.cpp \
-    src/db-attribute.cpp
+    src/db-attribute.cpp \
+    src/filtered-attribute-list.cpp
 
 RESOURCES += qml.qrc \
     sheet/character.qrc \
@@ -31,4 +32,5 @@ HEADERS += \
     src/bonus-source.h \
     src/project-context.h \
     db.h \
-    src/db-attribute.h
+    src/db-attribute.h \
+    src/filtered-attribute-list.h

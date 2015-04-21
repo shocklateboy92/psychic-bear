@@ -16,7 +16,12 @@ Rectangle {
             id: listView
             anchors.fill: parent
 
-            model: psychic_bear.all_attributes
+            FilteredAttributeList {
+                id: attribute_list
+                pattern: "attr://abilityScores/*/temporary*"
+            }
+            model: attribute_list.attributes
+
             delegate: AttributeDelegate {
                 width: parent.width
                 text: model.name

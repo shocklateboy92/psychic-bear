@@ -9,9 +9,10 @@ class ProjectContext : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QQmlListProperty<Attribute> all_attributes READ all_attributes)
-    using AttributeList = QQmlListProperty<Attribute>;
 
 public:
+    using AttributeList = QQmlListProperty<Attribute>;
+
     explicit ProjectContext(QObject *parent = 0);
     ~ProjectContext();
 
