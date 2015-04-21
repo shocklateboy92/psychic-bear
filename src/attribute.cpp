@@ -33,6 +33,11 @@ QString Attribute::name() const
     return m_name;
 }
 
+QString Attribute::uri() const
+{
+    return m_uri;
+}
+
 void Attribute::onModifierChanged(Bonus *m)
 {
     Q_UNUSED(m)
@@ -46,6 +51,15 @@ void Attribute::setName(QString arg)
 
     m_name = arg;
     emit nameChanged(arg);
+}
+
+void Attribute::setUri(QString arg)
+{
+    if (m_uri == arg)
+        return;
+
+    m_uri = arg;
+    emit uriChanged(arg);
 }
 
 static void qlist_append(QQmlListProperty<Bonus> *p, Bonus *v) {
