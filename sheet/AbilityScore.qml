@@ -9,7 +9,7 @@ Item {
 
 	property Attribute temporary: Attribute {
         name: root.name + " (Temp)"
-        property int mod: Math.floor((value - 10) / 2)
+        uri: prefix + "/temporary"
 
 		modifiers: [
 			Bonus {
