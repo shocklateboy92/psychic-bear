@@ -2,10 +2,11 @@
 #define BONUS_H
 
 #include <QObject>
+#include "pb-core.h"
 
 class BonusSource;
 
-class Bonus : public QObject
+class PB_SHARED_EXPORT Bonus : public QObject
 {
     using Source = BonusSource*;
 

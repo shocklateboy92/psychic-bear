@@ -1,11 +1,12 @@
 #ifndef FILTEREDATTRIBUTELIST_H
 #define FILTEREDATTRIBUTELIST_H
 
+#include "pb-core.h"
 #include "project-context.h"
 
 #include <QQuickItem>
 
-class FilteredAttributeList : public QQuickItem
+class PB_SHARED_EXPORT FilteredAttributeList : public QQuickItem
 {
     Q_OBJECT
     Q_PROPERTY(QString pattern READ pattern
