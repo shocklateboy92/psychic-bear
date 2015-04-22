@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/ui">
-        <file>MainSheet.qml</file>
+        <file>AttributesView.qml</file>
         <file>ListDelegate.qml</file>
         <file>AttributeDelegate.qml</file>
         <file>ModifiersView.qml</file>

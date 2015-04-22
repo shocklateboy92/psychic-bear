@@ -7,8 +7,11 @@ import org.lasath.psychic_bear 1.0
 
 Rectangle {
     property Attribute activeAttribute
+    property alias filterPattern: attribute_list.pattern
+    property alias name: groupbox.title
+
     GroupBox {
-        title: "Character Attributes (all) :"
+        id: groupbox
         anchors.margins: 10
         anchors.fill: parent
 
@@ -18,7 +21,6 @@ Rectangle {
 
             FilteredAttributeList {
                 id: attribute_list
-                pattern: "attr://abilityScores/*/temporary*"
             }
             model: attribute_list.attributes
 

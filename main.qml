@@ -31,9 +31,12 @@ ApplicationWindow {
         anchors.fill: parent
         orientation: Qt.Horizontal
 
-        MainSheet {
+        AttributesView {
             id: sheet
             width: root.width /2
+
+            name: "Ability Scores : "
+            filterPattern: "attr://abilityScores/*"
         }
         ModifiersView {
             targetAttribute: sheet.activeAttribute
