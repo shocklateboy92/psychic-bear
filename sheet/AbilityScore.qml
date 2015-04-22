@@ -18,9 +18,9 @@ Item {
 			}
 		]
 
-        Attribute {
+        property Attribute modifier: Attribute {
             name: root.name + " Modifier (Temp)"
-            uri: parent.uri + "/modifier"
+            uri: temporary.uri + "/modifier"
 
             modifiers: [
                 Bonus {
@@ -42,9 +42,9 @@ Item {
             }
         ]
 
-        Attribute {
+        property Attribute modifier: Attribute {
             name: root.name + " Modifier"
-            uri: parent.uri + "/modifier"
+            uri: temporary.uri + "/modifier"
 
             modifiers: [
                 Bonus {
