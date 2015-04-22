@@ -54,6 +54,12 @@ Item {
         ]
     }
 
+    Skill {
+        name: "Sleight of Hand"
+        ability: dexterity
+        ranks: 1
+    }
+
 	BonusSource {
 		id: pointBuy
         name: "Point Buy"
