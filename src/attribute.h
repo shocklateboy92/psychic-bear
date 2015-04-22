@@ -1,6 +1,7 @@
 #ifndef ATTRIBUTE_H
 #define ATTRIBUTE_H
 
+#include "pb-core.h"
 #include "bonus.h"
 #include "db-attribute.h"
 
@@ -8,7 +9,7 @@
 #include <QAbstractListModel>
 #include <memory>
 
-class Attribute : public QQuickItem
+class PB_SHARED_EXPORT Attribute : public QQuickItem
 {
     Q_OBJECT
     Q_PROPERTY(QQmlListProperty<Bonus> modifiers READ modifiers NOTIFY modifiersChanged)

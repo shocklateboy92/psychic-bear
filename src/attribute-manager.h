@@ -3,7 +3,7 @@
 
 #include "attribute.h"
 
-class AttributeManager
+class PB_SHARED_EXPORT AttributeManager
 {
 public:
     using AttributeList = QList<Attribute*>;

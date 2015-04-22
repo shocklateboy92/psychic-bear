@@ -5,7 +5,7 @@
 
 #include <QObject>
 
-class ProjectContext : public QObject
+class PB_SHARED_EXPORT ProjectContext : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QQmlListProperty<Attribute> all_attributes READ all_attributes)

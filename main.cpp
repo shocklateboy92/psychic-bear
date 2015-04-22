@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QDir>
 #include <QQmlApplicationEngine>
 #include <QQmlComponent>
 #include <QQmlContext>
@@ -14,13 +15,11 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     QQmlApplicationEngine engine;
+    engine.addImportPath(QDir::currentPath());
+    engine.addImportPath("core/");
+    qDebug() << engine.importPathList();
     engine.rootContext()->setContextProperty("psychic_bear",
                                              new ProjectContext(&engine));
-
-    qmlRegisterType<Attribute>("org.lasath.psychic_bear", 1, 0, "Attribute");
-    qmlRegisterType<Bonus>("org.lasath.psychic_bear", 1, 0, "Bonus");
-    qmlRegisterType<BonusSource>("org.lasath.psychic_bear", 1, 0, "BonusSource");
-    qmlRegisterType<FilteredAttributeList>("org.lasath.psychic_bear", 1, 0, "FilteredAttributeList");
 
     QQmlComponent character(&engine);
     character.loadUrl(QUrl(QStringLiteral("qrc:/sheet/Character.qml")));
