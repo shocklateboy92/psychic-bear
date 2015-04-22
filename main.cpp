@@ -15,15 +15,23 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     QQmlApplicationEngine engine;
-    engine.addImportPath(QDir::currentPath());
-    engine.addImportPath("core/");
-    qDebug() << engine.importPathList();
+
+    auto uri = "org.lasath.psychic_bear";
+    qmlRegisterType<Attribute>(uri, 1, 0, "Attribute");
+    qmlRegisterType<Bonus>(uri, 1, 0, "Bonus");
+    qmlRegisterType<BonusSource>(uri, 1, 0, "BonusSource");
+    qmlRegisterType<FilteredAttributeList>(uri, 1, 0, "FilteredAttributeList");
+
     engine.rootContext()->setContextProperty("psychic_bear",
                                              new ProjectContext(&engine));
 
     QQmlComponent character(&engine);
     character.loadUrl(QUrl(QStringLiteral("qrc:/sheet/Character.qml")));
-    character.create();
+    if (character.isError()) {
+        qWarning() << character.errors();
+    } else {
+        character.create();
+    }
 
     db::initialize();
 
