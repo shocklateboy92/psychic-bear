@@ -1,4 +1,4 @@
-#include "Bonus.h"
+#include "bonus.h"
 #include "db-attribute.h"
 
 #include <QSqlQuery>

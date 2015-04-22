@@ -1,7 +1,7 @@
 #ifndef ATTRIBUTE_H
 #define ATTRIBUTE_H
 
-#include "Bonus.h"
+#include "bonus.h"
 #include "db-attribute.h"
 
 #include <QQuickItem>
