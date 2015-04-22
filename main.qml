@@ -33,13 +33,28 @@ ApplicationWindow {
 
         AttributesView {
             id: sheet
-            width: root.width /2
+            width: root.width /3
 
             name: "Ability Scores : "
             filterPattern: "attr://abilityScores/*"
+
+            onActiveAttributeChanged: {
+                modifiers_view.targetAttribute = activeAttribute;
+            }
         }
+        AttributesView {
+            width: root.width /3
+
+            name: "Skills : "
+            filterPattern: "attr://skills/*"
+
+            onActiveAttributeChanged: {
+                modifiers_view.targetAttribute = activeAttribute;
+            }
+        }
+
         ModifiersView {
-            targetAttribute: sheet.activeAttribute
+            id: modifiers_view
         }
     }
 
