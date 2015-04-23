@@ -212,6 +212,72 @@ Item {
         ability: strength
     }
 
+    Item {
+        id: hp
+        property string prefix: "attr://combat/hitPoints"
+
+        Attribute {
+            id: maxHp
+            name: "Maximum Hit Points"
+            uri: hp.prefix + "/maximum"
+
+            modifiers: [
+                Bonus {
+                    name: constitution.temporary.modifier.name
+                    amount: constitution.temporary.modifier.value
+                },
+                Bonus {
+                    name: "Toughness"
+                    amount: level.value
+                },
+                Bonus {
+                    name: "Level 1 Health Roll (Max)"
+                    amount: 8
+                }
+
+            ]
+        }
+
+        Attribute {
+            name: "Current Hit Points"
+            uri: hp.prefix + "/current"
+
+            modifiers: [
+                Bonus {
+                    name: "Initial Value (Max)"
+                    amount: maxHp.value
+                }
+
+            ]
+        }
+    }
+
+    Attribute {
+        name: "Armour Class"
+        uri: "attr://combat/armourClass"
+
+        Attribute {
+            name: "Armour Class (Touch)"
+            uri: parent.uri + "/touch"
+        }
+
+        Attribute {
+            name: "Armour Class (Flat-Footed)"
+            uri: parent.uri + "/flatFooted"
+        }
+    }
+
+    Attribute {
+        id: level
+        name: "Character Level"
+        uri: "attr://level"
+
+        modifiers: Bonus {
+            name: "Elementalist"
+            amount: 1
+        }
+    }
+
 	BonusSource {
 		id: pointBuy
         name: "Point Buy"
