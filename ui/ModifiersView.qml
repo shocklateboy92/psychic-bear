@@ -15,6 +15,8 @@ Rectangle {
 
         ListView {
             anchors.fill: parent
+            clip: true
+            boundsBehavior: Flickable.StopAtBounds
 
             model: targetAttribute.modifiers
             delegate: AttributeDelegate {

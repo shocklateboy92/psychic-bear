@@ -13,6 +13,8 @@ ApplicationWindow {
     height: 480
     visible: true
 
+    visibility: Window.Maximized
+
     menuBar: MenuBar {
         Menu {
             title: qsTr("&File")

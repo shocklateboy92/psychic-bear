@@ -18,6 +18,8 @@ Rectangle {
         ListView {
             id: listView
             anchors.fill: parent
+            clip: true
+            boundsBehavior: Flickable.StopAtBounds
 
             FilteredAttributeList {
                 id: attribute_list
