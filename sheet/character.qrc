@@ -3,5 +3,6 @@
         <file>AbilityScore.qml</file>
         <file>Character.qml</file>
         <file>Skill.qml</file>
+        <file>ClassSkill.qml</file>
     </qresource>
 </RCC>
