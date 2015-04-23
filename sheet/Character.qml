@@ -116,9 +116,75 @@ Item {
         ability: dexterity
     }
 
-//    Skill {
+    Skill {
+        name: "Disguise"
+        ability: dexterity
+    }
 
-//    }
+    Skill {
+        name: "Escape Artist"
+        ability: dexterity
+    }
+
+    Skill {
+        name: "Fly"
+        ability: charisma
+    }
+
+    Skill {
+        name: "Handle Animal"
+        ability: charisma
+    }
+
+    Skill {
+        name: "Heal"
+        ability: wisdom
+    }
+
+    Skill {
+        name: "Intimidate"
+        ability: charisma
+    }
+
+    Repeater {
+        model: [
+            "Arcana",
+            "Dungeoneering",
+            "Engineering",
+            "Geography",
+            "History",
+            "Local",
+            "Nature",
+            "Nobility",
+            "Planes",
+            "Religion"
+        ]
+
+        Skill {
+            name: "Knowledge (" + modelData + ")"
+            ability: intelligence
+        }
+    }
+
+    Skill {
+        name: "Linguistics"
+        ability: intelligence
+    }
+
+    Skill {
+        name: "Perceptions"
+        ability: wisdom
+    }
+
+    Skill {
+        name: "Ride"
+        ability: dexterity
+    }
+
+    Skill {
+        name: "Sense Motive"
+        ability: wisdom
+    }
 
     Skill {
         name: "Sleight of Hand"
@@ -127,15 +193,23 @@ Item {
     }
 
     Skill {
-        name: "Knowledge (History)"
+        name: "Spellcraft"
         ability: intelligence
-        ranks: 1
     }
 
-    ClassSkill {
-        name: "Knowledge (Planes)"
-        ability: intelligence
-        ranks: 1
+    Skill {
+        name: "Stealth"
+        ability: dexterity
+    }
+
+    Skill {
+        name: "Survival"
+        ability: wisdom
+    }
+
+    Skill {
+        name: "Swim"
+        ability: strength
     }
 
 	BonusSource {
