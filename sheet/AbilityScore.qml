@@ -44,7 +44,7 @@ Item {
 
         property Attribute modifier: Attribute {
             name: root.name + " Modifier"
-            uri: temporary.uri + "/modifier"
+            uri: permanent.uri + "/modifier"
 
             modifiers: [
                 Bonus {
