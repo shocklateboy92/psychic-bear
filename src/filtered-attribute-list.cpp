@@ -1,6 +1,7 @@
 #include "filtered-attribute-list.h"
 
-FilteredAttributeList::FilteredAttributeList()
+FilteredAttributeList::FilteredAttributeList(QObject *parent)
+    : QObject(parent)
 {
 
 }

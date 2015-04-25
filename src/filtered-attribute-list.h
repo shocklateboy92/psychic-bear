@@ -6,7 +6,7 @@
 
 #include <QQuickItem>
 
-class PB_SHARED_EXPORT FilteredAttributeList : public QQuickItem
+class PB_SHARED_EXPORT FilteredAttributeList : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString pattern READ pattern
@@ -15,7 +15,7 @@ class PB_SHARED_EXPORT FilteredAttributeList : public QQuickItem
                READ attribtues NOTIFY attributesChanged)
 
 public:
-    FilteredAttributeList();
+    FilteredAttributeList(QObject *parent = 0);
     ~FilteredAttributeList();
 
     QString pattern() const;
