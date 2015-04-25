@@ -5,6 +5,7 @@ import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.1
 
 import "ui"
+import "ui/scores"
 
 ApplicationWindow {
     id: root
@@ -33,29 +34,31 @@ ApplicationWindow {
         anchors.fill: parent
         orientation: Qt.Horizontal
 
-        AttributesView {
-            id: sheet
+        SplitView {
+            orientation: Qt.Vertical
             width: root.width /4
 
-            name: "Ability Scores : "
-            filterPattern: "attr://abilityScores/*"
+            AbilityScoresArea {
+                id: sheet
+                height: parent.height / 4
 
-            onActiveAttributeChanged: {
-                modifiers_view.targetAttribute = activeAttribute;
+                onActiveAttributeChanged: {
+                    modifiers_view.targetAttribute = activeAttribute;
+                }
             }
-        }
 
-        AttributesView {
-            width: root.width /4
+            AttributesView {
 
-            name: "Combat Stats : "
-            filterPattern: "attr://combat/*"
+                name: "Combat Stats : "
+                filterPattern: "attr://combat/*"
 
-            onActiveAttributeChanged: {
-                modifiers_view.targetAttribute = activeAttribute;
+                onActiveAttributeChanged: {
+                    modifiers_view.targetAttribute = activeAttribute;
+                }
             }
-        }
 
+
+        }
         AttributesView {
             width: root.width /4
 

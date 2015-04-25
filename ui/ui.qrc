@@ -5,5 +5,9 @@
         <file>AttributeDelegate.qml</file>
         <file>ModifiersView.qml</file>
         <file>NewModifierDialog.qml</file>
+        <file>scores/AbilityScoresArea.qml</file>
+        <file>scores/ColumnRepeater.qml</file>
+        <file>scores/Heading.qml</file>
+        <file>scores/SubHeading.qml</file>
     </qresource>
 </RCC>
