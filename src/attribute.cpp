@@ -1,6 +1,7 @@
 #include "attribute.h"
 #include "attribute-manager.h"
 #include <algorithm>
+#include <numeric>
 
 Attribute::Attribute(QQuickItem *parent)
     : QQuickItem(parent), m_readOnly(false)
