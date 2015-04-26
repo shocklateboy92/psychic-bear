@@ -315,6 +315,87 @@ Item {
     }
 
     Attribute {
+        name: "Base Attack Bonus"
+        uri: "attr://combat/baseAttackBonus"
+        modifiers: [
+            Bonus {
+                name: "Base Attack Bonus"
+                amount: Math.floor((level.value * 4) / 4)
+                id: baseAttackBonus
+            }
+        ]
+
+
+        Attribute {
+            name: "Melee Attack Bonus"
+            uri: parent.uri + "/melee"
+            modifiers: [
+                Bonus {
+                    name: baseAttackBonus.name
+                    amount: baseAttackBonus.amount
+                },
+                Bonus {
+                    name: strength.temporary.modifier.name
+                    amount: strength.temporary.modifier.value
+                }
+            ]
+        }
+
+        Attribute {
+            name: "Ranged Attack Bonus"
+            uri: parent.uri + "/ranged"
+            modifiers: [
+                Bonus {
+                    name: baseAttackBonus.name
+                    amount: baseAttackBonus.amount
+                },
+                Bonus {
+                    name: dexterity.temporary.modifier.name
+                    amount: dexterity.temporary.modifier.value
+                }
+            ]
+        }
+
+        Attribute {
+            name: "Combat Maneuver Bonus (CMB)"
+            uri: parent.uri + "/CMB"
+            modifiers: [
+                Bonus {
+                    name: baseAttackBonus.name
+                    amount: baseAttackBonus.amount
+                },
+                Bonus {
+                    name: strength.temporary.modifier.name
+                    amount: strength.temporary.modifier.value
+                }
+            ]
+        }
+
+        Attribute {
+            name: "Combat Maneuver Defense (CMD)"
+            uri: parent.uri + "/CMD"
+            modifiers: [
+                Bonus {
+                    name: baseAttackBonus.name
+                    amount: baseAttackBonus.amount
+                },
+                Bonus {
+                    name: "Base CMB"
+                    amount: 10
+                },
+                Bonus {
+                    name: strength.temporary.modifier.name
+                    amount: strength.temporary.modifier.value
+                },
+                Bonus {
+                    name: dexterity.temporary.modifier.name
+                    amount: dexterity.temporary.modifier.value
+                }
+            ]
+        }
+    }
+
+    Attribute {
         name: "Armour Class"
         uri: "attr://combat/armourClass"
 
