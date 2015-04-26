@@ -1,7 +1,7 @@
 import QtQuick 2.3
-import org.lasath.psychic_bear 1.0
 
 import "../"
+import org.lasath.psychic_bear 1.0
 
 Item {
 	AbilityScore {
@@ -96,6 +96,14 @@ Item {
     ClassSkill {
         name: "Bluff"
         ability: charisma
+        ranks: level.value
+
+        modifiers: [
+            Bonus {
+                source: race
+                amount: 4
+            }
+        ]
     }
 
     Skill {
@@ -108,9 +116,10 @@ Item {
         ability: intelligence
     }
 
-    Skill {
+    ClassSkill {
         name: "Diplomacy"
         ability: charisma
+        ranks: 1
     }
 
     Skill {
@@ -143,9 +152,10 @@ Item {
         ability: wisdom
     }
 
-    Skill {
+    ClassSkill {
         name: "Intimidate"
         ability: charisma
+        ranks: 1
     }
 
     Repeater {
@@ -173,9 +183,10 @@ Item {
         ability: intelligence
     }
 
-    Skill {
+    ClassSkill {
         name: "Perception"
         ability: wisdom
+        ranks: level.value
     }
 
     Skill {
@@ -191,7 +202,6 @@ Item {
     Skill {
         name: "Sleight of Hand"
         ability: dexterity
-        ranks: 1
     }
 
     Skill {
@@ -202,6 +212,7 @@ Item {
     Skill {
         name: "Stealth"
         ability: dexterity
+        ranks: 1
     }
 
     Skill {
