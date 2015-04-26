@@ -4,7 +4,7 @@
 #include <numeric>
 
 Attribute::Attribute(QQuickItem *parent)
-    : QQuickItem(parent), m_readOnly(false)
+    : QQuickItem(parent), m_readOnly(true)
 {
     AttributeManager::instance().addAttribute(this);
 }
