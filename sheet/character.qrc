@@ -4,5 +4,6 @@
         <file>fernie/Character.qml</file>
         <file>Skill.qml</file>
         <file>ClassSkill.qml</file>
+        <file>zedestructor/Anya.qml</file>
     </qresource>
 </RCC>
