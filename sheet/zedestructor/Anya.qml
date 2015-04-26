@@ -393,7 +393,7 @@ Item {
     }
 
     SavingThrow {
-        name: "Willpower"
+        name: "Will"
         ability: wisdom
         primary: true
     }

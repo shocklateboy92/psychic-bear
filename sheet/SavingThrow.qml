@@ -9,14 +9,14 @@ Attribute {
 
     modifiers: [
         Bonus {
-            name: ability.temporary.modifier.name
-            amount: ability.temporary.modifier.value
-        },
-        Bonus {
             name: "Base"
             amount: primary ?
                        Math.floor((level.value / 2) + 2) :
                        Math.floor(level.value / 3)
+        },
+        Bonus {
+            name: ability.temporary.modifier.name
+            amount: ability.temporary.modifier.value
         }
     ]
 
