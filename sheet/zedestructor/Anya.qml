@@ -380,6 +380,24 @@ Item {
         }
     }
 
+    SavingThrow {
+        name: "Fortitude"
+        ability: constitution
+        primary: false
+    }
+
+    SavingThrow {
+        name: "Reflex"
+        ability: dexterity
+        primary: true
+    }
+
+    SavingThrow {
+        name: "Will"
+        ability: wisdom
+        primary: true
+    }
+
 	BonusSource {
 		id: pointBuy
         name: "Point Buy"
