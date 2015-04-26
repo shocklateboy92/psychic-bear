@@ -172,7 +172,7 @@ Item {
     }
 
     Skill {
-        name: "Perceptions"
+        name: "Perception"
         ability: wisdom
     }
 
@@ -228,7 +228,7 @@ Item {
                 },
                 Bonus {
                     name: "Toughness"
-                    amount: level.value
+                    amount: Math.min(3, level.value)
                 },
                 Bonus {
                     name: "Level 1 Health Roll (Max)"
@@ -253,17 +253,57 @@ Item {
     }
 
     Attribute {
+        id: armourClass
         name: "Armour Class"
         uri: "attr://combat/armourClass"
+
+        modifiers: [
+            Bonus {
+                name: "Base"
+                amount: 10
+            },
+            Bonus {
+                id: acDexBonus
+                name: "Dexterity"
+                amount: dexterity.temporary.modifier.value
+            },
+            Bonus {
+                id: acArmourBonus
+                name: "Armour (Studded Leather)"
+                amount: 3
+            }
+        ]
 
         Attribute {
             name: "Armour Class (Touch)"
             uri: parent.uri + "/touch"
+
+            modifiers: [
+                Bonus {
+                    name: "Normal Armour Class"
+                    amount: armourClass.value
+                },
+                Bonus {
+                    name: "Touch Penalty"
+                    amount: -acArmourBonus.amount
+                }
+            ]
         }
 
         Attribute {
             name: "Armour Class (Flat-Footed)"
             uri: parent.uri + "/flatFooted"
+
+            modifiers: [
+                Bonus {
+                    name: "Normal Armour Class"
+                    amount: armourClass.value
+                },
+                Bonus {
+                    name: "Flat Footed Penalty"
+                    amount: -acDexBonus.amount
+                }
+            ]
         }
     }
 
