@@ -299,6 +299,22 @@ Item {
     }
 
     Attribute {
+        name: "Initiative"
+        uri: "attr://combat/initiative"
+        modifiers: [
+            Bonus {
+                name: dexterity.temporary.modifier.name
+                amount: dexterity.temporary.modifier.value
+            }
+        ]
+    }
+
+    Attribute {
+        name: "Spell Resistance"
+        uri: "attr://combat/spellResistance"
+    }
+
+    Attribute {
         name: "Armour Class"
         uri: "attr://combat/armourClass"
 
