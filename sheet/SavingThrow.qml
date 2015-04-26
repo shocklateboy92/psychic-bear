@@ -5,10 +5,7 @@ import org.lasath.psychic_bear 1.0
 Attribute {
     property AbilityScore ability
     property bool primary
-    property int magicModifier
-    property int miscModifier
-    property int tempModifier
-    uri: "attr://savingThrows/" + camelize(name)
+    uri: "attr://combat/savingThrows/" + camelize(name)
 
     modifiers: [
         Bonus {
@@ -16,12 +13,8 @@ Attribute {
             amount: ability.temporary.modifier.value
         },
         Bonus {
-            name: "Ranks"
-            amount: ranks
-        },
-        Bonus {
             name: "Base"
-            bonus: primary ?
+            amount: primary ?
                        Math.floor((level.value / 2) + 2) :
                        Math.floor(level.value / 3)
         }
