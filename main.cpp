@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
                                              new ProjectContext(&engine));
 
     QQmlComponent character(&engine);
-    character.loadUrl(QUrl(QStringLiteral("qrc:/sheet/Character.qml")));
+    character.loadUrl(QUrl(QStringLiteral("qrc:/sheet/fernie/Character.qml")));
     if (character.isError()) {
         qWarning() << character.errors();
     } else {
