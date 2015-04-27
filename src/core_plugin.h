@@ -13,7 +13,7 @@ public:
     void registerTypes(const char *uri);
 };
 
-constexpr char* PB_NAMESPACE = "org.lasath.psychic_bear";
+constexpr const char* PB_NAMESPACE = "org.lasath.psychic_bear";
 
 #endif // CORE_PLUGIN_H
 
