@@ -3,7 +3,12 @@
 #include <QQmlEngine>
 #include <QDebug>
 #include <QFile>
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <attribute.h>
 
+#include <QSqlQuery>
+#include <attribute-manager.h>
 #include <core_plugin.h>
 
 QStringList DEFAULT_CHARACTERS = {
@@ -13,8 +18,8 @@ QStringList DEFAULT_CHARACTERS = {
 
 const QString DB_PATH = "psychic_bear.db";
 
-void check_db();
-void create_db();
+void check_db(QSqlDatabase &db);
+void create_db(QSqlDatabase &db);
 
 int main(int argc, char *argv[])
 {
@@ -37,19 +42,54 @@ int main(int argc, char *argv[])
         }
     }
 
-    if (QFile(DB_PATH).exists()) {
-        check_db();
-    } else {
-        create_db();
+    bool createTables = !QFile(DB_PATH).exists();
+
+    auto db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(DB_PATH);
+    if (!db.open()) {
+        qWarning() << db.lastError();
+        qFatal("Failed to open database");
     }
 
-    return a.exec();
+    if (createTables) {
+        create_db(db);
+    }
+
+    check_db(db);
+
+    return 0;
 }
 
-void create_db() {
+void create_db(QSqlDatabase &db) {
+    auto all = AttributeManager::instance().attributes();
+    AttributeManager::AttributeList writable;
+    std::copy_if(all.begin(), all.end(), std::back_inserter(writable),
+                 [](Attribute* a) {return !a->readOnly();});
 
+    qDebug() << "Total Attribtues :" << all.length();
+    qDebug() << "Read Only Attributes :" << all.length() - writable.length();
+
+    if (writable.isEmpty()) {
+        qDebug() << "Nothing to do.";
+        return;
+    }
+
+    QStringList paths;
+    std::transform(writable.begin(), writable.end(),
+                   std::back_inserter(paths),
+                   [](Attribute *a) {return a->uri();});
+
+    Q_ASSERT(db.isOpen());
+
+    QSqlQuery query;
+    query.prepare("INSERT INTO Attributes VALUES (:uri)");
+    query.bindValue(":uri", paths);
+
+    if(!query.execBatch()) {
+        qWarning() << query.lastError();
+        qFatal("Database Error");
+    }
 }
 
-void check_db() {
-
+void check_db(QSqlDatabase &db) {
 }
