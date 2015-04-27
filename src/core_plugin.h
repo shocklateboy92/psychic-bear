@@ -2,8 +2,9 @@
 #define CORE_PLUGIN_H
 
 #include <QQmlExtensionPlugin>
+#include <pb-core.h>
 
-class CorePlugin : public QQmlExtensionPlugin
+class PB_SHARED_EXPORT CorePlugin : public QQmlExtensionPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface")
@@ -11,6 +12,8 @@ class CorePlugin : public QQmlExtensionPlugin
 public:
     void registerTypes(const char *uri);
 };
+
+constexpr char* PB_NAMESPACE = "org.lasath.psychic_bear";
 
 #endif // CORE_PLUGIN_H
 

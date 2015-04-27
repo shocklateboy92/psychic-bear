@@ -3,6 +3,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlComponent>
 #include <QQmlContext>
+#include <core_plugin.h>
 
 #include <src/filtered-attribute-list.h>
 
@@ -16,12 +17,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
-    auto uri = "org.lasath.psychic_bear";
-    qmlRegisterType<Attribute>(uri, 1, 0, "Attribute");
-    qmlRegisterType<Bonus>(uri, 1, 0, "Bonus");
-    qmlRegisterType<BonusSource>(uri, 1, 0, "BonusSource");
-    qmlRegisterType<FilteredAttributeList>(uri, 1, 0, "FilteredAttributeList");
-
+    CorePlugin().registerTypes(PB_NAMESPACE);
     engine.rootContext()->setContextProperty("psychic_bear",
                                              new ProjectContext(&engine));
 
