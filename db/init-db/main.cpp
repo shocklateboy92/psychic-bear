@@ -16,14 +16,19 @@ QStringList DEFAULT_CHARACTERS = {
 //    "qrc:/sheet/zedestructor/Anya.qml"
 };
 
-const QString DB_PATH = "psychic_bear.db";
 
-void check_db(QSqlDatabase &db);
-void create_db(QSqlDatabase &db);
+void populate_db(QSqlDatabase &db);
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
+
+    if (argc < 2) {
+        qWarning() << "Usage:" << argv[0] << " <db_name>";
+        return 2;
+    }
+
+    const QString dbPath = argv[1];
 
     CorePlugin plugin;
     plugin.registerTypes("org.lasath.psychic_bear");
@@ -42,54 +47,55 @@ int main(int argc, char *argv[])
         }
     }
 
-    bool createTables = !QFile(DB_PATH).exists();
-
     auto db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(DB_PATH);
+    db.setDatabaseName(dbPath);
     if (!db.open()) {
         qWarning() << db.lastError();
         qFatal("Failed to open database");
     }
 
-    if (createTables) {
-        create_db(db);
-    }
-
-    check_db(db);
+    populate_db(db);
 
     return 0;
 }
 
-void create_db(QSqlDatabase &db) {
+void populate_db(QSqlDatabase &db) {
     auto all = AttributeManager::instance().attributes();
+
     AttributeManager::AttributeList writable;
     std::copy_if(all.begin(), all.end(), std::back_inserter(writable),
                  [](Attribute* a) {return !a->readOnly();});
 
+    AttributeManager::AttributeList nonDb;
+    std::copy_if(writable.begin(), writable.end(), std::back_inserter(nonDb),
+                 [](Attribute *a) {return !a->fetchId();});
+
     qDebug() << "Total Attribtues :" << all.length();
     qDebug() << "Read Only Attributes :" << all.length() - writable.length();
+    qDebug() << "Attributes in Databse :" << writable.length() - nonDb.length();
 
-    if (writable.isEmpty()) {
+    if (nonDb.isEmpty()) {
         qDebug() << "Nothing to do.";
         return;
     }
 
-    QStringList paths;
-    std::transform(writable.begin(), writable.end(),
-                   std::back_inserter(paths),
+    QVariantList paths;
+    std::transform(nonDb.begin(), nonDb.end(), std::back_inserter(paths),
                    [](Attribute *a) {return a->uri();});
 
     Q_ASSERT(db.isOpen());
 
     QSqlQuery query;
-    query.prepare("INSERT INTO Attributes VALUES (:uri)");
+    query.prepare("INSERT INTO Attributes (uri) VALUES (:uri)");
     query.bindValue(":uri", paths);
 
+    db.transaction();
     if(!query.execBatch()) {
         qWarning() << query.lastError();
         qFatal("Database Error");
     }
-}
+    qDebug() << query.executedQuery();
+    db.commit();
 
-void check_db(QSqlDatabase &db) {
+    qDebug() << "Added" << nonDb.length() << " Attributes to Databse";
 }
