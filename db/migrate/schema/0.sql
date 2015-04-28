@@ -14,4 +14,3 @@ CREATE TABLE "Attributes" (
 	`id`	INTEGER,
 	PRIMARY KEY(id)
 );
-

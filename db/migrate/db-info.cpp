@@ -6,7 +6,7 @@
 #include <QDebug>
 
 DbInfo::DbInfo()
-    : m_version(0)
+    : m_version(-1)
 {
 
 }
@@ -34,13 +34,19 @@ void DbInfo::setVersion(int version)
     m_version = version;
 }
 
-bool DbInfo::write(QSqlDatabase &db)
+void DbInfo::read(QSqlDatabase &db)
 {
-    return writeProperty(db, "characterId", m_characterId)
-            && writeProperty(db, "version", m_version);
+    readProperty(db, "version", m_version);
+    readProperty(db, "characterId", m_characterId);
 }
 
-bool execute(QSqlQuery &query) {
+void DbInfo::write(QSqlDatabase &db)
+{
+    writeProperty(db, "version", m_version);
+    writeProperty(db, "characterId", m_characterId);
+}
+
+bool DbInfo::execute(QSqlQuery &query) {
     bool success = query.exec();
     qDebug() << "Executing" << query.lastQuery();
     if (!success) {
@@ -75,4 +81,21 @@ bool DbInfo::writeProperty(QSqlDatabase &db, const QString &name, const T &value
     query.bindValue(":value", QVariant::fromValue(value));
 
     return execute(query);
+}
+
+template <typename T>
+bool DbInfo::readProperty(QSqlDatabase &db, const QString &name, T &value)
+{
+    QSqlQuery query(db);
+    query.prepare("SELECT value FROM DbInfo WHERE key = :name");
+    query.bindValue(":name", name);
+
+    execute(query);
+    if (!query.next()) {
+        qWarning() << "DbInfo didn't contain" << name;
+        return false;
+    }
+
+    value = qvariant_cast<T>(query.value(0));
+    return true;
 }

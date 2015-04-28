@@ -16,12 +16,20 @@ public:
     void setCharacterId(const QString &characterId);
     void setVersion(int version);
 
-    bool write(QSqlDatabase &db);
+    void read(QSqlDatabase &db);
+    void write(QSqlDatabase &db);
     bool initializeDb(QSqlDatabase &db);
 
+    static bool execute(QSqlQuery &query);
 private:
     template <typename T>
-    bool writeProperty(QSqlDatabase &db, const QString &name, const T &value);
+    static bool writeProperty(QSqlDatabase &db,
+                              const QString &name,
+                              const T &value);
+    template <typename T>
+    static bool readProperty(QSqlDatabase &db,
+                             const QString &name,
+                             T &value);
 
     int m_version;
     QString m_characterId;
