@@ -25,11 +25,13 @@ int main(int argc, char *argv[])
     }
 
     DbInfo info;
-    if (newDb) {
-        info.setCharacterId(argv[2]);
+//    if (newDb) {
+//        info.setCharacterId(argv[2]);
+        info.initializeDb(db);
         info.setVersion(0);
         info.write(db);
-    }
+//    }
 
-    return a.exec();
+//    return a.exec();
+    return 0;
 }

@@ -17,8 +17,12 @@ public:
     void setVersion(int version);
 
     bool write(QSqlDatabase &db);
+    bool initializeDb(QSqlDatabase &db);
 
 private:
+    template <typename T>
+    bool writeProperty(QSqlDatabase &db, const QString &name, const T &value);
+
     int m_version;
     QString m_characterId;
 };
