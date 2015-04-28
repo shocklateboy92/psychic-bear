@@ -20,3 +20,6 @@ SOURCES += main.cpp \
 
 HEADERS += \
     db-info.h
+
+RESOURCES += \
+    sql.qrc
