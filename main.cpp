@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
-    CorePlugin().registerTypes(PB_NAMESPACE);
+    CorePlugin().registerTypes(CorePlugin::PB_NAMESPACE);
     engine.rootContext()->setContextProperty("psychic_bear",
                                              new ProjectContext(&engine));
 

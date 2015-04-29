@@ -14,4 +14,4 @@ void CorePlugin::registerTypes(const char *uri)
     qmlRegisterType<FilteredAttributeList>(uri, 1, 0, "FilteredAttributeList");
 }
 
-
+const char * CorePlugin::PB_NAMESPACE = "org.lasath.psychic_bear";

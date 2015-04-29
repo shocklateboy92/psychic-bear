@@ -11,9 +11,8 @@ class PB_SHARED_EXPORT CorePlugin : public QQmlExtensionPlugin
 
 public:
     void registerTypes(const char *uri);
+    static const char* PB_NAMESPACE;
 };
-
-constexpr const char* PB_NAMESPACE = "org.lasath.psychic_bear";
 
 #endif // CORE_PLUGIN_H
 

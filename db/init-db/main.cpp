@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     const QString dbPath = argv[1];
 
     CorePlugin plugin;
-    plugin.registerTypes("org.lasath.psychic_bear");
+    plugin.registerTypes(CorePlugin::PB_NAMESPACE);
 
     QQmlEngine engine;
     for (QString path : DEFAULT_CHARACTERS) {
