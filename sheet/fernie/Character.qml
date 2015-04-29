@@ -11,7 +11,7 @@ Item {
 		permanent.modifiers: [
 			Bonus {
 				source: pointBuy
-				amount: -3
+                amount: -2
             }
 		]
 	}
@@ -39,7 +39,7 @@ Item {
         permanent.modifiers: [
             Bonus {
                 source: pointBuy
-                amount: 5
+                amount: 2
             }
         ]
     }
@@ -47,24 +47,11 @@ Item {
     AbilityScore {
         id: intelligence
         name: "Intelligence"
-
-        permanent.modifiers: [
-            Bonus {
-                source: pointBuy
-                amount: 1
-            }
-        ]
     }
 
     AbilityScore {
         id: wisdom
         name: "Wisdom"
-        permanent.modifiers: [
-            Bonus {
-                source: pointBuy
-                amount: -3
-            }
-        ]
     }
 
     AbilityScore {
@@ -240,7 +227,7 @@ Item {
                     amount: constitution.temporary.modifier.value
                 },
                 Bonus {
-                    name: "Toughness"
+                    source: toughness
                     amount: Math.min(3, level.value)
                 },
                 Bonus {
@@ -321,6 +308,117 @@ Item {
     }
 
     Attribute {
+        name: "Initiative"
+        modifiers: [
+            Bonus {
+                name: dexterity.temporary.modifier.name
+                amount: dexterity.temporary.modifier.value
+            }
+        ]
+    }
+
+    SavingThrow {
+        name: "Fortitude"
+        ability: constitution
+    }
+    SavingThrow {
+        name: "Reflex"
+        ability: dexterity
+    }
+    SavingThrow {
+        name: "Will"
+        ability: wisdom
+        primary: true
+    }
+
+    Attribute {
+        name: "Base Attack Bonus"
+        uri: "attr://combat/baseAttackBonus"
+        modifiers: [
+            Bonus {
+                name: "Base Attack Bonus"
+                amount: Math.floor((level.value * 3) / 4)
+                id: baseAttackBonus
+            }
+        ]
+
+
+        Attribute {
+            name: "Melee Attack Bonus"
+            uri: parent.uri + "/melee"
+            modifiers: [
+                Bonus {
+                    name: baseAttackBonus.name
+                    amount: baseAttackBonus.amount
+                },
+                Bonus {
+                    name: strength.temporary.modifier.name
+                    amount: strength.temporary.modifier.value
+                }
+            ]
+        }
+
+        Attribute {
+            name: "Ranged Attack Bonus"
+            uri: parent.uri + "/ranged"
+            modifiers: [
+                Bonus {
+                    name: baseAttackBonus.name
+                    amount: baseAttackBonus.amount
+                },
+                Bonus {
+                    name: dexterity.temporary.modifier.name
+                    amount: dexterity.temporary.modifier.value
+                },
+                Bonus {
+                    source: pointBlankShot
+                    amount: 1
+                }
+            ]
+        }
+
+        Attribute {
+            name: "Combat Maneuver Bonus (CMB)"
+            uri: parent.uri + "/CMB"
+            modifiers: [
+                Bonus {
+                    name: baseAttackBonus.name
+                    amount: baseAttackBonus.amount
+                },
+                Bonus {
+                    name: strength.temporary.modifier.name
+                    amount: strength.temporary.modifier.value
+                }
+            ]
+        }
+
+        Attribute {
+            name: "Combat Maneuver Defense (CMD)"
+            uri: parent.uri + "/CMD"
+            modifiers: [
+                Bonus {
+                    name: baseAttackBonus.name
+                    amount: baseAttackBonus.amount
+                },
+                Bonus {
+                    name: "Base CMB"
+                    amount: 10
+                },
+                Bonus {
+                    name: strength.temporary.modifier.name
+                    amount: strength.temporary.modifier.value
+                },
+                Bonus {
+                    name: dexterity.temporary.modifier.name
+                    amount: dexterity.temporary.modifier.value
+                }
+            ]
+        }
+    }
+
+
+
+    Attribute {
         id: level
         name: "Character Level"
         uri: "attr://level"
@@ -340,4 +438,19 @@ Item {
 		id: race
         name: "Race (Human)"
 	}
+
+    BonusSource {
+        id: toughness
+        name: "Toughness (Feat)"
+    }
+
+    BonusSource {
+        id: pointBlankShot
+        name: "Point Blank Shot (Feat)"
+    }
+
+    BonusSource {
+        id: weaponFocus
+        name: "Weapon Focus: Ray (Feat)"
+    }
 }
