@@ -1,5 +1,6 @@
 #include "bonus.h"
 #include "bonus-source.h"
+#include "attribute.h"
 
 Bonus::Bonus(QObject *parent)
     : QObject(parent), m_amount(0)
@@ -28,6 +29,11 @@ QString Bonus::name() const
 Bonus::Source Bonus::source() const
 {
     return m_source;
+}
+
+Attribute *Bonus::target() const
+{
+    return m_target;
 }
 
 int Bonus::add(int acc, const Bonus *a)
@@ -60,5 +66,16 @@ void Bonus::setSource(Source arg)
 
     m_source = arg;
     emit sourceChanged(arg);
+}
+
+void Bonus::setTarget(Attribute *arg)
+{
+    if (m_target == arg)
+        return;
+
+    m_target = arg;
+    emit targetChanged(arg);
+
+    m_target->addModifier(this);
 }
 
