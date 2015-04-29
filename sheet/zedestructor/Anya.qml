@@ -466,6 +466,10 @@ Item {
         }
     }
 
+    CarryCapacity {
+
+    }
+
     Attribute {
         id: level
         name: "Character Level"

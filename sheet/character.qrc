@@ -6,5 +6,6 @@
         <file>ClassSkill.qml</file>
         <file>zedestructor/Anya.qml</file>
         <file>SavingThrow.qml</file>
+        <file>CarryCapacity.qml</file>
     </qresource>
 </RCC>
