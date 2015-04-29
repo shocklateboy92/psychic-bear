@@ -92,6 +92,14 @@ void Attribute::setReadOnly(bool arg)
     emit readOnlyChanged(readOnly());
 }
 
+void Attribute::addModifier(Bonus *arg)
+{
+    m_modifiers.append(arg);
+    onModifierChanged(arg);
+    QObject::connect(arg, &Bonus::amountChanged,
+                     this, &Attribute::valueChanged);
+}
+
 void Attribute::updateStaticModifiers()
 {
     if (m_db.error()) {
@@ -121,11 +129,8 @@ bool Attribute::createStaticModifier(int amount, const QString &name)
 }
 
 void Attribute::qlist_append(QQmlListProperty<Bonus> *p, Bonus *v) {
-    reinterpret_cast<QList<Bonus *> *>(p->data)->append(v);
     auto atr = qobject_cast<Attribute*>(p->object);
-    atr->onModifierChanged(v);
-    QObject::connect(v, &Bonus::amountChanged,
-                     atr, &Attribute::valueChanged);
+    atr->addModifier(v);
 }
 int Attribute::qlist_count(QQmlListProperty<Bonus> *p) {
     auto attr = qobject_cast<Attribute*>(p->object);
