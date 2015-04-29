@@ -15,6 +15,11 @@ QString BonusSource::name() const
     return m_name;
 }
 
+QString BonusSource::uri() const
+{
+    return m_uri;
+}
+
 void BonusSource::setName(QString arg)
 {
     if (m_name == arg)
@@ -22,5 +27,14 @@ void BonusSource::setName(QString arg)
 
     m_name = arg;
     emit nameChanged(arg);
+}
+
+void BonusSource::setUri(QString arg)
+{
+    if (m_uri == arg)
+        return;
+
+    m_uri = arg;
+    emit uriChanged(arg);
 }
 
