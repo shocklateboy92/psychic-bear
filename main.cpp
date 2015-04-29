@@ -16,24 +16,26 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     QQmlApplicationEngine engine;
+    QQmlComponent character(&engine);
+    ProjectContext context(&engine);
 
     CorePlugin().registerTypes(CorePlugin::PB_NAMESPACE);
-    engine.rootContext()->setContextProperty("psychic_bear",
-                                             new ProjectContext(&engine));
 
-    QQmlComponent character(&engine);
+    db::initialize();
+
     character.loadUrl(QUrl(QStringLiteral("qrc:/sheet/fernie/Character.qml")));
     if (character.isError()) {
         qWarning() << character.errors();
     } else {
-        character.create();
+        auto charObject = character.create();
+        context.populateWith(charObject);
     }
-
-    db::initialize();
 
     for (Attribute *a : AttributeManager::instance().attributes()) {
         a->fetchId();
     }
+
+    engine.rootContext()->setContextProperty("psychic_bear", &context);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
