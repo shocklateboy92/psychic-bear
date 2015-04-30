@@ -228,17 +228,22 @@ Item {
                 },
                 Bonus {
                     source: toughness
-                    amount: Math.min(3, level.value)
+                    amount: Math.max(3, level.value)
                 },
                 Bonus {
                     name: "Level 1 Health Roll (Max)"
                     amount: 8
+                },
+                Bonus {
+                    name: "Favoured Class (Level 1)"
+                    amount: 1
                 }
 
             ]
         }
 
         Attribute {
+            id: currentHp
             name: "Current Hit Points"
             uri: hp.prefix + "/current"
 
@@ -246,6 +251,22 @@ Item {
                 Bonus {
                     name: "Initial Value (Max)"
                     amount: maxHp.value
+                }
+            ]
+            readOnly: false
+        }
+
+        Attribute {
+            name: "Hit Points from Death"
+            uri: hp.prefix + "/tillDeath"
+            modifiers: [
+                Bonus {
+                    name: constitution.temporary.name
+                    amount: constitution.temporary.value
+                },
+                Bonus {
+                    name: currentHp.name
+                    amount: currentHp.value
                 }
 
             ]
