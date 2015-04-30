@@ -6,7 +6,7 @@
 #include <QSqlError>
 
 DBAttribute::DBAttribute()
-    : m_id(-1), m_error(true)
+    : m_id(-1), m_error(false)
 {
 
 }
@@ -59,8 +59,6 @@ QList<Bonus*> DBAttribute::readModifiers(QObject *parent)
             b->setAmount(query.value(1).toInt());
             ret.append(b);
         }
-    } else {
-        m_error = true;
     }
 
     return ret;
