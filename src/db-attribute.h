@@ -5,6 +5,7 @@ class QString;
 class QSqlQuery;
 template<typename T>
 class QList;
+class QObject;
 
 class Bonus;
 
@@ -20,11 +21,11 @@ public:
 
     bool error() const;
 
+    static bool executeQuery(QSqlQuery &query);
+
 private:
     int m_id;
     bool m_error;
-
-    static bool executeQuery(QSqlQuery &query);
 };
 
 #endif // DBATTRIBUTE_H
