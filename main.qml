@@ -70,6 +70,10 @@ ApplicationWindow {
             }
         }
 
+        ConditionsView {
+            width: root.width /4
+        }
+
         ModifiersView {
             id: modifiers_view
         }

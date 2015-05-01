@@ -9,5 +9,6 @@
         <file>scores/ColumnRepeater.qml</file>
         <file>scores/Heading.qml</file>
         <file>scores/SubHeading.qml</file>
+        <file>ConditionsView.qml</file>
     </qresource>
 </RCC>
