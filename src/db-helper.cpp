@@ -25,10 +25,6 @@ bool DbHelper::isValid() const
     return m_id != -1;
 }
 
-void DbHelper::setId(int id)
-{
-    m_id = id;
-}
 QString DbHelper::tableName() const
 {
     return m_tableName;
@@ -39,33 +35,13 @@ void DbHelper::setTableName(const QString &tableName)
     m_tableName = tableName;
 }
 
-
-template <typename T>
-bool DbHelper::fetchProperty(QByteArray propName, T &ret)
+bool DbHelper::fetchId(const QString &uri)
 {
     QSqlQuery query;
-    query.prepare(QStringLiteral("SELECT %1 FROM %2 WHERE id = :id")
-                  .arg(propName).arg(tableName()));
-    query.bindValue(":id", QVariant::fromValue(id()));
-
-    bool success = DBAttribute::executeQuery(query);
-    if (success) {
-        ret = qvariant_cast<T>(query.value(0));
-    }
-
-    return success;
-}
-
-template <typename T>
-bool DbHelper::writeProperty(QByteArray propName, const T &val)
-{
-    QSqlQuery query;
-    query.prepare("UPDATE :table SET :prop = :val WHERE id = :id");
+    query.prepare("SELECT id FROM :table WHERE uri = :uri");
 
     query.bindValue(":table", tableName());
-    query.bindValue(":prop", propName);
-    query.bindValue(":val", val);
-    query.bindValue(":id", id());
+    query.bindValue(":uri", uri);
 
     return DBAttribute::executeQuery(query);
 }
