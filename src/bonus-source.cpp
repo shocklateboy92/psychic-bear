@@ -20,6 +20,11 @@ QString BonusSource::uri() const
     return m_uri;
 }
 
+bool BonusSource::isActive() const
+{
+    return m_active;
+}
+
 void BonusSource::setName(QString arg)
 {
     if (m_name == arg)
@@ -36,5 +41,30 @@ void BonusSource::setUri(QString arg)
 
     m_uri = arg;
     emit uriChanged(arg);
+}
+
+void BonusSource::setActive(bool active)
+{
+    if (m_active == active)
+        return;
+
+    m_active = active;
+//    if (m_db.isValid()) {
+        m_db.writeProperty("active", m_active);
+//    }
+
+    emit activeChanged(active);
+}
+
+bool BonusSource::fetchDbValues()
+{
+    m_db.setTableName("BonusSources");
+    bool ret = m_db.fetchId(uri())
+            && m_db.fetchProperty("active", m_active);
+
+    if (ret)
+        emit activeChanged(isActive());
+
+    return ret;
 }
 
