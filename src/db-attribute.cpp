@@ -21,8 +21,9 @@ bool DBAttribute::executeQuery(QSqlQuery &query)
     bool result = query.exec();
     if (!result) {
         qWarning() << "Failed to execute query "
-                 << query.executedQuery()
-                 << ":" << query.lastError();
+                 << query.lastQuery()
+                 << ":" << query.lastError()
+                 << "," << query.boundValues();
     }
     return result;
 }
