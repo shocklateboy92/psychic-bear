@@ -19,9 +19,9 @@ public:
     void setTableName(const QString &tableName);
 
     template <typename T>
-    bool fetchProperty(QByteArray propName, T &ret);
+    bool fetchProperty(QString propName, T &ret);
     template <typename T>
-    bool writeProperty(QByteArray propName, const T &val);
+    bool writeProperty(QString propName, const T &val);
 
     bool fetchId(const QString &uri);
 
@@ -31,16 +31,16 @@ private:
 };
 
 template <typename T>
-bool DbHelper::fetchProperty(QByteArray propName, T &ret)
+bool DbHelper::fetchProperty(QString propName, T &ret)
 {
     QSqlQuery query;
-    query.prepare("SELECT :prop FROM :table WHERE id = :id");
-    query.bindValue(":table", tableName());
-    query.bindValue(":prop", propName);
+    QString str = QStringLiteral("SELECT %1 FROM %2 WHERE id = :id");
+
+    query.prepare(str.arg(propName).arg(tableName()));
     query.bindValue(":id", id());
 
     bool success = DBAttribute::executeQuery(query);
-    if (success) {
+    if (success && query.next()) {
         ret = qvariant_cast<T>(query.value(0));
     }
 
@@ -48,13 +48,12 @@ bool DbHelper::fetchProperty(QByteArray propName, T &ret)
 }
 
 template <typename T>
-bool DbHelper::writeProperty(QByteArray propName, const T &val)
+bool DbHelper::writeProperty(QString propName, const T &val)
 {
     QSqlQuery query;
-    query.prepare("UPDATE :table SET :prop = :val WHERE id = :id");
+    auto qstr = QStringLiteral("UPDATE %2 SET %1 = :val WHERE id = :id");
 
-    query.bindValue(":table", tableName());
-    query.bindValue(":prop", propName);
+    query.prepare(qstr.arg(propName).arg(tableName()));
     query.bindValue(":val", val);
     query.bindValue(":id", id());
 

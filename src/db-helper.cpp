@@ -38,10 +38,15 @@ void DbHelper::setTableName(const QString &tableName)
 bool DbHelper::fetchId(const QString &uri)
 {
     QSqlQuery query;
-    query.prepare("SELECT id FROM :table WHERE uri = :uri");
+    auto qstr = QStringLiteral("SELECT id FROM %1 WHERE uri = :uri");
+    query.prepare(qstr.arg(tableName()));
 
-    query.bindValue(":table", tableName());
     query.bindValue(":uri", uri);
 
-    return DBAttribute::executeQuery(query);
+    bool ret = DBAttribute::executeQuery(query);
+    if (ret && query.next()) {
+        m_id = query.value(0).toInt(&ret);
+    }
+
+    return ret;
 }
