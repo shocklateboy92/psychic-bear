@@ -4,33 +4,37 @@ import "../"
 import org.lasath.psychic_bear 1.0
 
 Item {
-	AbilityScore {
-		id: strength
-		name: "Strength"
+    AbilityScore {
+        id: strength
+        name: "Strength"
 
-		permanent.modifiers: [
-			Bonus {
-				source: pointBuy
+        permanent.modifiers: [
+            Bonus {
+                source: pointBuy
                 amount: -2
             }
-		]
-	}
+        ]
+    }
 
-	AbilityScore {
+    Skills {
+
+    }
+
+    AbilityScore {
         id: dexterity
         name: "Dexterity"
 
-		permanent.modifiers: [
-			Bonus {
-				source: pointBuy
+        permanent.modifiers: [
+            Bonus {
+                source: pointBuy
                 amount: 6
             },
             Bonus {
                 source: race
                 amount: 4
             }
-		]
-	}
+        ]
+    }
 
     AbilityScore {
         id: constitution
@@ -77,125 +81,123 @@ Item {
         name: "Charisma"
 
     }
-}
 
-Skills{
 
-}
 
-Item {
-    id: hp
-    property string prefix: "attr://combat/hitPoints"
 
-    Attribute {
-        id: maxHp
-        name: "Maximum Hit Points"
-        uri: hp.prefix + "/maximum"
+    Item {
+        id: hp
+        property string prefix: "attr://combat/hitPoints"
 
-        modifiers: [
-            Bonus {
-                name: constitution.temporary.modifier.name
-                amount: constitution.temporary.modifier.value*level.value
-            },
-            Bonus {
-                name: "Level 1 Health Roll (Max)"
-                amount: 8
-            },
-            Bonus {
-                name: "Favoured Class"
-                amount: level.value
-            },
-            Bonus {
-                source: toughness
-                amount: Math.max(3, level.value)
-            },
-            Bonus{
-                name: "Level 2 Health Roll"
-                amount: 5
-            }
+        Attribute {
+            id: maxHp
+            name: "Maximum Hit Points"
+            uri: hp.prefix + "/maximum"
 
-        ]
-    }
+            modifiers: [
+                Bonus {
+                    name: constitution.temporary.modifier.name
+                    amount: constitution.temporary.modifier.value*level.value
+                },
+                Bonus {
+                    name: "Level 1 Health Roll (Max)"
+                    amount: 8
+                },
+                Bonus {
+                    name: "Favoured Class"
+                    amount: level.value
+                },
+                Bonus {
+                    source: toughness
+                    amount: Math.max(3, level.value)
+                },
+                Bonus{
+                    name: "Level 2 Health Roll"
+                    amount: 5
+                }
 
-    Attribute {
-        id: currentHp
-        name: "Current Hit Points"
-        uri: hp.prefix + "/current"
-
-        modifiers: [
-            Bonus {
-                name: "Initial Value (Max)"
-                amount: maxHp.value
-            }
-        ]
-        readOnly: false
-    }
-}
-
-Attribute {
-    id: armourClass
-    name: "Armour Class"
-    uri: "attr://combat/armourClass"
-
-    modifiers: [
-        Bonus {
-            name: "Base"
-            amount: 10
-        },
-        Bonus {
-            id: acDexBonus
-            name: "Dexterity"
-            amount: dexterity.temporary.modifier.value
-        },
-        Bonus {
-            id: acArmourBonus
-            name: "Armour (Mage Armor)"
-            amount: 4
-        },
-        Bonus {
-            id: acShieldBonus
-            name: "Buckler"
-            amount: 1
-        },
-        Bonus {
-            id: acDeflectionBonus
-            name: "Hawk Badge"
-            amount: 1
+            ]
         }
 
-    ]
+        Attribute {
+            id: currentHp
+            name: "Current Hit Points"
+            uri: hp.prefix + "/current"
 
-    Attribute {
-        name: "Armour Class (Touch)"
-        uri: parent.uri + "/touch"
-        modifiers: [
-            Bonus {
-                name: "Normal Armour Class"
-                amount: armourClass.value
-            },
-            Bonus {
-                name: "no armor"
-                amount: -acArmourBonus.amount
-            },
-            Bonus {
-                name: "no shield"
-                amount: -acShieldBonus.amount
-            }
-        ]
+            modifiers: [
+                Bonus {
+                    name: "Initial Value (Max)"
+                    amount: maxHp.value
+                }
+            ]
+            readOnly: false
+        }
     }
 
     Attribute {
-        name: "Armour Class (Flat-Footed)"
-        uri: parent.uri + "/flatFooted"
+        id: armourClass
+        name: "Armour Class"
+        uri: "attr://combat/armourClass"
 
         modifiers: [
             Bonus {
-                name: "Normal Armour Class"
-                amount: armourClass.value
+                name: "Base"
+                amount: 10
             },
             Bonus {
-                name: "no dex"
-                amount: -acDexBonus.amount
+                id: acDexBonus
+                name: "Dexterity"
+                amount: dexterity.temporary.modifier.value
+            },
+            Bonus {
+                id: acArmourBonus
+                name: "Armour (Mage Armor)"
+                amount: 4
+            },
+            Bonus {
+                id: acShieldBonus
+                name: "Buckler"
+                amount: 1
+            },
+            Bonus {
+                id: acDeflectionBonus
+                name: "Hawk Badge"
+                amount: 1
+            }
+
+        ]
+
+        Attribute {
+            name: "Armour Class (Touch)"
+            uri: parent.uri + "/touch"
+            modifiers: [
+                Bonus {
+                    name: "Normal Armour Class"
+                    amount: armourClass.value
+                },
+                Bonus {
+                    name: "no armor"
+                    amount: -acArmourBonus.amount
+                },
+                Bonus {
+                    name: "no shield"
+                    amount: -acShieldBonus.amount
+                }
+            ]
+        }
+
+        Attribute {
+            name: "Armour Class (Flat-Footed)"
+            uri: parent.uri + "/flatFooted"
+
+            modifiers: [
+                Bonus {
+                    name: "Normal Armour Class"
+                    amount: armourClass.value
+                },
+                Bonus {
+                    name: "no dex"
+                    amount: -acDexBonus.amount
                 }
             ]
         }
@@ -349,15 +351,15 @@ Attribute {
         }
     }
 
-	BonusSource {
-		id: pointBuy
+    BonusSource {
+        id: pointBuy
         name: "Point Buy"
-	}
+    }
 
-	BonusSource {
-		id: race
+    BonusSource {
+        id: race
         name: "Race (Human)"
-	}
+    }
 
     BonusSource {
         id: toughness
@@ -373,4 +375,5 @@ Attribute {
         id: weaponFocus
         name: "Weapon Focus: Ray (Feat)"
     }
+
 }
