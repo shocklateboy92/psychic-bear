@@ -1,6 +1,7 @@
 #include "bonus-source.h"
 
-BonusSource::BonusSource(QObject *parent) : QObject(parent)
+BonusSource::BonusSource(QObject *parent)
+    : QObject(parent), m_conditional(false)
 {
 
 }
@@ -23,6 +24,11 @@ QString BonusSource::uri() const
 bool BonusSource::isActive() const
 {
     return m_active;
+}
+
+bool BonusSource::isConditional() const
+{
+    return m_conditional;
 }
 
 void BonusSource::setName(QString arg)
@@ -54,6 +60,15 @@ void BonusSource::setActive(bool active)
 //    }
 
     emit activeChanged(active);
+}
+
+void BonusSource::setConditional(bool conditional)
+{
+    if (m_conditional == conditional)
+        return;
+
+    m_conditional = conditional;
+    emit conditionalChanged(conditional);
 }
 
 bool BonusSource::fetchDbValues()

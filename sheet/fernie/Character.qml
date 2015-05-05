@@ -351,33 +351,15 @@ Item {
     SavingThrow {
         name: "Fortitude"
         ability: constitution
-        modifiers: [
-            Bonus {
-                source: cloakOfRes
-                amount: 2
-            }
-        ]
     }
     SavingThrow {
         name: "Reflex"
         ability: dexterity
-        modifiers: [
-            Bonus {
-                source: cloakOfRes
-                amount: 2
-            }
-        ]
     }
     SavingThrow {
         name: "Will"
         ability: wisdom
         primary: true
-        modifiers: [
-            Bonus {
-                source: cloakOfRes
-                amount: 2
-            }
-        ]
     }
 
     Attribute {
@@ -465,8 +447,6 @@ Item {
         }
     }
 
-
-
     Attribute {
         id: level
         name: "Character Level"
@@ -490,7 +470,9 @@ Item {
 
     BonusSource {
         id: toughness
+        uri: "msrc://feats/toughness"
         name: "Toughness (Feat)"
+        conditional: true
     }
 
     BonusSource {

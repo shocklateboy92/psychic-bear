@@ -12,6 +12,8 @@ class PB_SHARED_EXPORT BonusSource : public QObject
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QString uri READ uri WRITE setUri NOTIFY uriChanged)
     Q_PROPERTY(bool active READ isActive WRITE setActive NOTIFY activeChanged)
+    Q_PROPERTY(bool conditional READ isConditional
+               WRITE setConditional NOTIFY conditionalChanged)
 
 public:
     using List = QList<BonusSource*>;
@@ -22,24 +24,28 @@ public:
     QString name() const;
     QString uri() const;
     bool isActive() const;
+    bool isConditional() const;
 
 signals:
     void nameChanged(QString arg);
     void uriChanged(QString arg);
     void activeChanged(bool active);
+    void conditionalChanged(bool conditional);
 
 public slots:
+    bool fetchDbValues();
+
     void setName(QString arg);
     void setUri(QString arg);
     void setActive(bool active);
-
-    bool fetchDbValues();
+    void setConditional(bool conditional);
 
 private:
     QString m_name;
     QString m_uri;
     bool m_active;
     DbHelper m_db;
+    bool m_conditional;
 };
 
 #endif // BONUSSOURCE_H

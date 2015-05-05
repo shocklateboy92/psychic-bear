@@ -23,6 +23,9 @@ ProjectContext::BonusSourceList ProjectContext::all_bonus_sources()
 void ProjectContext::populateWith(QObject *root)
 {
     populateInstancesOf(root, m_bonusSrcList);
+    for (BonusSource *msrc : m_bonusSrcList) {
+        msrc->fetchDbValues();
+    }
 }
 
 template <typename T>

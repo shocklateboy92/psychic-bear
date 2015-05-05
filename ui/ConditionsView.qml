@@ -27,6 +27,7 @@ Rectangle {
                     property: "active"
                     value: checked
                 }
+                enabled: model.conditional
             }
         }
     }

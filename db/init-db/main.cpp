@@ -17,7 +17,8 @@ QStringList DEFAULT_CHARACTERS = {
 };
 
 
-void populate_db(QSqlDatabase &db);
+template <typename T>
+void populate_db(QSqlDatabase &db, QList<T*> input);
 
 int main(int argc, char *argv[])
 {
@@ -54,25 +55,33 @@ int main(int argc, char *argv[])
         qFatal("Failed to open database");
     }
 
-    populate_db(db);
+    populate_db<Attribute>(db, AttributeManager::instance().attributes());
 
     return 0;
 }
 
-void populate_db(QSqlDatabase &db) {
-    auto all = AttributeManager::instance().attributes();
+template <typename T> struct ResourceInfo {
+    static std::function<bool()> enabled;
+    static const QString tableName;
+};
 
-    AttributeManager::AttributeList writable;
-    std::copy_if(all.begin(), all.end(), std::back_inserter(writable),
-                 [](Attribute* a) {return !a->readOnly();});
+template <>
+const QString ResourceInfo<Attribute>::tableName = "Attributes";
 
-    AttributeManager::AttributeList nonDb;
+template <typename T>
+void populate_db(QSqlDatabase &db, QList<T*> input) {
+
+    QList<T*> writable;
+    std::copy_if(input.begin(), input.end(), std::back_inserter(writable),
+                 [](T* a) {return !a->readOnly();});
+
+    QList<T*> nonDb;
     std::copy_if(writable.begin(), writable.end(), std::back_inserter(nonDb),
-                 [](Attribute *a) {return !a->fetchId();});
+                 [](T *a) {return !a->fetchId();});
 
-    qDebug() << "Total Attribtues :" << all.length();
-    qDebug() << "Read Only Attributes :" << all.length() - writable.length();
-    qDebug() << "Attributes in Databse :" << writable.length() - nonDb.length();
+    qDebug() << "Total Attribtues :" << input.length();
+    qDebug() << "Read Only Ts :" << input.length() - writable.length();
+    qDebug() << "Ts in Databse :" << writable.length() - nonDb.length();
 
     if (nonDb.isEmpty()) {
         qDebug() << "Nothing to do.";
@@ -81,12 +90,14 @@ void populate_db(QSqlDatabase &db) {
 
     QVariantList paths;
     std::transform(nonDb.begin(), nonDb.end(), std::back_inserter(paths),
-                   [](Attribute *a) {return a->uri();});
+                   [](T *a) {return a->uri();});
 
     Q_ASSERT(db.isOpen());
 
     QSqlQuery query;
-    query.prepare("INSERT INTO Attributes (uri) VALUES (:uri)");
+    auto qstr = QStringLiteral("INSERT INTO %1 (uri) VALUES (:uri)")
+            .arg(ResourceInfo<T>::tableName);
+    query.prepare(qstr);
     query.bindValue(":uri", paths);
 
     db.transaction();
@@ -97,5 +108,5 @@ void populate_db(QSqlDatabase &db) {
     qDebug() << query.executedQuery();
     db.commit();
 
-    qDebug() << "Added" << nonDb.length() << " Attributes to Databse";
+    qDebug() << "Added" << nonDb.length() << " Ts to Databse";
 }
