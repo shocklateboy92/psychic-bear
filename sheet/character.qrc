@@ -8,6 +8,7 @@
         <file>SavingThrow.qml</file>
         <file>CarryCapacity.qml</file>
         <file>jarjee/JeanClaude.qml</file>
+        <file>ozymandias/Aldin.qml</file>
         <file>shared/feats/Toughness.qml</file>
         <file>Feat.qml</file>
         <file>str_utils.js</file>
