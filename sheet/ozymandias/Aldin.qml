@@ -77,320 +77,125 @@ Item {
         name: "Charisma"
 
     }
+}
 
-    ClassSkill {
-        name: "Acrobatics"
-        ability: dexterity
-        ranks: 1
-    }
+Skills{
 
-    ClassSkill {
-        name: "Appraise"
-        ability: intelligence
-        ranks: 1
-    }
+}
 
-    ClassSkill {
-        name: "Bluff"
-        ability: charisma
-        ranks: 1
+Item {
+    id: hp
+    property string prefix: "attr://combat/hitPoints"
+
+    Attribute {
+        id: maxHp
+        name: "Maximum Hit Points"
+        uri: hp.prefix + "/maximum"
 
         modifiers: [
             Bonus {
-                source: race
-                amount: 4
-            }
-        ]
-    }
-
-    ClassSkill {
-        name: "Climb"
-        ability: strength
-    }
-
-    ClassSkill {
-        name: "Craft"
-        ability: intelligence
-    }
-
-    ClassSkill {
-        name: "Diplomacy"
-        ability: charisma
-    }
-
-    ClassSkill {
-        name: "Disable Device"
-        ability: dexterity
-        ranks: level.value
-    }
-
-    ClassSkill {
-        name: "Disguise"
-        ability: dexterity
-        ranks: level.value
-    }
-
-    ClassSkill {
-        name: "Escape Artist"
-        ability: dexterity
-    }
-
-    ClassSkill {
-        name: "Fly"
-        ability: dexterity
-        ranks: 1
-    }
-
-    ClassSkill {
-        name: "Handle Animal"
-        ability: charisma
-    }
-
-    ClassSkill {
-        name: "Heal"
-        ability: wisdom
-        ranks: 1
-    }
-
-    ClassSkill {
-        name: "Intimidate"
-        ability: charisma
-    }
-
-
-    ClassSkill {
-        name: "Knowledge Arcana"
-        ability: intelligence
-        ranks: 1
-    }
-
-
-    ClassSkill {
-        name: "Knowledge Engineering"
-        ability: intelligence
-    }
-
-    ClassSkill {
-        name: "Knowledge Dungeoneering"
-        ability: intelligence
-        ranks: 1
-    }
-
-    ClassSkill {
-        name: "Knowledge Geography"
-        ability: intelligence
-    }
-
-    ClassSkill {
-        name: "Knowledge History"
-        ability: intelligence
-    }
-
-    ClassSkill {
-        name: "Knowledge Local"
-        ability: intelligence
-        ranks: level.value
-    }
-
-    ClassSkill {
-        name: "Knowledge Nature"
-        ability: intelligence
-    }
-
-    ClassSkill {
-        name: "Knowledge Nobility"
-        ability: intelligence
-        ranks: level.value
-    }
-
-    ClassSkill {
-        name: "Knowledge Religion"
-        ability: intelligence
-    }
-
-    ClassSkill {
-        name: "Knowledge Planes"
-        ability: intelligence
-    }
-
-    ClassSkill {
-        name: "Linguistics"
-        ability: intelligence
-    }
-
-    ClassSkill {
-        name: "Perception"
-        ability: wisdom
-        ranks: level.value
-    }
-
-    ClassSkill {
-        name: "Ride"
-        ability: dexterity
-    }
-
-    ClassSkill {
-        name: "Sense Motive"
-        ability: wisdom
-    }
-
-    ClassSkill {
-        name: "Sleight of Hand"
-        ability: dexterity
-        ranks: level.value
-    }
-
-    ClassSkill {
-        name: "Spellcraft"
-        ability: intelligence
-        ranks: level.value
-    }
-
-    ClassSkill {
-        name: "Stealth"
-        ability: dexterity
-        ranks: level.value
-
-        modifiers: [
+                name: constitution.temporary.modifier.name
+                amount: constitution.temporary.modifier.value*level.value
+            },
+            Bonus {
+                name: "Level 1 Health Roll (Max)"
+                amount: 8
+            },
+            Bonus {
+                name: "Favoured Class"
+                amount: level.value
+            },
+            Bonus {
+                source: toughness
+                amount: Math.max(3, level.value)
+            },
             Bonus{
-                name: "fiddlesticks"
-                amount: 4
+                name: "Level 2 Health Roll"
+                amount: 5
             }
+
         ]
-    }
-
-    ClassSkill {
-        name: "Survival"
-        ability: wisdom
-    }
-
-    ClassSkill {
-        name: "Swim"
-        ability: strength
-    }
-
-
-    ClassSkill {
-        name: "Use Magic Device"
-        ability: charisma
-        ranks: 1
-    }
-
-
-    Item {
-        id: hp
-        property string prefix: "attr://combat/hitPoints"
-
-        Attribute {
-            id: maxHp
-            name: "Maximum Hit Points"
-            uri: hp.prefix + "/maximum"
-
-            modifiers: [
-                Bonus {
-                    name: constitution.temporary.modifier.name
-                    amount: constitution.temporary.modifier.value*level.value
-                },
-                Bonus {
-                    name: "Level 1 Health Roll (Max)"
-                    amount: 8
-                },
-                Bonus {
-                    name: "Favoured Class"
-                    amount: level.value
-                },
-                Bonus {
-                    source: toughness
-                    amount: Math.max(3, level.value)
-                },
-                Bonus{
-                 name: "Level 2 Health Roll"
-                 amount: 5
-                }
-
-            ]
-        }
-
-        Attribute {
-            id: currentHp
-            name: "Current Hit Points"
-            uri: hp.prefix + "/current"
-
-            modifiers: [
-                Bonus {
-                    name: "Initial Value (Max)"
-                    amount: maxHp.value
-                }
-            ]
-            readOnly: false
-        }
     }
 
     Attribute {
-        id: armourClass
-        name: "Armour Class"
-        uri: "attr://combat/armourClass"
+        id: currentHp
+        name: "Current Hit Points"
+        uri: hp.prefix + "/current"
 
         modifiers: [
             Bonus {
-                name: "Base"
-                amount: 10
-            },
-            Bonus {
-                id: acDexBonus
-                name: "Dexterity"
-                amount: dexterity.temporary.modifier.value
-            },
-            Bonus {
-                id: acArmourBonus
-                name: "Armour (Mage Armor)"
-                amount: 4
-            },
-            Bonus {
-                id: acShieldBonus
-                name: "Buckler"
-                amount: 1
-            },
-            Bonus {
-                id: acDeflectionBonus
-                name: "Hawk Badge"
-                amount: 1
+                name: "Initial Value (Max)"
+                amount: maxHp.value
             }
-
         ]
+        readOnly: false
+    }
+}
 
-        Attribute {
-            name: "Armour Class (Touch)"
-            uri: parent.uri + "/touch"
+Attribute {
+    id: armourClass
+    name: "Armour Class"
+    uri: "attr://combat/armourClass"
 
-            modifiers: [
-                Bonus {
-                    name: "Normal Armour Class"
-                    amount: armourClass.value
-                },
-                Bonus {
-                    name: "no armor"
-                    amount: -acArmourBonus.amount
-                },
-                Bonus {
-                    name: "no shield"
-                    amount: -acShieldBonus.amount
-                }
-            ]
+    modifiers: [
+        Bonus {
+            name: "Base"
+            amount: 10
+        },
+        Bonus {
+            id: acDexBonus
+            name: "Dexterity"
+            amount: dexterity.temporary.modifier.value
+        },
+        Bonus {
+            id: acArmourBonus
+            name: "Armour (Mage Armor)"
+            amount: 4
+        },
+        Bonus {
+            id: acShieldBonus
+            name: "Buckler"
+            amount: 1
+        },
+        Bonus {
+            id: acDeflectionBonus
+            name: "Hawk Badge"
+            amount: 1
         }
 
-        Attribute {
-            name: "Armour Class (Flat-Footed)"
-            uri: parent.uri + "/flatFooted"
+    ]
 
-            modifiers: [
-                Bonus {
-                    name: "Normal Armour Class"
-                    amount: armourClass.value
-                },
-                Bonus {
-                    name: "no dex"
-                    amount: -acDexBonus.amount
+    Attribute {
+        name: "Armour Class (Touch)"
+        uri: parent.uri + "/touch"
+        modifiers: [
+            Bonus {
+                name: "Normal Armour Class"
+                amount: armourClass.value
+            },
+            Bonus {
+                name: "no armor"
+                amount: -acArmourBonus.amount
+            },
+            Bonus {
+                name: "no shield"
+                amount: -acShieldBonus.amount
+            }
+        ]
+    }
+
+    Attribute {
+        name: "Armour Class (Flat-Footed)"
+        uri: parent.uri + "/flatFooted"
+
+        modifiers: [
+            Bonus {
+                name: "Normal Armour Class"
+                amount: armourClass.value
+            },
+            Bonus {
+                name: "no dex"
+                amount: -acDexBonus.amount
                 }
             ]
         }
