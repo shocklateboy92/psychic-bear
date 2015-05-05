@@ -8,5 +8,6 @@
         <file>SavingThrow.qml</file>
         <file>CarryCapacity.qml</file>
         <file>ozymandias/Aldin.qml</file>
+        <file>ozymandias/Skills.qml</file>
     </qresource>
 </RCC>
