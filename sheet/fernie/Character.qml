@@ -106,7 +106,7 @@ Item {
     ClassSkill {
         name: "Diplomacy"
         ability: charisma
-        ranks: 1
+        ranks: 2
     }
 
     Skill {
@@ -142,7 +142,7 @@ Item {
     ClassSkill {
         name: "Intimidate"
         ability: charisma
-        ranks: 1
+        ranks: 2
     }
 
     Repeater {
@@ -168,6 +168,7 @@ Item {
     Skill {
         name: "Linguistics"
         ability: intelligence
+        ranks: 1
     }
 
     ClassSkill {
@@ -224,7 +225,7 @@ Item {
             modifiers: [
                 Bonus {
                     name: constitution.temporary.modifier.name
-                    amount: constitution.temporary.modifier.value
+                    amount: constitution.temporary.modifier.value * level.value
                 },
                 Bonus {
                     source: toughness
@@ -235,10 +236,13 @@ Item {
                     amount: 8
                 },
                 Bonus {
-                    name: "Favoured Class (Level 1)"
-                    amount: 1
+                    name: "Level 2 Health Roll (#rage)"
+                    amount: 2
+                },
+                Bonus {
+                    name: "Favoured Class (All Levels)"
+                    amount: level.value
                 }
-
             ]
         }
 
@@ -292,7 +296,12 @@ Item {
                 id: acArmourBonus
                 name: "Armour (Studded Leather)"
                 amount: 3
+            },
+            Bonus {
+                name: "Hawk Badge (Deflection)"
+                amount: 1
             }
+
         ]
 
         Attribute {
@@ -330,6 +339,7 @@ Item {
 
     Attribute {
         name: "Initiative"
+        uri: "attr://combat/initiative"
         modifiers: [
             Bonus {
                 name: dexterity.temporary.modifier.name
@@ -341,15 +351,33 @@ Item {
     SavingThrow {
         name: "Fortitude"
         ability: constitution
+        modifiers: [
+            Bonus {
+                source: cloakOfRes
+                amount: 2
+            }
+        ]
     }
     SavingThrow {
         name: "Reflex"
         ability: dexterity
+        modifiers: [
+            Bonus {
+                source: cloakOfRes
+                amount: 2
+            }
+        ]
     }
     SavingThrow {
         name: "Will"
         ability: wisdom
         primary: true
+        modifiers: [
+            Bonus {
+                source: cloakOfRes
+                amount: 2
+            }
+        ]
     }
 
     Attribute {
@@ -446,7 +474,7 @@ Item {
 
         modifiers: Bonus {
             name: "Elementalist"
-            amount: 1
+            amount: 2
         }
     }
 
@@ -473,5 +501,10 @@ Item {
     BonusSource {
         id: weaponFocus
         name: "Weapon Focus: Ray (Feat)"
+    }
+
+    BonusSource {
+        id: cloakOfRes
+        name: "Cloak of Resistence (+2)"
     }
 }
