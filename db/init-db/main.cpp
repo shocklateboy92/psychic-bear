@@ -97,8 +97,8 @@ void populate_db(QSqlDatabase &db, QList<T*> input) {
                  ResourceInfo<T>::enabled);
 
     QList<T*> nonDb;
-    std::copy_if(writable.begin(), writable.end(), std::back_inserter(nonDb),
-                 ResourceInfo<T>::valid);
+    std::remove_copy_if(writable.begin(), writable.end(),
+                        std::back_inserter(nonDb), ResourceInfo<T>::valid);
 
     qDebug() << "Processing" << ResourceInfo<T>::tableName;
     qDebug() << "Total :" << input.length();
