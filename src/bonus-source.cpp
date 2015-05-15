@@ -28,6 +28,11 @@ bool BonusSource::isActive() const
 
 bool BonusSource::isConditional() const
 {
+    return m_conditional;
+}
+
+bool BonusSource::isEffectivelyConditional() const
+{
     return m_conditional && m_db.isValid();
 }
 

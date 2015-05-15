@@ -12,7 +12,7 @@ class PB_SHARED_EXPORT BonusSource : public QObject
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QString uri READ uri WRITE setUri NOTIFY uriChanged)
     Q_PROPERTY(bool active READ isActive WRITE setActive NOTIFY activeChanged)
-    Q_PROPERTY(bool conditional READ isConditional
+    Q_PROPERTY(bool conditional READ isEffectivelyConditional
                WRITE setConditional NOTIFY conditionalChanged)
 
 public:
@@ -25,6 +25,7 @@ public:
     QString uri() const;
     bool isActive() const;
     bool isConditional() const;
+    bool isEffectivelyConditional() const;
 
 signals:
     void nameChanged(QString arg);
