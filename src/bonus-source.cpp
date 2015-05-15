@@ -28,7 +28,7 @@ bool BonusSource::isActive() const
 
 bool BonusSource::isConditional() const
 {
-    return m_conditional;
+    return m_conditional && m_db.isValid();
 }
 
 void BonusSource::setName(QString arg)
@@ -55,9 +55,9 @@ void BonusSource::setActive(bool active)
         return;
 
     m_active = active;
-//    if (m_db.isValid()) {
+    if (m_db.isValid()) {
         m_db.writeProperty("active", m_active);
-//    }
+    }
 
     emit activeChanged(active);
 }
