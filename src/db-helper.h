@@ -40,7 +40,7 @@ bool DbHelper::fetchProperty(QString propName, T &ret)
     query.bindValue(":id", id());
 
     bool success = DBAttribute::executeQuery(query);
-    if (success && query.next()) {
+    if (success &= query.next()) {
         ret = qvariant_cast<T>(query.value(0));
     }
 
