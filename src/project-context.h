@@ -22,13 +22,13 @@ public:
     AttributeList all_attributes();
     BonusSourceList all_bonus_sources();
 
-    void populateWith(QObject *root);
+    void setCharacterRoot(QObject *root);
+
+    template <typename T>
+    static void PB_SHARED_EXPORT populateInstancesOf(QObject *obj, QList<T*> &res);
 
 private:
     BonusSource::List m_bonusSrcList;
-
-    template <typename T>
-    static void populateInstancesOf(QObject *obj, QList<T> &res);
 };
 
 #endif // PROJECTCONTEXT_H

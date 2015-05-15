@@ -20,7 +20,7 @@ ProjectContext::BonusSourceList ProjectContext::all_bonus_sources()
     return BonusSourceList(this, m_bonusSrcList);
 }
 
-void ProjectContext::populateWith(QObject *root)
+void ProjectContext::setCharacterRoot(QObject *root)
 {
     populateInstancesOf(root, m_bonusSrcList);
     for (BonusSource *msrc : m_bonusSrcList) {
@@ -29,8 +29,8 @@ void ProjectContext::populateWith(QObject *root)
 }
 
 template <typename T>
-void ProjectContext::populateInstancesOf(QObject *obj, QList<T> &res) {
-    auto cast = qobject_cast<T>(obj);
+void ProjectContext::populateInstancesOf(QObject *obj, QList<T*> &res) {
+    auto cast = qobject_cast<T*>(obj);
     if (cast) {
         res.append(cast);
     }
