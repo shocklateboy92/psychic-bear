@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
         qWarning() << character.errors();
     } else {
         auto charObject = character.create();
-        context.populateWith(charObject);
+        context.setCharacterRoot(charObject);
     }
 
     for (Attribute *a : AttributeManager::instance().attributes()) {
