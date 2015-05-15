@@ -63,9 +63,6 @@ int main(int argc, char *argv[])
     BonusSource::List bonusSources;
     ProjectContext::populateInstancesOf<BonusSource>(character, bonusSources);
     populate_db<BonusSource>(db, bonusSources);
-    for (auto a : bonusSources) {
-        qDebug() << a->name() << a->isConditional();
-    }
 
     return 0;
 }
