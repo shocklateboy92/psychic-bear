@@ -11,22 +11,24 @@
 #include <attribute-manager.h>
 #include <core_plugin.h>
 #include <functional>
-
-QStringList DEFAULT_CHARACTERS = {
-    "qrc:/sheet/fernie/Character.qml",
-//    "qrc:/sheet/zedestructor/Anya.qml"
-};
-
+#include <project-context.h>
+#include <bonus-source.h>
 
 template <typename T>
 void populate_db(QSqlDatabase &db, QList<T*> input);
+
+template <typename T> struct ResourceInfo {
+    static std::function<bool(T*)> enabled;
+    static std::function<bool(T*)> valid;
+    static const QString tableName;
+};
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    if (argc < 2) {
-        qWarning() << "Usage:" << argv[0] << " <db_name>";
+    if (argc < 3) {
+        qWarning() << "Usage:" << argv[0] << " <db_name> <character_name>";
         return 2;
     }
 
@@ -36,17 +38,17 @@ int main(int argc, char *argv[])
     plugin.registerTypes(CorePlugin::PB_NAMESPACE);
 
     QQmlEngine engine;
-    for (QString path : DEFAULT_CHARACTERS) {
-        QQmlComponent component(&engine, QUrl(path));
-        component.create();
+    QString path = QStringLiteral("qrc:/sheet/%1.qml").arg(argv[2]);
+    QQmlComponent component(&engine, QUrl(path));
+    auto character = component.create();
 
-        if (component.isError()) {
-            for (QQmlError err : component.errors()) {
-                qWarning() << err.toString();
-            }
-
-            qFatal("Character Errors Occured. Exiting");
+    if (component.isError()) {
+        for (QQmlError err : component.errors()) {
+            qWarning() << err.toString();
         }
+
+        qFatal("Character Errors Occured. Exiting");
+        return 2;
     }
 
     auto db = QSqlDatabase::addDatabase("QSQLITE");
@@ -58,31 +60,53 @@ int main(int argc, char *argv[])
 
     populate_db<Attribute>(db, AttributeManager::instance().attributes());
 
+    BonusSource::List bonusSources;
+    ProjectContext::populateInstancesOf<BonusSource>(character, bonusSources);
+    populate_db<BonusSource>(db, bonusSources);
+    for (auto a : bonusSources) {
+        qDebug() << a->name() << a->isConditional();
+    }
+
     return 0;
 }
 
-template <typename T> struct ResourceInfo {
-    static std::function<bool()> enabled;
-    static const QString tableName;
-};
-
 template <>
 const QString ResourceInfo<Attribute>::tableName = "Attributes";
+
+template <>
+std::function<bool(Attribute*)> ResourceInfo<Attribute>::enabled =
+        [](Attribute *a) -> bool { return !a->readOnly(); };
+
+template <>
+std::function<bool(Attribute*)> ResourceInfo<Attribute>::valid =
+        std::bind(&Attribute::fetchId, std::placeholders::_1);
+
+template <>
+const QString ResourceInfo<BonusSource>::tableName = "BonusSources";
+
+template <>
+std::function<bool(BonusSource*)> ResourceInfo<BonusSource>::enabled =
+        std::bind(&BonusSource::isConditional, std::placeholders::_1);
+
+template <>
+std::function<bool(BonusSource*)> ResourceInfo<BonusSource>::valid =
+        std::bind(&BonusSource::fetchDbValues, std::placeholders::_1);
 
 template <typename T>
 void populate_db(QSqlDatabase &db, QList<T*> input) {
 
     QList<T*> writable;
     std::copy_if(input.begin(), input.end(), std::back_inserter(writable),
-                 [](T* a) {return !a->readOnly();});
+                 ResourceInfo<T>::enabled);
 
     QList<T*> nonDb;
     std::copy_if(writable.begin(), writable.end(), std::back_inserter(nonDb),
-                 [](T *a) {return !a->fetchId();});
+                 ResourceInfo<T>::valid);
 
-    qDebug() << "Total Attribtues :" << input.length();
-    qDebug() << "Read Only Ts :" << input.length() - writable.length();
-    qDebug() << "Ts in Databse :" << writable.length() - nonDb.length();
+    qDebug() << "Processing" << ResourceInfo<T>::tableName;
+    qDebug() << "Total :" << input.length();
+    qDebug() << "Read Only :" << input.length() - writable.length();
+    qDebug() << "Already in Databse :" << writable.length() - nonDb.length();
 
     if (nonDb.isEmpty()) {
         qDebug() << "Nothing to do.";
@@ -105,9 +129,10 @@ void populate_db(QSqlDatabase &db, QList<T*> input) {
     if(!query.execBatch()) {
         qWarning() << query.lastError();
         qFatal("Database Error");
+        db.rollback();
     }
     qDebug() << query.executedQuery();
     db.commit();
 
-    qDebug() << "Added" << nonDb.length() << " Ts to Databse";
+    qDebug() << "Added" << nonDb.length() << "to Databse";
 }
