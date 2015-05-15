@@ -21,9 +21,14 @@ int main(int argc, char *argv[])
 
     CorePlugin().registerTypes(CorePlugin::PB_NAMESPACE);
 
+    if (argc < 2) {
+        qWarning() << "usage:" << argv[0] << "<character_name>";
+        return 2;
+    }
+
     db::initialize();
 
-    character.loadUrl(QUrl(QStringLiteral("qrc:/sheet/fernie/Character.qml")));
+    character.loadUrl(QUrl(QStringLiteral("qrc:/sheet/%1.qml").arg(argv[1])));
     if (character.isError()) {
         qWarning() << character.errors();
     } else {
