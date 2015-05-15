@@ -43,10 +43,11 @@ bool DbHelper::fetchId(const QString &uri)
 
     query.bindValue(":uri", uri);
 
-    bool ret = DBAttribute::executeQuery(query);
-    if (ret && query.next()) {
-        m_id = query.value(0).toInt(&ret);
+    bool success = DBAttribute::executeQuery(query);
+    success &= query.next();
+    if (success) {
+        m_id = query.value(0).toInt(&success);
     }
 
-    return ret;
+    return success;
 }
