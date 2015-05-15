@@ -155,8 +155,8 @@ Item {
 
     ClassSkill {
         name: "Fly"
-        ability: charisma
-        ranks: 1
+        ability: dexterity
+        ranks: level.value
     }
 
     Skill {
@@ -168,7 +168,7 @@ Item {
     ClassSkill {
         name: "Heal"
         ability: wisdom
-        ranks: 1
+        ranks: level.value
     }
 
     Skill {
@@ -207,7 +207,7 @@ Item {
     ClassSkill {
         name: "Perception"
         ability: wisdom
-        ranks: 1
+        ranks: level.value
     }
 
     ClassSkill {
@@ -225,7 +225,7 @@ Item {
     ClassSkill {
         name: "Sleight of Hand"
         ability: dexterity
-        ranks: 1
+        ranks: 0
     }
 
     Skill {
@@ -237,13 +237,13 @@ Item {
     ClassSkill {
         name: "Stealth"
         ability: dexterity
-        ranks: 0
+        ranks: 1
     }
 
     ClassSkill {
         name: "Survival"
         ability: wisdom
-        ranks: 0
+        ranks: 1
     }
 
     Skill {
@@ -273,18 +273,27 @@ Item {
                     amount: constitution.temporary.modifier.value
                 },
                 Bonus {
-                    name: "Toughness"
+                    source: toughness
                     amount: level.value < 3 ? 3 : level.value;
                 },
                 Bonus {
                     name: "Level 1 Health Roll (Max)"
                     amount: 10
+                },
+                Bonus {
+                    name: "Level 2 Health Roll"
+                    amount: 6
+                },
+                Bonus {
+                    name: "Favoured Class (All Levels)"
+                    amount: level.value
                 }
 
             ]
         }
 
         Attribute {
+            id: currentHp
             name: "Current Hit Points"
             uri: hp.prefix + "/current"
 
@@ -293,8 +302,8 @@ Item {
                     name: "Initial Value (Max)"
                     amount: maxHp.value
                 }
-
             ]
+            readOnly: false
         }
     }
 
@@ -416,11 +425,6 @@ Item {
                 id: acShield
             },
             Bonus {
-                name: "Other"
-                amount: 0
-                id: acOther
-            },
-            Bonus {
                 name: dexterity.temporary.modifier.name
                 amount: dexterity.temporary.modifier.value
                 id: acDexterity
@@ -439,11 +443,6 @@ Item {
                 name: "Deflect"
                 amount: 0
                 id: acDeflect
-            },
-            Bonus {
-                name: "Misc"
-                amount: 0
-                id: acMisc
             }
         ]
 
@@ -508,4 +507,11 @@ Item {
 		id: race
         name: "Race (Aerian)"
 	}
+
+    BonusSource {
+        id: toughness
+        uri: "msrc://feats/toughness"
+        name: "Toughness (Feat)"
+        conditional: true
+    }
 }
