@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>schema/0.sql</file>
+        <file>schema/1.sql</file>
     </qresource>
 </RCC>
