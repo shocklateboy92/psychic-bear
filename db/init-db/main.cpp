@@ -10,6 +10,7 @@
 #include <QSqlQuery>
 #include <attribute-manager.h>
 #include <core_plugin.h>
+#include <functional>
 
 QStringList DEFAULT_CHARACTERS = {
     "qrc:/sheet/fernie/Character.qml",
