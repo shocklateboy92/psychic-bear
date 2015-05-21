@@ -270,7 +270,7 @@ Item {
             modifiers: [
                 Bonus {
                     name: constitution.temporary.modifier.name
-                    amount: constitution.temporary.modifier.value
+                    amount: constitution.temporary.modifier.value * level.value
                 },
                 Bonus {
                     source: toughness
@@ -415,7 +415,7 @@ Item {
                 id: acBase
             },
             Bonus {
-                name: "Armour"
+                source: armourBonus
                 amount: 2
                 id: acArmour
             },
@@ -440,8 +440,8 @@ Item {
                 id: acNatural
             },
             Bonus {
-                name: "Deflect"
-                amount: 0
+                source: deflectionBonus
+                amount: 1
                 id: acDeflect
             }
         ]
@@ -451,7 +451,9 @@ Item {
             uri: parent.uri + "/touch"
             modifiers: [
                 acBase,
-                acDexterity
+                acDexterity,
+                acSize,
+                acDeflect
             ]
         }
 
@@ -460,7 +462,11 @@ Item {
             uri: parent.uri + "/flatFooted"
             modifiers: [
                 acBase,
-                acArmour
+                acArmour,
+                acShield,
+                acSize,
+                acNatural,
+                acDeflect
             ]
         }
     }
@@ -512,6 +518,18 @@ Item {
         id: toughness
         uri: "msrc://feats/toughness"
         name: "Toughness (Feat)"
+        conditional: true
+    }
+
+    BonusSource {
+        id: armourBonus
+        name: "Leather Armour"
+        conditional: true
+    }
+
+    BonusSource {
+        id: deflectionBonus
+        name: "Hawk Badge"
         conditional: true
     }
 }
