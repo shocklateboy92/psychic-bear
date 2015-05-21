@@ -476,7 +476,7 @@ Item {
 
         modifiers: Bonus {
             name: "Weapon Specialist"
-            amount: 1
+            amount: 2
         }
     }
 
