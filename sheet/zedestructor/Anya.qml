@@ -177,25 +177,64 @@ Item {
         ranks: 0
     }
 
-    Repeater {
-        model: [
-            "Arcana",
-            "Dungeoneering",
-            "Engineering",
-            "Geography",
-            "History",
-            "Local",
-            "Nature",
-            "Nobility",
-            "Planes",
-            "Religion"
-        ]
+    Skill {
+        name: "Knowledge (Arcana)"
+        ability: intelligence
+        ranks: 0
+    }
 
-        Skill {
-            name: "Knowledge (" + modelData + ")"
-            ability: intelligence
-            ranks: 0
-        }
+    Skill {
+        name: "Knowledge (Dungeoneering)"
+        ability: intelligence
+        ranks: 0
+    }
+
+    Skill {
+        name: "Knowledge (Engineering)"
+        ability: intelligence
+        ranks: 0
+    }
+
+    Skill {
+        name: "Knowledge (Geography)"
+        ability: intelligence
+        ranks: 0
+    }
+
+    Skill {
+        name: "Knowledge (History)"
+        ability: intelligence
+        ranks: 0
+    }
+
+    Skill {
+        name: "Knowledge (Local)"
+        ability: intelligence
+        ranks: 0
+    }
+
+    Skill {
+        name: "Knowledge (Nature)"
+        ability: intelligence
+        ranks: 0
+    }
+
+    Skill {
+        name: "Knowledge (Nobility)"
+        ability: intelligence
+        ranks: 0
+    }
+
+    Skill {
+        name: "Knowledge (Planes)"
+        ability: intelligence
+        ranks: 0
+    }
+
+    Skill {
+        name: "Knowledge (Religion)"
+        ability: intelligence
+        ranks: 0
     }
 
     Skill {
@@ -225,7 +264,7 @@ Item {
     ClassSkill {
         name: "Sleight of Hand"
         ability: dexterity
-        ranks: 0
+        ranks: 1
     }
 
     Skill {
@@ -237,7 +276,7 @@ Item {
     ClassSkill {
         name: "Stealth"
         ability: dexterity
-        ranks: 1
+        ranks: 2
     }
 
     ClassSkill {
