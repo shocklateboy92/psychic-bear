@@ -285,6 +285,10 @@ Item {
                     amount: 6
                 },
                 Bonus {
+                    name: "Level 3 Health Roll"
+                    amount: 10
+                },
+                Bonus {
                     name: "Favoured Class (All Levels)"
                     amount: level.value
                 }
@@ -482,7 +486,7 @@ Item {
 
         modifiers: Bonus {
             name: "Weapon Specialist"
-            amount: 2
+            amount: 3
         }
     }
 
