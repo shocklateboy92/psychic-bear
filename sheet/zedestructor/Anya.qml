@@ -575,4 +575,13 @@ Item {
         name: "Hawk Badge"
         conditional: true
     }
+
+    BonusSource {
+        id: pointBlankShot
+        name: "Point-Blank Shot (Combat)"
+        conditional: false
+        //description: "Benefit: You get a +1 bonus on attack and damage rolls with ranged weapons at ranges of up to 30 feet."
+        //rangeInFeet: 30
+        //range:
+    }
 }
