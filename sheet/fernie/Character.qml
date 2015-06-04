@@ -300,6 +300,10 @@ Item {
             Bonus {
                 name: "Hawk Badge (Deflection)"
                 amount: 1
+            },
+            Bonus {
+                name: "Chain Shirt"
+                amount: 4
             }
 
         ]
@@ -332,6 +336,10 @@ Item {
                 Bonus {
                     name: "Flat Footed Penalty"
                     amount: -acDexBonus.amount
+                },
+                Bonus {
+                    name: "Chain Shirt"
+                    amount: 4
                 }
             ]
         }
@@ -447,6 +455,37 @@ Item {
         }
     }
 
+    Item {
+        property string prefix: "attr://combat/elementAttack"
+
+        Attribute {
+            name: "Elemental Attack Dice"
+            uri: parent.prefix + "/dice"
+
+            modifiers: [
+                Bonus {
+                    name: "Elemental Affrinity"
+                    amount: level.value
+                }
+            ]
+        }
+
+        Attribute {
+            name: "Elemental Damage Bonus"
+            uri: parent.prefix + "/bonus"
+            modifiers: [
+                Bonus {
+                    name: "Force of Will"
+                    amount: charisma.temporary.modifier.value
+                },
+                Bonus {
+                    source: pointBlankShot
+                    amount: 1
+                }
+            ]
+        }
+    }
+
     Attribute {
         id: level
         name: "Character Level"
@@ -454,7 +493,7 @@ Item {
 
         modifiers: Bonus {
             name: "Elementalist"
-            amount: 2
+            amount: 3
         }
     }
 
@@ -483,6 +522,10 @@ Item {
     BonusSource {
         id: weaponFocus
         name: "Weapon Focus: Ray (Feat)"
+    }
+
+    BonusSource {
+        name: "Extra Knacks: Force of Will (Feat)"
     }
 
     BonusSource {
