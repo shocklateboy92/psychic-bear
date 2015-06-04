@@ -13,6 +13,7 @@ DEFINES += PB_CORE_LIBRARY
 SOURCES += *.cpp
 HEADERS += *.h
 
+
 DISTFILES = qmldir
 
 !equals(_PRO_FILE_PWD_, $$OUT_PWD) {
