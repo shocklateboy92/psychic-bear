@@ -142,7 +142,7 @@ Item {
     ClassSkill {
         name: "Intimidate"
         ability: charisma
-        ranks: 2
+        ranks: 3
     }
 
     Repeater {
@@ -238,6 +238,10 @@ Item {
                 Bonus {
                     name: "Level 2 Health Roll (#rage)"
                     amount: 2
+                },
+                Bonus {
+                    name: "Level 3 Health Roll"
+                    amount: 6
                 },
                 Bonus {
                     name: "Favoured Class (All Levels)"
@@ -412,7 +416,12 @@ Item {
                 Bonus {
                     source: pointBlankShot
                     amount: 1
+                },
+                Bonus {
+                    source: weaponFocus
+                    amount: 1
                 }
+
             ]
         }
 
