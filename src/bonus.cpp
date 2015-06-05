@@ -1,9 +1,10 @@
 #include "bonus.h"
 #include "bonus-source.h"
+#include "bonus-type.h"
 #include "attribute.h"
 
 Bonus::Bonus(QObject *parent)
-    : QObject(parent), m_amount(0), m_source(nullptr)
+    : QObject(parent), m_amount(0), m_source(nullptr), m_type(nullptr)
 {
 }
 
@@ -44,6 +45,11 @@ int Bonus::add(int acc, const Bonus *a)
     return acc + a->amount();
 }
 
+BonusType* Bonus::type() const
+{
+    return m_type;
+}
+
 void Bonus::setAmount(int arg)
 {
     if (m_amount == arg)
@@ -81,5 +87,14 @@ void Bonus::setTarget(Attribute *arg)
     emit targetChanged(arg);
 
     m_target->addModifier(this);
+}
+
+void Bonus::setType(BonusType* type)
+{
+    if (m_type == type)
+        return;
+
+    m_type = type;
+    emit typeChanged(type);
 }
 

@@ -34,17 +34,3 @@ void BonusType::setStacking(bool stacking)
     emit stackingChanged(stacking);
 }
 
-QString BonusType::uri() const
-{
-    return m_uri;
-}
-
-void BonusType::setUri(QString uri)
-{
-    if (m_uri == uri)
-        return;
-
-    m_uri = uri;
-    emit uriChanged(uri);
-}
-
