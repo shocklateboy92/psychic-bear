@@ -3,7 +3,7 @@
 #include "attribute.h"
 
 Bonus::Bonus(QObject *parent)
-    : QObject(parent), m_amount(0)
+    : QObject(parent), m_amount(0), m_source(nullptr)
 {
 }
 
@@ -14,6 +14,9 @@ Bonus::~Bonus()
 
 int Bonus::amount() const
 {
+    if (m_source != nullptr && !m_source->isActive()){
+        return 0;
+    }
     return m_amount;
 }
 
