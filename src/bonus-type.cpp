@@ -1,6 +1,7 @@
 #include "bonus-type.h"
 
-BonusType::BonusType(QObject *parent) : QObject(parent)
+BonusType::BonusType(QObject *parent)
+    : QObject(parent), m_stacking(false)
 {
 
 
