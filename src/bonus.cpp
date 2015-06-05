@@ -68,6 +68,7 @@ void Bonus::setSource(Source arg)
         return;
 
     m_source = arg;
+    QObject::connect(arg, &BonusSource::activeChanged, this, &Bonus::amountChanged);
     emit sourceChanged(arg);
 }
 
