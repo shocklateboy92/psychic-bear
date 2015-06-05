@@ -4,33 +4,29 @@ import "../"
 import org.lasath.psychic_bear 1.0
 
 Item {
-	AbilityScore {
-		id: strength
-		name: "Strength"
+    AbilityScore {
+        id: strength
+        name: "Strength"
 
-		permanent.modifiers: [
-			Bonus {
-				source: pointBuy
-                amount: -2
+        permanent.modifiers: [
+            Bonus {
+                source: pointBuy
+                amount: 8
             }
-		]
-	}
+        ]
+    }
 
-	AbilityScore {
+    AbilityScore {
         id: dexterity
         name: "Dexterity"
 
-		permanent.modifiers: [
-			Bonus {
-				source: pointBuy
-                amount: 6
-            },
+        permanent.modifiers: [
             Bonus {
-                source: race
-                amount: 4
+                source: pointBuy
+                amount: 6
             }
-		]
-	}
+        ]
+    }
 
     AbilityScore {
         id: constitution
@@ -39,7 +35,7 @@ Item {
         permanent.modifiers: [
             Bonus {
                 source: pointBuy
-                amount: 2
+                amount: 9
             }
         ]
     }
@@ -47,55 +43,62 @@ Item {
     AbilityScore {
         id: intelligence
         name: "Intelligence"
+
+        permanent.modifiers: [
+            Bonus {
+                source: pointBuy
+                amount: 2
+            }
+        ]
     }
 
     AbilityScore {
         id: wisdom
         name: "Wisdom"
+        permanent.modifiers: [
+            Bonus {
+                source: pointBuy
+                amount: 2
+            }
+        ]
     }
 
     AbilityScore {
         id: charisma
         name: "Charisma"
-        permanent.modifiers: [
-            Bonus {
-                source: pointBuy
-                amount: 6
-            },
-            Bonus {
-                source: race
-                amount: 2
-            }
-
-        ]
     }
 
     Skill {
         name: "Acrobatics"
         ability: dexterity
-    }
-
-    ClassSkill {
-        name: "Appraise"
-        ability: intelligence
-    }
-
-    ClassSkill {
-        name: "Bluff"
-        ability: charisma
-        ranks: level.value
-
         modifiers: [
             Bonus {
-                source: race
-                amount: 4
+                name: acPenalty.name
+                amount: -acPenalty.value
             }
         ]
     }
 
     Skill {
+        name: "Appraise"
+        ability: intelligence
+    }
+
+    Skill {
+        name: "Bluff"
+        ability: charisma
+    }
+
+    ClassSkill {
         name: "Climb"
         ability: strength
+        ranks: level.value
+        modifiers: [
+            Bonus {
+                name: acPenalty.name
+                amount: -acPenalty.value
+            }
+        ]
     }
 
     Skill {
@@ -103,15 +106,15 @@ Item {
         ability: intelligence
     }
 
-    ClassSkill {
+    Skill {
         name: "Diplomacy"
         ability: charisma
-        ranks: 2
     }
 
     Skill {
         name: "Disable Device"
         ability: dexterity
+        ranks: 1
     }
 
     Skill {
@@ -122,11 +125,24 @@ Item {
     Skill {
         name: "Escape Artist"
         ability: dexterity
+        ranks: 2
+        modifiers: [
+            Bonus {
+                name: acPenalty.name
+                amount: -acPenalty.value
+            }
+        ]
     }
 
     Skill {
         name: "Fly"
-        ability: charisma
+        ability: dexterity
+        modifiers: [
+            Bonus {
+                name: acPenalty.name
+                amount: -acPenalty.value
+            }
+        ]
     }
 
     Skill {
@@ -137,12 +153,20 @@ Item {
     Skill {
         name: "Heal"
         ability: wisdom
+        ranks: level.value
     }
 
     ClassSkill {
         name: "Intimidate"
         ability: charisma
-        ranks: 3
+        ranks: level.value
+        modifiers: [
+            Bonus {
+                name: "Intimidating Prowress"
+                amount: strength.temporary.modifier.value
+            }
+
+        ]
     }
 
     Repeater {
@@ -154,7 +178,6 @@ Item {
             "History",
             "Local",
             "Nature",
-            "Nobility",
             "Planes",
             "Religion"
         ]
@@ -165,10 +188,15 @@ Item {
         }
     }
 
+    ClassSkill {
+        name: "Knowledge (Nobility)"
+        ability: intelligence
+        ranks: level.value
+    }
+
     Skill {
         name: "Linguistics"
         ability: intelligence
-        ranks: 1
     }
 
     ClassSkill {
@@ -180,6 +208,7 @@ Item {
     Skill {
         name: "Ride"
         ability: dexterity
+        ranks: 1
     }
 
     Skill {
@@ -190,6 +219,12 @@ Item {
     Skill {
         name: "Sleight of Hand"
         ability: dexterity
+        modifiers: [
+            Bonus {
+                name: acPenalty.name
+                amount: -acPenalty.value
+            }
+        ]
     }
 
     Skill {
@@ -200,7 +235,12 @@ Item {
     Skill {
         name: "Stealth"
         ability: dexterity
-        ranks: 1
+        modifiers: [
+            Bonus {
+                name: acPenalty.name
+                amount: -acPenalty.value
+            }
+        ]
     }
 
     Skill {
@@ -208,9 +248,17 @@ Item {
         ability: wisdom
     }
 
-    Skill {
+    ClassSkill {
         name: "Swim"
         ability: strength
+        ranks: 2
+
+        modifiers: [
+            Bonus {
+                name: acPenalty.name
+                amount: -(acPenalty.value*2)
+            }
+        ]
     }
 
     Item {
@@ -233,15 +281,15 @@ Item {
                 },
                 Bonus {
                     name: "Level 1 Health Roll (Max)"
+                    amount: 12
+                },
+                Bonus {
+                    name: "Level 2 Health Roll"
                     amount: 8
                 },
                 Bonus {
-                    name: "Level 2 Health Roll (#rage)"
-                    amount: 2
-                },
-                Bonus {
                     name: "Level 3 Health Roll"
-                    amount: 6
+                    amount: 7
                 },
                 Bonus {
                     name: "Favoured Class (All Levels)"
@@ -282,6 +330,18 @@ Item {
     }
 
     Attribute {
+        id: acPenalty
+        name: "Armour Penalty"
+        uri: "attr://combat/armourPenalty"
+        modifiers: [
+            Bonus {
+                name: "Agile breastplate"
+                amount: 4
+            }
+        ]
+    }
+
+    Attribute {
         id: armourClass
         name: "Armour Class"
         uri: "attr://combat/armourClass"
@@ -297,17 +357,13 @@ Item {
                 amount: dexterity.temporary.modifier.value
             },
             Bonus {
-                id: acArmourBonus
-                name: "Armour (Studded Leather)"
-                amount: 3
-            },
-            Bonus {
                 name: "Hawk Badge (Deflection)"
                 amount: 1
             },
             Bonus {
-                name: "Chain Shirt"
-                amount: 4
+                id: acArmourBonus
+                name: "Breastplate (agile)"
+                amount: 6
             }
 
         ]
@@ -324,6 +380,10 @@ Item {
                 Bonus {
                     name: "Touch Penalty"
                     amount: -acArmourBonus.amount
+                },
+                Bonus {
+                    name: "Breastplate (agile)"
+                    amount: 6
                 }
             ]
         }
@@ -342,8 +402,8 @@ Item {
                     amount: -acDexBonus.amount
                 },
                 Bonus {
-                    name: "Chain Shirt"
-                    amount: 4
+                    name: "Breastplate (agile)"
+                    amount: 6
                 }
             ]
         }
@@ -363,15 +423,16 @@ Item {
     SavingThrow {
         name: "Fortitude"
         ability: constitution
+        primary: true
     }
     SavingThrow {
         name: "Reflex"
         ability: dexterity
+        primary: true
     }
     SavingThrow {
         name: "Will"
         ability: wisdom
-        primary: true
     }
 
     Attribute {
@@ -380,7 +441,7 @@ Item {
         modifiers: [
             Bonus {
                 name: "Base Attack Bonus"
-                amount: Math.floor((level.value * 3) / 4)
+                amount: level.value
                 id: baseAttackBonus
             }
         ]
@@ -412,14 +473,6 @@ Item {
                 Bonus {
                     name: dexterity.temporary.modifier.name
                     amount: dexterity.temporary.modifier.value
-                },
-                Bonus {
-                    source: pointBlankShot
-                    amount: 1
-                },
-                Bonus {
-                    source: weaponFocus
-                    amount: 1
                 }
 
             ]
@@ -464,81 +517,31 @@ Item {
         }
     }
 
-    Item {
-        property string prefix: "attr://combat/elementAttack"
-
-        Attribute {
-            name: "Elemental Attack Dice"
-            uri: parent.prefix + "/dice"
-
-            modifiers: [
-                Bonus {
-                    name: "Elemental Affrinity"
-                    amount: level.value
-                }
-            ]
-        }
-
-        Attribute {
-            name: "Elemental Damage Bonus"
-            uri: parent.prefix + "/bonus"
-            modifiers: [
-                Bonus {
-                    name: "Force of Will"
-                    amount: charisma.temporary.modifier.value
-                },
-                Bonus {
-                    source: pointBlankShot
-                    amount: 1
-                }
-            ]
-        }
-    }
-
     Attribute {
         id: level
         name: "Character Level"
         uri: "attr://level"
 
         modifiers: Bonus {
-            name: "Elementalist"
+            name: "Weapon master"
             amount: 3
         }
     }
 
-	BonusSource {
-		id: pointBuy
+    BonusSource {
+        id: pointBuy
         name: "Point Buy"
-	}
+    }
 
-	BonusSource {
-		id: race
-        name: "Race (Human)"
-	}
+    BonusSource {
+        id: race
+        name: "Race (Barrani)"
+    }
 
     BonusSource {
         id: toughness
         uri: "msrc://feats/toughness"
         name: "Toughness (Feat)"
         conditional: true
-    }
-
-    BonusSource {
-        id: pointBlankShot
-        name: "Point Blank Shot (Feat)"
-    }
-
-    BonusSource {
-        id: weaponFocus
-        name: "Weapon Focus: Ray (Feat)"
-    }
-
-    BonusSource {
-        name: "Extra Knacks: Force of Will (Feat)"
-    }
-
-    BonusSource {
-        id: cloakOfRes
-        name: "Cloak of Resistence (+2)"
     }
 }
