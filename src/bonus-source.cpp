@@ -1,7 +1,7 @@
 #include "bonus-source.h"
 
 BonusSource::BonusSource(QObject *parent)
-    : QObject(parent), m_conditional(false)
+    : QObject(parent), m_active(true), m_conditional(false)
 {
 
 }
