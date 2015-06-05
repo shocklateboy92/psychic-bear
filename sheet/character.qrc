@@ -7,5 +7,6 @@
         <file>zedestructor/Anya.qml</file>
         <file>SavingThrow.qml</file>
         <file>CarryCapacity.qml</file>
+        <file>jarjee/JeanClaude.qml</file>
     </qresource>
 </RCC>
