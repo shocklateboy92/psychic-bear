@@ -1,5 +1,6 @@
 #include "attribute.h"
 #include "attribute-manager.h"
+#include "bonus-type.h"
 #include <algorithm>
 #include <numeric>
 
@@ -32,15 +33,30 @@ QQmlListProperty<Bonus> Attribute::modifiers()
 
 int Attribute::value() const
 {
+    QHash<BonusType*, int> typeMap;
+
+    for (Bonus* b : m_modifiers) {
+        if (!typeMap.contains(b->type())) {
+            typeMap.insert(b->type(), b->amount());
+        } else {
+            if (b->type()->stacking()){
+                typeMap[b->type()] += b->amount();
+            } else {
+                typeMap[b->type()] = std::max(typeMap[b->type()], b->amount());
+            }
+
+        }
+    }
+
+    auto a = typeMap.values();
+
     return std::accumulate(
                 m_static_modifiers.begin(),
                 m_static_modifiers.end(),
                 std::accumulate(
-                    m_modifiers.begin(),
-                    m_modifiers.end(),
-                    0,
-                    Bonus::add
-                ),
+                    a.begin(),
+                    a.end(),
+                    0),
                 Bonus::add);
 }
 

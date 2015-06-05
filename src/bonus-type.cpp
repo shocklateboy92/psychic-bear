@@ -34,4 +34,13 @@ void BonusType::setStacking(bool stacking)
     m_stacking = stacking;
     emit stackingChanged(stacking);
 }
+BonusType *BonusType::noneType()
+{
+    if (s_noneType == nullptr) {
+        s_noneType = new BonusType;
+        s_noneType->setStacking(true);
+    }
+    return s_noneType;
+}
 
+BonusType* BonusType::s_noneType = nullptr;

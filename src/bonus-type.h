@@ -15,6 +15,8 @@ public:
     QString name() const;
     bool stacking() const;
 
+    static BonusType* noneType();
+
 signals:
     void nameChanged(QString name);
     void stackingChanged(bool stacking);
@@ -26,6 +28,7 @@ public slots:
 private:
     QString m_name;
     bool m_stacking;
+    static BonusType* s_noneType;
 };
 
 #endif // BONUSTYPE_H
