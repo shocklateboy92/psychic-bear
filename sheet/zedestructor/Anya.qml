@@ -155,8 +155,8 @@ Item {
 
     ClassSkill {
         name: "Fly"
-        ability: charisma
-        ranks: 1
+        ability: dexterity
+        ranks: level.value
     }
 
     Skill {
@@ -168,7 +168,7 @@ Item {
     ClassSkill {
         name: "Heal"
         ability: wisdom
-        ranks: 1
+        ranks: level.value
     }
 
     Skill {
@@ -177,25 +177,64 @@ Item {
         ranks: 0
     }
 
-    Repeater {
-        model: [
-            "Arcana",
-            "Dungeoneering",
-            "Engineering",
-            "Geography",
-            "History",
-            "Local",
-            "Nature",
-            "Nobility",
-            "Planes",
-            "Religion"
-        ]
+    Skill {
+        name: "Knowledge (Arcana)"
+        ability: intelligence
+        ranks: 0
+    }
 
-        Skill {
-            name: "Knowledge (" + modelData + ")"
-            ability: intelligence
-            ranks: 0
-        }
+    Skill {
+        name: "Knowledge (Dungeoneering)"
+        ability: intelligence
+        ranks: 0
+    }
+
+    Skill {
+        name: "Knowledge (Engineering)"
+        ability: intelligence
+        ranks: 0
+    }
+
+    Skill {
+        name: "Knowledge (Geography)"
+        ability: intelligence
+        ranks: 0
+    }
+
+    Skill {
+        name: "Knowledge (History)"
+        ability: intelligence
+        ranks: 0
+    }
+
+    Skill {
+        name: "Knowledge (Local)"
+        ability: intelligence
+        ranks: 0
+    }
+
+    Skill {
+        name: "Knowledge (Nature)"
+        ability: intelligence
+        ranks: 0
+    }
+
+    Skill {
+        name: "Knowledge (Nobility)"
+        ability: intelligence
+        ranks: 0
+    }
+
+    Skill {
+        name: "Knowledge (Planes)"
+        ability: intelligence
+        ranks: 0
+    }
+
+    Skill {
+        name: "Knowledge (Religion)"
+        ability: intelligence
+        ranks: 0
     }
 
     Skill {
@@ -207,7 +246,7 @@ Item {
     ClassSkill {
         name: "Perception"
         ability: wisdom
-        ranks: 1
+        ranks: level.value
     }
 
     ClassSkill {
@@ -237,13 +276,13 @@ Item {
     ClassSkill {
         name: "Stealth"
         ability: dexterity
-        ranks: 0
+        ranks: 2
     }
 
     ClassSkill {
         name: "Survival"
         ability: wisdom
-        ranks: 0
+        ranks: 1
     }
 
     Skill {
@@ -270,21 +309,34 @@ Item {
             modifiers: [
                 Bonus {
                     name: constitution.temporary.modifier.name
-                    amount: constitution.temporary.modifier.value
+                    amount: constitution.temporary.modifier.value * level.value
                 },
                 Bonus {
-                    name: "Toughness"
+                    source: toughness
                     amount: level.value < 3 ? 3 : level.value;
                 },
                 Bonus {
                     name: "Level 1 Health Roll (Max)"
                     amount: 10
+                },
+                Bonus {
+                    name: "Level 2 Health Roll"
+                    amount: 6
+                },
+                Bonus {
+                    name: "Level 3 Health Roll"
+                    amount: 10
+                },
+                Bonus {
+                    name: "Favoured Class (All Levels)"
+                    amount: level.value
                 }
 
             ]
         }
 
         Attribute {
+            id: currentHp
             name: "Current Hit Points"
             uri: hp.prefix + "/current"
 
@@ -293,8 +345,8 @@ Item {
                     name: "Initial Value (Max)"
                     amount: maxHp.value
                 }
-
             ]
+            readOnly: false
         }
     }
 
@@ -406,7 +458,7 @@ Item {
                 id: acBase
             },
             Bonus {
-                name: "Armour"
+                source: armourBonus
                 amount: 2
                 id: acArmour
             },
@@ -414,11 +466,6 @@ Item {
                 name: "Shield"
                 amount: 0
                 id: acShield
-            },
-            Bonus {
-                name: "Other"
-                amount: 0
-                id: acOther
             },
             Bonus {
                 name: dexterity.temporary.modifier.name
@@ -436,14 +483,9 @@ Item {
                 id: acNatural
             },
             Bonus {
-                name: "Deflect"
-                amount: 0
+                source: deflectionBonus
+                amount: 1
                 id: acDeflect
-            },
-            Bonus {
-                name: "Misc"
-                amount: 0
-                id: acMisc
             }
         ]
 
@@ -452,7 +494,9 @@ Item {
             uri: parent.uri + "/touch"
             modifiers: [
                 acBase,
-                acDexterity
+                acDexterity,
+                acSize,
+                acDeflect
             ]
         }
 
@@ -461,7 +505,11 @@ Item {
             uri: parent.uri + "/flatFooted"
             modifiers: [
                 acBase,
-                acArmour
+                acArmour,
+                acShield,
+                acSize,
+                acNatural,
+                acDeflect
             ]
         }
     }
@@ -477,7 +525,7 @@ Item {
 
         modifiers: Bonus {
             name: "Weapon Specialist"
-            amount: 1
+            amount: 3
         }
     }
 
@@ -508,4 +556,32 @@ Item {
 		id: race
         name: "Race (Aerian)"
 	}
+
+    BonusSource {
+        id: toughness
+        uri: "msrc://feats/toughness"
+        name: "Toughness (Feat)"
+        conditional: true
+    }
+
+    BonusSource {
+        id: armourBonus
+        name: "Leather Armour"
+        conditional: true
+    }
+
+    BonusSource {
+        id: deflectionBonus
+        name: "Hawk Badge"
+        conditional: true
+    }
+
+    BonusSource {
+        id: pointBlankShot
+        name: "Point-Blank Shot (Combat)"
+        conditional: false
+        //description: "Benefit: You get a +1 bonus on attack and damage rolls with ranged weapons at ranges of up to 30 feet."
+        //rangeInFeet: 30
+        //range:
+    }
 }
