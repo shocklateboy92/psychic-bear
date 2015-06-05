@@ -4,29 +4,29 @@ import "../"
 import org.lasath.psychic_bear 1.0
 
 Item {
-	AbilityScore {
-		id: strength
-		name: "Strength"
+    AbilityScore {
+        id: strength
+        name: "Strength"
 
-		permanent.modifiers: [
-			Bonus {
-				source: pointBuy
+        permanent.modifiers: [
+            Bonus {
+                source: pointBuy
                 amount: 8
             }
-		]
-	}
+        ]
+    }
 
-	AbilityScore {
+    AbilityScore {
         id: dexterity
         name: "Dexterity"
 
-		permanent.modifiers: [
-			Bonus {
-				source: pointBuy
+        permanent.modifiers: [
+            Bonus {
+                source: pointBuy
                 amount: 6
             }
-		]
-	}
+        ]
+    }
 
     AbilityScore {
         id: constitution
@@ -528,15 +528,15 @@ Item {
         }
     }
 
-	BonusSource {
-		id: pointBuy
+    BonusSource {
+        id: pointBuy
         name: "Point Buy"
-	}
+    }
 
-	BonusSource {
-		id: race
+    BonusSource {
+        id: race
         name: "Race (Barrani)"
-	}
+    }
 
     BonusSource {
         id: toughness
