@@ -459,7 +459,7 @@ Item {
             },
             Bonus {
                 source: armourBonus
-                amount: 2
+                amount: 4
                 id: acArmour
             },
             Bonus {
@@ -566,7 +566,7 @@ Item {
 
     BonusSource {
         id: armourBonus
-        name: "Leather Armour"
+        name: "Mithral Shirt"
         conditional: true
     }
 
