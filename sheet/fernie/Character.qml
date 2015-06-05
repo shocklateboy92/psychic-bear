@@ -4,33 +4,33 @@ import "../"
 import org.lasath.psychic_bear 1.0
 
 Item {
-	AbilityScore {
-		id: strength
-		name: "Strength"
+    AbilityScore {
+        id: strength
+        name: "Strength"
 
-		permanent.modifiers: [
-			Bonus {
-				source: pointBuy
+        permanent.modifiers: [
+            Bonus {
+                source: pointBuy
                 amount: -2
             }
-		]
-	}
+        ]
+    }
 
-	AbilityScore {
+    AbilityScore {
         id: dexterity
         name: "Dexterity"
 
-		permanent.modifiers: [
-			Bonus {
-				source: pointBuy
+        permanent.modifiers: [
+            Bonus {
+                source: pointBuy
                 amount: 6
             },
             Bonus {
                 source: race
                 amount: 4
             }
-		]
-	}
+        ]
+    }
 
     AbilityScore {
         id: constitution
@@ -506,39 +506,38 @@ Item {
         }
     }
 
-	BonusSource {
-		id: pointBuy
+    BonusSource {
+        id: pointBuy
         name: "Point Buy"
-	}
+    }
 
-	BonusSource {
-		id: race
+    BonusSource {
+        id: race
         name: "Race (Human)"
-	}
+    }
 
     BonusSource {
         id: toughness
-        uri: "msrc://feats/toughness"
         name: "Toughness (Feat)"
-        conditional: true
     }
 
     BonusSource {
         id: pointBlankShot
+        uri: "msrc://feats/pointBlankShot"
         name: "Point Blank Shot (Feat)"
+        conditional: true
     }
 
     BonusSource {
         id: weaponFocus
+        uri: "msrc://feats/weaponFocus"
         name: "Weapon Focus: Ray (Feat)"
+        conditional: true
     }
 
     BonusSource {
+        uri: "msrc://feats/forceOfWill"
         name: "Extra Knacks: Force of Will (Feat)"
-    }
-
-    BonusSource {
-        id: cloakOfRes
-        name: "Cloak of Resistence (+2)"
+        conditional: true
     }
 }
