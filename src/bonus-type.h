@@ -2,8 +2,9 @@
 #define BONUSTYPE_H
 
 #include <QObject>
+#include "pb-core.h"
 
-class BonusType : public QObject
+class PB_SHARED_EXPORT BonusType : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)

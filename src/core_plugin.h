@@ -2,7 +2,7 @@
 #define CORE_PLUGIN_H
 
 #include <QQmlExtensionPlugin>
-#include <pb-core.h>
+#include "pb-core.h"
 
 class PB_SHARED_EXPORT CorePlugin : public QQmlExtensionPlugin
 {
