@@ -19,8 +19,8 @@ bool Attribute::fetchId()
 {
     bool success = m_db.fetchId(uri());
     if (!success) {
-        qWarning() << "Failed to find Database entry for "
-                   << name() << ":" << uri();
+ //      qWarning() << "Failed to find Database entry for "
+//                   << name() << ":" << uri();
     }
 
     return success;

@@ -179,7 +179,7 @@ Item {
 
             Bonus {
                 name: size.name
-                amount: sizeBonus(size.value)/2
+                amount: -sizeBonus(size.value)/2
             }
 
         ]
@@ -291,7 +291,7 @@ Item {
                 },
                 Bonus {
                     name: size.name
-                    amount: sizeBonus(size.value)/2
+                    amount: -sizeBonus(size.value)/2
                 }
             ]
         }
@@ -310,7 +310,7 @@ Item {
                 },
                 Bonus {
                     name: size.name
-                    amount: sizeBonus(size.value)/2
+                    amount: -sizeBonus(size.value)/2
                 }
             ]
         }
@@ -448,7 +448,10 @@ Item {
         if (size == 0) {
             return 0;
         }
-        else{
+        else if (size < 0 ){
+            return -Math.pow(2, Math.abs(size));
+        }
+        else if (size > 0){
             return Math.pow(2, Math.abs(size));
         }
     }
