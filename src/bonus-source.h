@@ -16,6 +16,7 @@ class PB_SHARED_EXPORT BonusSource : public QQuickItem
     Q_PROPERTY(bool active READ isActive WRITE setActive NOTIFY activeChanged)
     Q_PROPERTY(bool conditional READ isEffectivelyConditional
                WRITE setConditional NOTIFY conditionalChanged)
+    Q_PROPERTY(QQmlListProperty<Bonus> effects READ effects NOTIFY effectsChanged)
 
 public:
     using List = QList<BonusSource*>;
@@ -28,12 +29,14 @@ public:
     bool isActive() const;
     bool isConditional() const;
     bool isEffectivelyConditional() const;
+    QQmlListProperty<Bonus> effects();
 
 signals:
     void nameChanged(QString arg);
     void uriChanged(QString arg);
     void activeChanged(bool active);
     void conditionalChanged(bool conditional);
+    void effectsChanged(QQmlListProperty<Bonus> effects);
 
 public slots:
     bool fetchDbValues();
@@ -49,6 +52,7 @@ private:
     bool m_active;
     DbHelper m_db;
     bool m_conditional;
+    QList<Bonus*> m_effects;
 };
 
 #endif // BONUSSOURCE_H
