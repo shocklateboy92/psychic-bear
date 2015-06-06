@@ -13,5 +13,6 @@
         <file>ozymandias/Skills.qml</file>
         <file>Feat.qml</file>
         <file>str_utils.js</file>
+        <file>Spell.qml</file>
     </qresource>
 </RCC>
