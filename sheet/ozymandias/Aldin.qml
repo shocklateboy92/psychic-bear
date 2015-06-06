@@ -15,7 +15,7 @@ Item {
             },
             Bonus {
                 name: size.name
-                amount: Math.pow(2, size.value)*2
+                amount: Math.pow(2, size.value)
             }
         ]
     }
@@ -39,7 +39,7 @@ Item {
             },
             Bonus {
                 name: size.name
-                amount: -size.value*2
+                amount: -Math.pow(2, size.value)
             }
 
         ]
@@ -123,6 +123,10 @@ Item {
                 Bonus{
                     name: "Level 2 Health Roll"
                     amount: 5
+                },
+                Bonus{
+                    name: "Level 3 Health Roll"
+                    amount: 7
                 }
 
             ]
@@ -172,6 +176,11 @@ Item {
                 id: acDeflectionBonus
                 name: "Hawk Badge"
                 amount: 1
+            },
+
+            Bonus {
+                name: size.name
+                amount: -Math.pow(2, size.value)/2
             }
 
         ]
@@ -237,7 +246,7 @@ Item {
         modifiers: [
             Bonus {
                 name: size.sizeNames[size.value]
-                amount: 0
+                amount: 4
             }
         ]
     }
@@ -280,6 +289,10 @@ Item {
                 Bonus {
                     name: dexterity.temporary.modifier.name
                     amount: dexterity.temporary.modifier.value
+                },
+                Bonus {
+                    name: size.name
+                    amount: -Math.pow(2, size.value)/2
                 }
             ]
         }
@@ -295,6 +308,10 @@ Item {
                 Bonus {
                     name: dexterity.temporary.modifier.name
                     amount: dexterity.temporary.modifier.value
+                },
+                Bonus {
+                    name: size.name
+                    amount: -Math.pow(2, size.value)/2
                 }
             ]
         }
@@ -340,6 +357,10 @@ Item {
                 Bonus {
                     name: strength.temporary.modifier.name
                     amount: strength.temporary.modifier.value
+                },
+                Bonus {
+                    name: size.name
+                    amount: Math.pow(2, size.value)/2
                 }
             ]
         }
@@ -363,6 +384,10 @@ Item {
                 Bonus {
                     name: dexterity.temporary.modifier.name
                     amount: dexterity.temporary.modifier.value
+                },
+                Bonus {
+                    name: size.name
+                    amount: Math.pow(2, size.value)/2
                 }
             ]
         }
