@@ -246,7 +246,7 @@ Item {
         modifiers: [
             Bonus {
                 name: size.sizeNames[size.value]
-                amount: 4
+                amount: 0
             }
         ]
     }
@@ -420,6 +420,20 @@ Item {
         id: toughness
         name: "Toughness (Feat)"
     }
+    Spell {
+        id: alterSelf
+        name: "Alter self (gain dex)"
+        effects: [
+            Bonus {
+                target: dexterity.temporary
+                amount: 2
+            },
+            Bonus {
+                target: size
+                amount: -1
+            }
 
+        ]
+    }
 
 }
