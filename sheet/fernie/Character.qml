@@ -3,6 +3,8 @@ import QtQuick 2.3
 import "../"
 import org.lasath.psychic_bear 1.0
 
+import "../shared/feats" as Feats
+
 Item {
     AbilityScore {
         id: strength
@@ -226,10 +228,6 @@ Item {
                 Bonus {
                     name: constitution.temporary.modifier.name
                     amount: constitution.temporary.modifier.value * level.value
-                },
-                Bonus {
-                    source: toughness
-                    amount: Math.max(3, level.value)
                 },
                 Bonus {
                     name: "Level 1 Health Roll (Max)"
@@ -517,11 +515,6 @@ Item {
     }
 
     BonusSource {
-        id: toughness
-        name: "Toughness (Feat)"
-    }
-
-    BonusSource {
         id: pointBlankShot
         uri: "msrc://feats/pointBlankShot"
         name: "Point Blank Shot (Feat)"
@@ -540,4 +533,6 @@ Item {
         name: "Extra Knacks: Force of Will (Feat)"
         conditional: true
     }
+
+    Feats.Toughness {}
 }
