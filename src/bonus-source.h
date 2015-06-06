@@ -4,9 +4,11 @@
 #include "db-helper.h"
 #include "pb-core.h"
 
-#include <QObject>
+#include <QQuickItem>
 
-class PB_SHARED_EXPORT BonusSource : public QObject
+class Bonus;
+
+class PB_SHARED_EXPORT BonusSource : public QQuickItem
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
@@ -18,7 +20,7 @@ class PB_SHARED_EXPORT BonusSource : public QObject
 public:
     using List = QList<BonusSource*>;
 
-    explicit BonusSource(QObject *parent = 0);
+    explicit BonusSource(QQuickItem *parent = 0);
     ~BonusSource();
 
     QString name() const;
