@@ -1,7 +1,8 @@
 #include "bonus-source.h"
+#include "bonus.h"
 
-BonusSource::BonusSource(QObject *parent)
-    : QObject(parent), m_active(true), m_conditional(false)
+BonusSource::BonusSource(QQuickItem *parent)
+    : QQuickItem(parent), m_active(true), m_conditional(false)
 {
 
 }
@@ -34,6 +35,30 @@ bool BonusSource::isConditional() const
 bool BonusSource::isEffectivelyConditional() const
 {
     return m_conditional && m_db.isValid();
+}
+
+QQmlListProperty<Bonus> BonusSource::effects()
+{
+    return {
+        this,
+        &m_effects,
+        [](QQmlListProperty<Bonus> *p, Bonus *v) { // append
+            auto src = qobject_cast<BonusSource*>(p->object);
+            Q_ASSERT (src);
+            v->setSource(src);
+        },
+        [](QQmlListProperty<Bonus> *p) { // count
+            auto src = qobject_cast<BonusSource*>(p->object);
+            return src->m_effects.count();
+        },
+        [](QQmlListProperty<Bonus> *p, int idx) { // at
+            auto src = qobject_cast<BonusSource*>(p->object);
+            return src->m_effects.at(idx);
+        },
+        [](QQmlListProperty<Bonus> *p) { // clear
+            return reinterpret_cast<QList<Bonus *> *>(p->data)->clear();
+        }
+    };
 }
 
 void BonusSource::setName(QString arg)

@@ -160,7 +160,7 @@ Bonus* Attribute::qlist_at(QQmlListProperty<Bonus> *p, int idx) {
             : attr->m_static_modifiers.at(idx - split);
 }
 void Attribute::qlist_clear(QQmlListProperty<Bonus> *p) {
-    return reinterpret_cast<QList<Bonus *> *>(p->data)->clear();
     Attribute* atr = qobject_cast<Attribute*>(p->object);
     atr->valueChanged(atr->value());
+    return reinterpret_cast<QList<Bonus *> *>(p->data)->clear();
 }

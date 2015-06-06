@@ -4,9 +4,11 @@
 #include "db-helper.h"
 #include "pb-core.h"
 
-#include <QObject>
+#include <QQuickItem>
 
-class PB_SHARED_EXPORT BonusSource : public QObject
+class Bonus;
+
+class PB_SHARED_EXPORT BonusSource : public QQuickItem
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
@@ -14,11 +16,12 @@ class PB_SHARED_EXPORT BonusSource : public QObject
     Q_PROPERTY(bool active READ isActive WRITE setActive NOTIFY activeChanged)
     Q_PROPERTY(bool conditional READ isEffectivelyConditional
                WRITE setConditional NOTIFY conditionalChanged)
+    Q_PROPERTY(QQmlListProperty<Bonus> effects READ effects NOTIFY effectsChanged)
 
 public:
     using List = QList<BonusSource*>;
 
-    explicit BonusSource(QObject *parent = 0);
+    explicit BonusSource(QQuickItem *parent = 0);
     ~BonusSource();
 
     QString name() const;
@@ -26,12 +29,14 @@ public:
     bool isActive() const;
     bool isConditional() const;
     bool isEffectivelyConditional() const;
+    QQmlListProperty<Bonus> effects();
 
 signals:
     void nameChanged(QString arg);
     void uriChanged(QString arg);
     void activeChanged(bool active);
     void conditionalChanged(bool conditional);
+    void effectsChanged(QQmlListProperty<Bonus> effects);
 
 public slots:
     bool fetchDbValues();
@@ -47,6 +52,7 @@ private:
     bool m_active;
     DbHelper m_db;
     bool m_conditional;
+    QList<Bonus*> m_effects;
 };
 
 #endif // BONUSSOURCE_H
