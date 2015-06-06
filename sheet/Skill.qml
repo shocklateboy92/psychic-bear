@@ -1,11 +1,12 @@
 import QtQuick 2.0
 
 import org.lasath.psychic_bear 1.0
+import "str_utils.js" as StringUtils
 
 Attribute {
     property AbilityScore ability
     property int ranks
-    uri: "attr://skills/" + camelize(name)
+    uri: "attr://skills/" + StringUtils.camelize(name)
 
     modifiers: [
         Bonus {
@@ -17,12 +18,5 @@ Attribute {
             amount: ranks
         }
     ]
-
-    function camelize(str) {
-        return str.replace(/[^\w\s]+/g, '').replace(
-                    /(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
-                        return index === 0 ? letter.toLowerCase() : letter.toUpperCase();
-                    }).replace(/\s+/g, '');
-    }
 }
 
