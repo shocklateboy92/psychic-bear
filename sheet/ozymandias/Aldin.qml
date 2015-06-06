@@ -12,7 +12,9 @@ Item {
             Bonus {
                 source: pointBuy
                 amount: -2
-            },
+            }
+        ]
+        temporary.modifiers: [
             Bonus {
                 name: size.name
                 amount: sizeBonus(size.value)
@@ -36,7 +38,9 @@ Item {
             Bonus {
                 source: race
                 amount: 4
-            },
+            }
+        ]
+        temporary.modifiers: [
             Bonus {
                 name: size.name
                 amount: -sizeBonus(size.value)
