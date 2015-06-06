@@ -12,6 +12,10 @@ Item {
             Bonus {
                 source: pointBuy
                 amount: -2
+            },
+            Bonus {
+                name: size.name
+                amount: Math.pow(2, size.value)*2
             }
         ]
     }
@@ -32,7 +36,12 @@ Item {
             Bonus {
                 source: race
                 amount: 4
+            },
+            Bonus {
+                name: size.name
+                amount: -size.value*2
             }
+
         ]
     }
 
@@ -212,6 +221,27 @@ Item {
             }
         ]
     }
+    Attribute {
+        name: "Size"
+        id: size
+        uri: "attr://combat/Size"
+        property var sizeNames: {"-4":"Fine",
+                                 "-3":"Diminutive",
+                                 "-2":"Tiny",
+                                 "-1":"Small",
+                                 0:"Medium",
+                                 1:"Large",
+                                 2:"Huge",
+                                 3:"Gargantuan",
+                                 4:"Colossal"}
+        modifiers: [
+            Bonus {
+                name: size.sizeNames[size.value]
+                amount: 0
+            }
+        ]
+    }
+
 
     SavingThrow {
         name: "Fortitude"
@@ -347,7 +377,7 @@ Item {
 
         modifiers: Bonus {
             name: "Sneak"
-            amount: 2
+            amount: 3
         }
     }
 
@@ -366,14 +396,5 @@ Item {
         name: "Toughness (Feat)"
     }
 
-    BonusSource {
-        id: pointBlankShot
-        name: "Point Blank Shot (Feat)"
-    }
-
-    BonusSource {
-        id: weaponFocus
-        name: "Weapon Focus: Ray (Feat)"
-    }
 
 }
