@@ -48,8 +48,8 @@ public slots:
 private:
     int m_amount;
     QString m_name;
-    Source m_source;
     Attribute* m_target;
+    Source m_source;
     BonusType* m_type;
 };
 

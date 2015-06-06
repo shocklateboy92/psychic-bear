@@ -4,7 +4,7 @@
 #include "attribute.h"
 
 Bonus::Bonus(QObject *parent)
-    : QObject(parent), m_amount(0),
+    : QObject(parent), m_amount(0), m_target(nullptr),
       m_source(nullptr), m_type(BonusType::noneType())
 {
 }
