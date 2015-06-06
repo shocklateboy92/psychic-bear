@@ -15,7 +15,7 @@ Item {
             },
             Bonus {
                 name: size.name
-                amount: Math.pow(2, size.value)
+                amount: sizeBonus(size.value)
             }
         ]
     }
@@ -39,9 +39,8 @@ Item {
             },
             Bonus {
                 name: size.name
-                amount: -Math.pow(2, size.value)
+                amount: -sizeBonus(size.value)
             }
-
         ]
     }
 
@@ -180,7 +179,7 @@ Item {
 
             Bonus {
                 name: size.name
-                amount: -Math.pow(2, size.value)/2
+                amount: sizeBonus(size.value)/2
             }
 
         ]
@@ -292,7 +291,7 @@ Item {
                 },
                 Bonus {
                     name: size.name
-                    amount: -Math.pow(2, size.value)/2
+                    amount: sizeBonus(size.value)/2
                 }
             ]
         }
@@ -311,7 +310,7 @@ Item {
                 },
                 Bonus {
                     name: size.name
-                    amount: -Math.pow(2, size.value)/2
+                    amount: sizeBonus(size.value)/2
                 }
             ]
         }
@@ -360,7 +359,7 @@ Item {
                 },
                 Bonus {
                     name: size.name
-                    amount: Math.pow(2, size.value)/2
+                    amount: sizeBonus(size.value)/2
                 }
             ]
         }
@@ -387,7 +386,7 @@ Item {
                 },
                 Bonus {
                     name: size.name
-                    amount: Math.pow(2, size.value)/2
+                    amount: sizeBonus(size.value)/2
                 }
             ]
         }
@@ -422,18 +421,35 @@ Item {
     }
     Spell {
         id: alterSelf
-        name: "Alter self (gain dex)"
+        name: "Alter self (become small)"
         effects: [
             Bonus {
-                target: dexterity.temporary
+                target: strength.temporary
                 amount: 2
             },
             Bonus {
                 target: size
                 amount: -1
             }
-
         ]
     }
 
+    Spell {
+        id: reducePerson
+        name: "Reduce Person"
+        effects: [
+            Bonus {
+                target: size
+                amount: -1
+            }
+        ]
+    }
+    function sizeBonus(size) {
+        if (size == 0) {
+            return 0;
+        }
+        else{
+            return Math.pow(2, Math.abs(size));
+        }
+    }
 }
