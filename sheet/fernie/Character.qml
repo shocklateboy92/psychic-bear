@@ -215,6 +215,26 @@ Item {
         ability: strength
     }
 
+    Attribute {
+        name: "Unspent Skill Points"
+        uri: "attr://skills/totalRanks"
+
+        modifiers: [
+            Bonus {
+                name: "Elementalist Base Skills"
+                amount: 4 * level.value
+            },
+            Bonus {
+                name: "Intelligence Bonus"
+                amount: intelligence.permanent.modifier.value
+            },
+            Bonus {
+                name: "Human Favoured Class"
+                amount: level.value
+            }
+        ]
+    }
+
     Item {
         id: hp
         property string prefix: "attr://combat/hitPoints"
