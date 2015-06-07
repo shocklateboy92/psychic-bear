@@ -458,7 +458,20 @@ Item {
                 Bonus {
                     name: strength.temporary.modifier.name
                     amount: strength.temporary.modifier.value
+                },
+                Bonus {
+                    name: pamasterweapon.name
+                    amount: 2
+                },
+                Bonus {
+                    name: pabarraniweapon.name
+                    amount: 1
+                },
+                Bonus {
+                    name: masterofbody.name
+                    amount: constitution.temporary.modifier.value
                 }
+
             ]
         }
 
@@ -542,6 +555,26 @@ Item {
         id: toughness
         uri: "msrc://feats/toughness"
         name: "Toughness (Feat)"
+    }
+
+    BonusSource {
+        id: pamasterweapon
+        uri: "msrc://feats/masterofweapons"
+        name: "Master of weapons (Polearm)"
+        conditional: true
+    }
+
+    BonusSource {
+        id: pabarraniweapon
+        uri: "msrc://feats/barranicrafts"
+        name: "Barrani Craftsmen (Polearm +1)"
+        conditional: true
+    }
+
+    BonusSource {
+        id: masterofbody
+        uri: "msrc://feats/masterofbody"
+        name: "Master of body"
         conditional: true
     }
 }
