@@ -460,14 +460,17 @@ Item {
                     amount: strength.temporary.modifier.value
                 },
                 Bonus {
+                    source: pamasterweapon
                     name: pamasterweapon.name
                     amount: 2
                 },
                 Bonus {
+                    source: pabarraniweapon
                     name: pabarraniweapon.name
                     amount: 1
                 },
                 Bonus {
+                    source: masterofbody
                     name: masterofbody.name
                     amount: constitution.temporary.modifier.value
                 }
