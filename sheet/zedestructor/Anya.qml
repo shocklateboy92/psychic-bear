@@ -2,6 +2,7 @@ import QtQuick 2.3
 import org.lasath.psychic_bear 1.0
 
 import "../"
+import "../shared/feats"
 
 Item {
 	AbilityScore {
@@ -312,10 +313,6 @@ Item {
                     amount: constitution.temporary.modifier.value * level.value
                 },
                 Bonus {
-                    source: toughness
-                    amount: level.value < 3 ? 3 : level.value;
-                },
-                Bonus {
                     name: "Level 1 Health Roll (Max)"
                     amount: 10
                 },
@@ -558,13 +555,6 @@ Item {
 	}
 
     BonusSource {
-        id: toughness
-        uri: "msrc://feats/toughness"
-        name: "Toughness (Feat)"
-        conditional: true
-    }
-
-    BonusSource {
         id: armourBonus
         name: "Mithral Shirt"
         conditional: true
@@ -576,12 +566,5 @@ Item {
         conditional: true
     }
 
-    BonusSource {
-        id: pointBlankShot
-        name: "Point-Blank Shot (Combat)"
-        conditional: false
-        //description: "Benefit: You get a +1 bonus on attack and damage rolls with ranged weapons at ranges of up to 30 feet."
-        //rangeInFeet: 30
-        //range:
-    }
+    Feats.Toughness {}
 }
