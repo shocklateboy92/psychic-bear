@@ -457,22 +457,6 @@ Item {
     }
 
     Feat {
-        id: powerAttack
-        name: "Power Attack"
-        conditional: true
-        effects: [
-            Bonus {
-                target: meleeAttack
-                amount: (baseAttackBonus.value/4 + 1)*-1
-            },
-            Bonus {
-                target: meleeDamage
-                amount: (Math.floor(baseAttackBonus.value/4) + 1)*2
-            }
-        ]
-    }
-
-    Feat {
         id :dervishDance
         name: "Dervish Dance"
         conditional: true
