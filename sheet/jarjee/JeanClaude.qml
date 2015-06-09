@@ -10,7 +10,6 @@ Item {
 
         permanent.modifiers: [
             Bonus {
-                source: pointBuy
                 amount: 8
             }
         ]
@@ -22,7 +21,6 @@ Item {
 
         permanent.modifiers: [
             Bonus {
-                source: pointBuy
                 amount: 6
             }
         ]
@@ -34,7 +32,6 @@ Item {
 
         permanent.modifiers: [
             Bonus {
-                source: pointBuy
                 amount: 9
             }
         ]
@@ -46,7 +43,6 @@ Item {
 
         permanent.modifiers: [
             Bonus {
-                source: pointBuy
                 amount: 2
             }
         ]
@@ -57,7 +53,6 @@ Item {
         name: "Wisdom"
         permanent.modifiers: [
             Bonus {
-                source: pointBuy
                 amount: 2
             }
         ]
@@ -276,7 +271,7 @@ Item {
                     amount: constitution.temporary.modifier.value * level.value
                 },
                 Bonus {
-                    source: toughness
+                    name: "Toughness"
                     amount: Math.max(3, level.value)
                 },
                 Bonus {
@@ -542,22 +537,6 @@ Item {
             name: "Weapon master"
             amount: 3
         }
-    }
-
-    BonusSource {
-        id: pointBuy
-        name: "Point Buy"
-    }
-
-    BonusSource {
-        id: race
-        name: "Race (Barrani)"
-    }
-
-    BonusSource {
-        id: toughness
-        uri: "msrc://feats/toughness"
-        name: "Toughness (Feat)"
     }
 
     BonusSource {
