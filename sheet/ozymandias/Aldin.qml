@@ -273,11 +273,11 @@ Item {
     Attribute {
         name: "Base Attack Bonus"
         uri: "attr://combat/baseAttackBonus"
+        id: baseAttackBonus
         modifiers: [
             Bonus {
                 name: "Base Attack Bonus"
                 amount: Math.floor((level.value * 3) / 4)
-                id: baseAttackBonus
             }
         ]
     }
@@ -439,7 +439,7 @@ Item {
                 amount: 2
             },
             Bonus {
-                target: size.value
+                target: size
                 amount: -1
             }
         ]
@@ -450,12 +450,50 @@ Item {
         name: "Reduce Person"
         effects: [
             Bonus {
-                target: size.value
+                target: size
                 amount: -1
             }
         ]
     }
 
+    Feat {
+        id: powerAttack
+        name: "Power Attack"
+        conditional: true
+        effects: [
+            Bonus {
+                target: meleeAttack
+                amount: (baseAttackBonus.value/4 + 1)*-1
+            },
+            Bonus {
+                target: meleeDamage
+                amount: (Math.floor(baseAttackBonus.value/4) + 1)*2
+            }
+        ]
+    }
+
+    Feat {
+        id :dervishDance
+        name: "Dervish Dance"
+        conditional: true
+        effects: [
+        Bonus {
+                target: meleeDamage
+                amount: -strength.temporary.modifier.value + dexterity.temporary.modifier.value
+            }
+        ]
+    }
+    Feat {
+        id :weaponFiness
+        name: "Weapon Finess"
+        conditional: true
+        effects: [
+        Bonus {
+                target: meleeAttack
+                amount: -strength.temporary.modifier.value + dexterity.temporary.modifier.value
+            }
+        ]
+    }
 
     function sizeBonus(size) {
         if (size == 0) {
