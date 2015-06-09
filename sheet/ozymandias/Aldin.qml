@@ -2,6 +2,7 @@ import QtQuick 2.3
 
 import "../"
 import org.lasath.psychic_bear 1.0
+import "../shared/feats" as Feats
 
 Item {
     AbilityScore {
@@ -279,122 +280,128 @@ Item {
                 id: baseAttackBonus
             }
         ]
-
-
-        Attribute {
-            name: "Melee Attack Bonus"
-            uri: parent.uri + "/melee"
-            modifiers: [
-                Bonus {
-                    name: baseAttackBonus.name
-                    amount: baseAttackBonus.amount
-                },
-                Bonus {
-                    name: dexterity.temporary.modifier.name
-                    amount: dexterity.temporary.modifier.value
-                },
-                Bonus {
-                    name: size.name
-                    amount: -sizeBonus(size.value)/2
-                }
-            ]
-        }
-
-        Attribute {
-            name: "Ranged Attack Bonus"
-            uri: parent.uri + "/ranged"
-            modifiers: [
-                Bonus {
-                    name: baseAttackBonus.name
-                    amount: baseAttackBonus.amount
-                },
-                Bonus {
-                    name: dexterity.temporary.modifier.name
-                    amount: dexterity.temporary.modifier.value
-                },
-                Bonus {
-                    name: size.name
-                    amount: -sizeBonus(size.value)/2
-                }
-            ]
-        }
-
-        Attribute{
-            name: "Ranged Attack Damage"
-            uri: parent.uri + "/rangedDamage"
-            modifiers: [
-                Bonus{
-                    name: "Weapon Damage in d8's"
-                    amount:1
-                },
-                Bonus {
-                    name: strength.temporary.modifier.name
-                    amount: strength.temporary.modifier.value
-                }
-            ]
-        }
-
-        Attribute{
-            name: "melee Attack Damage"
-            uri: parent.uri + "/meleeDamage"
-            modifiers: [
-                Bonus{
-                    name: "Weapon Damage in d6's"
-                    amount:1
-                },
-                Bonus {
-                    name: strength.temporary.modifier.name
-                    amount: strength.temporary.modifier.value
-                }
-            ]
-        }
-
-        Attribute {
-            name: "Combat Maneuver Bonus (CMB)"
-            uri: parent.uri + "/CMB"
-            modifiers: [
-                Bonus {
-                    name: baseAttackBonus.name
-                    amount: baseAttackBonus.amount
-                },
-                Bonus {
-                    name: strength.temporary.modifier.name
-                    amount: strength.temporary.modifier.value
-                },
-                Bonus {
-                    name: size.name
-                    amount: sizeBonus(size.value)/2
-                }
-            ]
-        }
-
-        Attribute {
-            name: "Combat Maneuver Defense (CMD)"
-            uri: parent.uri + "/CMD"
-            modifiers: [
-                Bonus {
-                    name: baseAttackBonus.name
-                    amount: baseAttackBonus.amount
-                },
-                Bonus {
-                    name: "Base CMB"
-                    amount: 10
-                },
-                Bonus {
-                    name: strength.temporary.modifier.name
-                    amount: strength.temporary.modifier.value
-                },
-                Bonus {
-                    name: dexterity.temporary.modifier.name
-                    amount: dexterity.temporary.modifier.value
-                },
-                Bonus {
-                    name: size.name
-                    amount: sizeBonus(size.value)/2
-                }
-            ]
-        }
     }
+
+    Attribute {
+        name: "Melee Attack Bonus"
+        uri: "attr://combat/meleeAttack"
+        id: meleeAttack
+        modifiers: [
+            Bonus {
+                name: baseAttackBonus.name
+                amount: baseAttackBonus.amount
+            },
+            Bonus {
+                name: dexterity.temporary.modifier.name
+                amount: dexterity.temporary.modifier.value
+            },
+            Bonus {
+                name: size.name
+                amount: -sizeBonus(size.value)/2
+            }
+        ]
+    }
+
+    Attribute {
+        name: "Ranged Attack Bonus"
+        uri: "attr://combat/rangedAttack"
+        id: rangedAttack
+        modifiers: [
+            Bonus {
+                name: baseAttackBonus.name
+                amount: baseAttackBonus.amount
+            },
+            Bonus {
+                name: dexterity.temporary.modifier.name
+                amount: dexterity.temporary.modifier.value
+            },
+            Bonus {
+                name: size.name
+                amount: -sizeBonus(size.value)/2
+            }
+        ]
+    }
+
+    Attribute{
+        name: "Ranged Attack Damage"
+        uri: "attr://combat/rangedDamage"
+        id: rangedDamage
+        modifiers: [
+            Bonus{
+                name: "Weapon Damage in d8's"
+                amount:1
+            },
+            Bonus {
+                name: strength.temporary.modifier.name
+                amount: strength.temporary.modifier.value
+            }
+        ]
+    }
+
+    Attribute{
+        name: "melee Attack Damage"
+        uri: "attr://combat/meleeDamage"
+        id: meleeDamage
+        modifiers: [
+            Bonus{
+                name: "Weapon Damage in d6's"
+                amount:1
+            },
+            Bonus {
+                name: strength.temporary.modifier.name
+                amount: strength.temporary.modifier.value
+            }
+        ]
+    }
+
+    Attribute {
+        name: "Combat Maneuver Bonus (CMB)"
+        uri: "attr://combat/CMB"
+        id: cmb
+        modifiers: [
+            Bonus {
+                name: baseAttackBonus.name
+                amount: baseAttackBonus.amount
+            },
+            Bonus {
+                name: strength.temporary.modifier.name
+                amount: strength.temporary.modifier.value
+            },
+            Bonus {
+                name: size.name
+                amount: sizeBonus(size.value)/2
+            }
+        ]
+    }
+
+    Attribute {
+        name: "Combat Maneuver Defense (CMD)"
+        uri: "attr://combat/CMD"
+        id: cmd
+        modifiers: [
+            Bonus {
+                name: baseAttackBonus.name
+                amount: baseAttackBonus.amount
+            },
+            Bonus {
+                name: "Base CMB"
+                amount: 10
+            },
+            Bonus {
+                name: strength.temporary.modifier.name
+                amount: strength.temporary.modifier.value
+            },
+            Bonus {
+                name: dexterity.temporary.modifier.name
+                amount: dexterity.temporary.modifier.value
+            },
+            Bonus {
+                name: size.name
+                amount: sizeBonus(size.value)/2
+            }
+        ]
+    }
+
 
 
 
@@ -432,7 +439,7 @@ Item {
                 amount: 2
             },
             Bonus {
-                target: size
+                target: size.value
                 amount: -1
             }
         ]
@@ -443,11 +450,13 @@ Item {
         name: "Reduce Person"
         effects: [
             Bonus {
-                target: size
+                target: size.value
                 amount: -1
             }
         ]
     }
+
+
     function sizeBonus(size) {
         if (size == 0) {
             return 0;
@@ -459,4 +468,6 @@ Item {
             return Math.pow(2, Math.abs(size));
         }
     }
+//    Feats.Power_Attack {}
+//    Feats.Toughness {}
 }
