@@ -6,6 +6,9 @@ import "str_utils.js" as StringUtils
 Attribute {
     property AbilityScore ability
     property int ranks
+
+    id: root
+
     uri: "attr://skills/" + StringUtils.camelize(name)
 
     modifiers: [
@@ -18,5 +21,22 @@ Attribute {
             amount: ranks
         }
     ]
+
+    Bonus {
+        id: rankBonus
+        name: root.name
+        amount: -ranks
+    }
+
+    AttributeRef {
+        id: totalRef
+        targetUri: "attr://skills/totalRanks"
+
+        onTargetChanged: {
+            if (target && ranks > 0) {
+                target.addModifier(rankBonus);
+            }
+        }
+    }
 }
 
