@@ -4,7 +4,7 @@
 #include "attribute.h"
 
 Bonus::Bonus(QObject *parent)
-    : QObject(parent), m_amount(0), m_target(nullptr),
+    : Resource(parent), m_amount(0), m_target(nullptr),
       m_source(nullptr), m_type(BonusType::noneType())
 {
 }
@@ -24,11 +24,11 @@ int Bonus::amount() const
 
 QString Bonus::name() const
 {
-    if (m_name.isNull() && m_source != nullptr) {
+    if (Resource::name().isNull() && m_source != nullptr) {
         return m_source->name();
     }
 
-    return m_name;
+    return Resource::name();
 }
 
 Bonus::Source Bonus::source() const
@@ -58,15 +58,6 @@ void Bonus::setAmount(int arg)
 
     m_amount = arg;
     emit amountChanged(arg);
-}
-
-void Bonus::setName(QString arg)
-{
-    if (m_name == arg)
-        return;
-
-    m_name = arg;
-    emit nameChanged(arg);
 }
 
 void Bonus::setSource(Source arg)
