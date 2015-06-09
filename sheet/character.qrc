@@ -12,6 +12,7 @@
         <file>Feat.qml</file>
         <file>str_utils.js</file>
         <file>CommonTypes.qml</file>
+        <file>shared/feats/PointBlankShot.qml</file>
         <file>qmldir</file>
         <file>ArmourClassHelper.qml</file>
     </qresource>

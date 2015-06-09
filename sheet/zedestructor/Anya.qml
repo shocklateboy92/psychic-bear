@@ -378,6 +378,7 @@ Item {
         Attribute {
             name: "Melee Attack Bonus"
             uri: parent.uri + "/melee"
+            id: meleeAttackBonus
             modifiers: [
                 Bonus {
                     name: baseAttackBonus.name
@@ -393,6 +394,7 @@ Item {
         Attribute {
             name: "Ranged Attack Bonus"
             uri: parent.uri + "/ranged"
+            id: rangedAttackBonus
             modifiers: [
                 Bonus {
                     name: baseAttackBonus.name
@@ -567,4 +569,5 @@ Item {
     }
 
     Feats.Toughness {}
+    Feats.PointBlankShot {}
 }
