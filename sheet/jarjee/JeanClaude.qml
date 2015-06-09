@@ -330,7 +330,8 @@ Item {
         uri: "attr://combat/armourPenalty"
         modifiers: [
             Bonus {
-                name: "Agile breastplate"
+                source: weararmour
+                name: weararmour.name
                 amount: 4
             }
         ]
@@ -357,7 +358,8 @@ Item {
             },
             Bonus {
                 id: acArmourBonus
-                name: "Breastplate (agile)"
+                source: weararmour
+                name: weararmour.name
                 amount: 6
             }
 
@@ -377,7 +379,8 @@ Item {
                     amount: -acArmourBonus.amount
                 },
                 Bonus {
-                    name: "Breastplate (agile)"
+                    source: weararmour
+                    name: weararmour.name
                     amount: 6
                 }
             ]
@@ -397,7 +400,8 @@ Item {
                     amount: -acDexBonus.amount
                 },
                 Bonus {
-                    name: "Breastplate (agile)"
+                    source: weararmour
+                    name: weararmour.name
                     amount: 6
                 }
             ]
@@ -557,6 +561,13 @@ Item {
         id: masterofbody
         uri: "msrc://feats/masterofbody"
         name: "Master of body"
+        conditional: true
+    }
+
+    BonusSource {
+        id: weararmour
+        uri: "msrc://body/weararmour"
+        name: "Wear armour (Agile Breastplate)"
         conditional: true
     }
 }
