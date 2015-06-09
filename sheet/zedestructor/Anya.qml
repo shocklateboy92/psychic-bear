@@ -2,7 +2,7 @@ import QtQuick 2.3
 import org.lasath.psychic_bear 1.0
 
 import "../"
-import "../shared/feats"
+import "../shared/feats" as Feats
 
 Item {
 	AbilityScore {
