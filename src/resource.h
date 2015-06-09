@@ -3,16 +3,16 @@
 
 #include "pb-core.h"
 
-#include <QObject>
+#include <QQuickItem>
 
-class PB_SHARED_EXPORT Resource : public QObject
+class PB_SHARED_EXPORT Resource : public QQuickItem
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QString uri READ uri WRITE setUri NOTIFY uriChanged)
 
 public:
-    Resource(QObject *parent = nullptr);
+    Resource(QQuickItem *parent = nullptr);
     QString name() const;
     QString uri() const;
 

@@ -5,7 +5,7 @@
 #include <numeric>
 
 Attribute::Attribute(QQuickItem *parent)
-    : QQuickItem(parent), m_readOnly(true)
+    : Resource(parent), m_readOnly(true)
 {
     AttributeManager::instance().addAttribute(this);
 }
@@ -60,16 +60,6 @@ int Attribute::value() const
                 Bonus::add);
 }
 
-QString Attribute::name() const
-{
-    return m_name;
-}
-
-QString Attribute::uri() const
-{
-    return m_uri;
-}
-
 bool Attribute::readOnly() const
 {
     return m_readOnly || m_db.error();
@@ -79,24 +69,6 @@ void Attribute::onModifierChanged(Bonus *m)
 {
     Q_UNUSED(m)
     emit valueChanged(value());
-}
-
-void Attribute::setName(QString arg)
-{
-    if (m_name == arg)
-        return;
-
-    m_name = arg;
-    emit nameChanged(arg);
-}
-
-void Attribute::setUri(QString arg)
-{
-    if (m_uri == arg)
-        return;
-
-    m_uri = arg;
-    emit uriChanged(arg);
 }
 
 void Attribute::setReadOnly(bool arg)

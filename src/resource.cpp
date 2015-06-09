@@ -1,6 +1,6 @@
 #include "resource.h"
 
-Resource::Resource(QObject *parent) : QObject(parent)
+Resource::Resource(QQuickItem *parent) : QQuickItem(parent)
 {
 }
 

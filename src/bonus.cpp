@@ -3,7 +3,7 @@
 #include "bonus-type.h"
 #include "attribute.h"
 
-Bonus::Bonus(QObject *parent)
+Bonus::Bonus(QQuickItem *parent)
     : Resource(parent), m_amount(0), m_target(nullptr),
       m_source(nullptr), m_type(BonusType::noneType())
 {
