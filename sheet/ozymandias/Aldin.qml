@@ -289,11 +289,11 @@ Item {
         modifiers: [
             Bonus {
                 name: baseAttackBonus.name
-                amount: baseAttackBonus.amount
+                amount: baseAttackBonus.value
             },
             Bonus {
-                name: dexterity.temporary.modifier.name
-                amount: dexterity.temporary.modifier.value
+                name: strength.temporary.modifier.name
+                amount: strength.temporary.modifier.value
             },
             Bonus {
                 name: size.name
@@ -309,7 +309,7 @@ Item {
         modifiers: [
             Bonus {
                 name: baseAttackBonus.name
-                amount: baseAttackBonus.amount
+                amount: baseAttackBonus.value
             },
             Bonus {
                 name: dexterity.temporary.modifier.name
@@ -483,17 +483,6 @@ Item {
             }
         ]
     }
-    Feat {
-        id :weaponFiness
-        name: "Weapon Finess"
-        conditional: true
-        effects: [
-        Bonus {
-                target: meleeAttack
-                amount: -strength.temporary.modifier.value + dexterity.temporary.modifier.value
-            }
-        ]
-    }
 
     function sizeBonus(size) {
         if (size == 0) {
@@ -506,6 +495,7 @@ Item {
             return Math.pow(2, Math.abs(size));
         }
     }
-//    Feats.Power_Attack {}
-//    Feats.Toughness {}
+    Feats.Power_Attack {}
+    Feats.Toughness {}
+    Feats.Weapon_finess {}
 }
