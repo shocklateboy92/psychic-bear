@@ -5,7 +5,7 @@ class QString;
 class QSqlQuery;
 template<typename T>
 class QList;
-class QObject;
+class QQuickItem;
 
 class Bonus;
 
@@ -16,7 +16,7 @@ public:
     ~DBAttribute();
 
     bool fetchId(const QString &uri);
-    QList<Bonus *> readModifiers(QObject *parent);
+    QList<Bonus *> readModifiers(QQuickItem *parent);
     bool createModifier(int amount, const QString &name);
 
     bool error() const;

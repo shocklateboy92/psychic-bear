@@ -45,7 +45,7 @@ bool DBAttribute::fetchId(const QString &uri)
     return result;
 }
 
-QList<Bonus*> DBAttribute::readModifiers(QObject *parent)
+QList<Bonus*> DBAttribute::readModifiers(QQuickItem *parent)
 {
     QList<Bonus*> ret;
 

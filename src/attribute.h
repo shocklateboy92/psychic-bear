@@ -9,13 +9,11 @@
 #include <QAbstractListModel>
 #include <memory>
 
-class PB_SHARED_EXPORT Attribute : public QQuickItem
+class PB_SHARED_EXPORT Attribute : public Resource
 {
     Q_OBJECT
     Q_PROPERTY(QQmlListProperty<Bonus> modifiers READ modifiers NOTIFY modifiersChanged)
     Q_PROPERTY(int value READ value NOTIFY valueChanged)
-    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(QString uri READ uri WRITE setUri NOTIFY uriChanged)
     Q_PROPERTY(bool readOnly READ readOnly WRITE setReadOnly NOTIFY readOnlyChanged)
 
     using ModelType = QList<QString>;
@@ -28,21 +26,15 @@ public:
 
     QQmlListProperty<Bonus> modifiers();
     int value() const;
-    QString name() const;
-    QString uri() const;
     bool readOnly() const;
 
 signals:
     void modifiersChanged(QQmlListProperty<Bonus> arg);
     void valueChanged(int arg);
-    void nameChanged(QString arg);
-    void uriChanged(QString arg);
     void readOnlyChanged(bool arg);
 
 public slots:
     void onModifierChanged(Bonus *m);
-    void setName(QString arg);
-    void setUri(QString arg);
     void setReadOnly(bool arg);
 
     void addModifier(Bonus *arg);
@@ -52,8 +44,6 @@ public slots:
 
 private:
     QList<Bonus*> m_modifiers;
-    QString m_name;
-    QString m_uri;
     DBAttribute m_db;
     bool m_readOnly;
     QList<Bonus*> m_static_modifiers;
