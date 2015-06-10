@@ -3,7 +3,8 @@
 
 #include "pb-core.h"
 #include "bonus.h"
-#include "db-attribute.h"
+#include "db-util.h"
+#include "resource.h"
 
 #include <QQuickItem>
 #include <QAbstractListModel>
@@ -26,7 +27,7 @@ public:
 
     QQmlListProperty<Bonus> modifiers();
     int value() const;
-    bool readOnly() const;
+    bool readOnly();
 
 signals:
     void modifiersChanged(QQmlListProperty<Bonus> arg);
@@ -44,7 +45,6 @@ public slots:
 
 private:
     QList<Bonus*> m_modifiers;
-    DBAttribute m_db;
     bool m_readOnly;
     QList<Bonus*> m_static_modifiers;
 

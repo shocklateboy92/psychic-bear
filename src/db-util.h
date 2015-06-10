@@ -1,16 +1,30 @@
-#ifndef DBHELPER_H
-#define DBHELPER_H
+#ifndef DBATTRIBUTE_H
+#define DBATTRIBUTE_H
 
-#include <QString>
 #include <QSqlQuery>
-#include <QVariant>
-#include "db-attribute.h"
+#include<QString>
+#include<QVariant>
 
-class DbHelper
+template<typename T>
+class QList;
+class QQuickItem;
+
+class Bonus;
+
+class DbUtil
 {
 public:
-    DbHelper();
-    ~DbHelper();
+    DbUtil(QString tableName);
+    ~DbUtil();
+
+    bool fetchId(const QString &uri);
+    QList<Bonus *> readModifiers(QObject *parent);
+    bool createModifier(int amount, const QString &name);
+
+    bool error() const;
+
+    static bool executeQuery(QSqlQuery &query);
+
 
     int 	id() const;
     bool 	isValid() const;
@@ -23,15 +37,14 @@ public:
     template <typename T>
     bool writeProperty(QString propName, const T &val);
 
-    bool fetchId(const QString &uri);
-
 private:
     int m_id;
+    bool m_error;
     QString m_tableName;
 };
 
 template <typename T>
-bool DbHelper::fetchProperty(QString propName, T &ret)
+bool DbUtil::fetchProperty(QString propName, T &ret)
 {
     QSqlQuery query;
     QString str = QStringLiteral("SELECT %1 FROM %2 WHERE id = :id");
@@ -39,7 +52,7 @@ bool DbHelper::fetchProperty(QString propName, T &ret)
     query.prepare(str.arg(propName).arg(tableName()));
     query.bindValue(":id", id());
 
-    bool success = DBAttribute::executeQuery(query);
+    bool success = DbUtil::executeQuery(query);
     if (success &= query.next()) {
         ret = qvariant_cast<T>(query.value(0));
     }
@@ -48,7 +61,7 @@ bool DbHelper::fetchProperty(QString propName, T &ret)
 }
 
 template <typename T>
-bool DbHelper::writeProperty(QString propName, const T &val)
+bool DbUtil::writeProperty(QString propName, const T &val)
 {
     QSqlQuery query;
     auto qstr = QStringLiteral("UPDATE %2 SET %1 = :val WHERE id = :id");
@@ -57,7 +70,7 @@ bool DbHelper::writeProperty(QString propName, const T &val)
     query.bindValue(":val", val);
     query.bindValue(":id", id());
 
-    return DBAttribute::executeQuery(query);
+    return DbUtil::executeQuery(query);
 }
 
-#endif // DBHELPER_H
+#endif // DBATTRIBUTE_H
