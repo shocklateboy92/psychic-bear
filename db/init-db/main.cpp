@@ -103,7 +103,7 @@ void populate_db(QSqlDatabase &db, QList<T*> input) {
     qDebug() << "Processing" << ResourceInfo<T>::tableName;
     qDebug() << "Total :" << input.length();
     qDebug() << "Read Only :" << input.length() - writable.length();
-    qDebug() << "Already in Databse :" << writable.length() - nonDb.length();
+    qDebug() << "Already in Database :" << writable.length() - nonDb.length();
 
     if (nonDb.isEmpty()) {
         qDebug() << "Nothing to do.";
