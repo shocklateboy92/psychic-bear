@@ -330,33 +330,9 @@ Item {
                 type: CommonTypes.armour
             }
         ]
+    }
 
-        Attribute {
-            id: acTouch
-            name: "Armour Class (Touch)"
-            uri: parent.uri + "/touch"
-
-        }
-
-        Attribute {
-            id: acFlatFooted
-            name: "Armour Class (Flat-Footed)"
-            uri: parent.uri + "/flatFooted"
-        }
-
-        // TODO: replace with bonus filter
-        Component.onCompleted: {
-            for (var m in armourClass.modifiers) {
-                var mod = armourClass.modifiers[m];
-                console.assert(mod);
-                if (mod.type !== CommonTypes.acDex) {
-                    acFlatFooted.addModifier(mod);
-                }
-                if (mod.type !== CommonTypes.armour) {
-                    acTouch.addModifier(mod);
-                }
-            }
-        }
+    ArmourClassHelper {
     }
 
     Attribute {
