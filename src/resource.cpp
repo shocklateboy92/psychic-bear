@@ -1,6 +1,7 @@
 #include "resource.h"
 
-Resource::Resource(QQuickItem *parent) : QQuickItem(parent)
+Resource::Resource(QString table, QQuickItem *parent)
+    : QQuickItem(parent), m_db(table)
 {
 }
 
@@ -12,6 +13,11 @@ QString Resource::name() const
 QString Resource::uri() const
 {
     return m_uri;
+}
+
+DbUtil& Resource::db()
+{
+    return m_db;
 }
 
 void Resource::setName(QString name)

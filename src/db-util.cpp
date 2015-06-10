@@ -1,22 +1,22 @@
 #include "bonus.h"
-#include "db-attribute.h"
+#include "db-util.h"
 
 #include <QSqlQuery>
 #include <QDebug>
 #include <QSqlError>
 
-DBAttribute::DBAttribute()
-    : m_id(-1), m_error(false)
+DbUtil::DbUtil(QString tableName)
+    : m_id(-1), m_error(false), m_tableName(tableName)
 {
 
 }
 
-DBAttribute::~DBAttribute()
+DbUtil::~DbUtil()
 {
 
 }
 
-bool DBAttribute::executeQuery(QSqlQuery &query)
+bool DbUtil::executeQuery(QSqlQuery &query)
 {
     bool result = query.exec();
     if (!result) {
@@ -28,24 +28,7 @@ bool DBAttribute::executeQuery(QSqlQuery &query)
     return result;
 }
 
-bool DBAttribute::fetchId(const QString &uri)
-{
-    QSqlQuery query;
-    query.prepare("SELECT id FROM Attributes WHERE Uri = :uri");
-    query.bindValue(":uri", uri);
-
-    bool result = executeQuery(query);
-
-    result &= query.next();
-    if (result) {
-        m_id = query.value(0).toInt(&result);
-    }
-
-    m_error = !result;
-    return result;
-}
-
-QList<Bonus*> DBAttribute::readModifiers(QQuickItem *parent)
+QList<Bonus*> DbUtil::readModifiers(QObject *parent)
 {
     QList<Bonus*> ret;
 
@@ -65,7 +48,7 @@ QList<Bonus*> DBAttribute::readModifiers(QQuickItem *parent)
     return ret;
 }
 
-bool DBAttribute::createModifier(int amount, const QString &name)
+bool DbUtil::createModifier(int amount, const QString &name)
 {
     Q_ASSERT(amount != 0);
     Q_ASSERT(!name.isEmpty());
@@ -80,8 +63,47 @@ bool DBAttribute::createModifier(int amount, const QString &name)
     return executeQuery(query);
 }
 
-bool DBAttribute::error() const
+bool DbUtil::error() const
 {
     return m_error;
 }
+
+
+int DbUtil::id() const
+{
+    return m_id;
+}
+
+bool DbUtil::isValid() const
+{
+    return m_id != -1;
+}
+
+QString DbUtil::tableName() const
+{
+    return m_tableName;
+}
+
+void DbUtil::setTableName(const QString &tableName)
+{
+    m_tableName = tableName;
+}
+
+bool DbUtil::fetchId(const QString &uri)
+{
+    QSqlQuery query;
+    query.prepare(QStringLiteral("SELECT id FROM %1 WHERE Uri = :uri").arg(m_tableName));
+    query.bindValue(":uri", uri);
+
+    bool result = executeQuery(query);
+
+    result &= query.next();
+    if (result) {
+        m_id = query.value(0).toInt(&result);
+    }
+
+    m_error = !result;
+    return result;
+}
+
 

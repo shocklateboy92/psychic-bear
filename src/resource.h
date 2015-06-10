@@ -1,6 +1,7 @@
 #ifndef RESOURCE
 #define RESOURCE
 
+#include "db-util.h"
 #include "pb-core.h"
 
 #include <QQuickItem>
@@ -12,9 +13,10 @@ class PB_SHARED_EXPORT Resource : public QQuickItem
     Q_PROPERTY(QString uri READ uri WRITE setUri NOTIFY uriChanged)
 
 public:
-    Resource(QQuickItem *parent = nullptr);
+    Resource(QString tableName, QQuickItem *parent = nullptr);
     QString name() const;
     QString uri() const;
+    DbUtil &db();
 
 public slots:
     void setName(QString name);
@@ -27,6 +29,7 @@ signals:
 private:
     QString m_name;
     QString m_uri;
+    DbUtil m_db;
 };
 
 #endif // RESOURCE

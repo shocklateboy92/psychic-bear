@@ -20,7 +20,7 @@ class PB_SHARED_EXPORT Bonus : public QObject
     Q_PROPERTY(BonusType* type READ type WRITE setType NOTIFY typeChanged)
 
 public:
-    Bonus(QQuickItem *parent = nullptr);
+    Bonus(QObject *parent = nullptr);
     ~Bonus();
 
     int amount() const;
