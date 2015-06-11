@@ -22,6 +22,26 @@ Item {
 
     }
 
+    Attribute {
+        name: "total Skill Points"
+        uri: "attr://skills/totalRanks"
+
+        modifiers: [
+            Bonus {
+                name: "Sneak Base Skills"
+                amount: 8 * level.value
+            },
+            Bonus {
+                name: "Intelligence Bonus"
+                amount: intelligence.permanent.modifier.value * level.value
+            },
+            Bonus {
+                name: "Human Favoured Class"
+                amount: level.value
+            }
+        ]
+    }
+
     AbilityScore {
         id: dexterity
         name: "Dexterity"
