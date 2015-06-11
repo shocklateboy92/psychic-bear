@@ -1,5 +1,5 @@
-#include "bonus.h"
 #include "db-util.h"
+#include "bonus.h"
 
 #include <QSqlQuery>
 #include <QDebug>
