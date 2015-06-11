@@ -28,7 +28,7 @@ bool DbUtil::executeQuery(QSqlQuery &query)
     return result;
 }
 
-QList<Bonus*> DbUtil::readModifiers(QObject *parent)
+QList<Bonus*> DbUtil::readModifiers(QObject *parent) const
 {
     QList<Bonus*> ret;
 

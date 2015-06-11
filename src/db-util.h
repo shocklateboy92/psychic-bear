@@ -18,7 +18,7 @@ public:
     ~DbUtil();
 
     bool fetchId(const QString &uri);
-    QList<Bonus *> readModifiers(QObject *parent);
+    QList<Bonus *> readModifiers(QObject *parent) const;
     bool createModifier(int amount, const QString &name);
 
     bool error() const;
@@ -33,7 +33,7 @@ public:
     void setTableName(const QString &tableName);
 
     template <typename T>
-    bool fetchProperty(QString propName, T &ret);
+    bool fetchProperty(QString propName, T &ret) const;
     template <typename T>
     bool writeProperty(QString propName, const T &val);
 
@@ -44,7 +44,7 @@ private:
 };
 
 template <typename T>
-bool DbUtil::fetchProperty(QString propName, T &ret)
+bool DbUtil::fetchProperty(QString propName, T &ret) const
 {
     QSqlQuery query;
     QString str = QStringLiteral("SELECT %1 FROM %2 WHERE id = :id");
