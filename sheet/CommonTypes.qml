@@ -12,7 +12,7 @@ Item {
         stacking: false
     }
 
-    property BonusType sheild: BonusType {
+    property BonusType shield: BonusType {
         stacking: false
     }
 
