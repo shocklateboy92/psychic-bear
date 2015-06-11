@@ -6,7 +6,7 @@ Skill {
     modifiers: [
         Bonus {
             name: "Class Skill"
-            amount: 3
+            amount: (ranks >= 1) ? 3 : 0
         }
     ]
 }
