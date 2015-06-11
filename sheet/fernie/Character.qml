@@ -310,61 +310,29 @@ Item {
                 amount: 10
             },
             Bonus {
-                id: acDexBonus
                 name: "Dexterity"
                 amount: dexterity.temporary.modifier.value
+                type: CommonTypes.acDex
             },
             Bonus {
-                id: acArmourBonus
                 name: "Armour (Studded Leather)"
                 amount: 3
+                type: CommonTypes.armour
             },
             Bonus {
                 name: "Hawk Badge (Deflection)"
                 amount: 1
+                type: CommonTypes.deflection
             },
             Bonus {
                 name: "Chain Shirt"
                 amount: 4
+                type: CommonTypes.armour
             }
-
         ]
+    }
 
-        Attribute {
-            name: "Armour Class (Touch)"
-            uri: parent.uri + "/touch"
-
-            modifiers: [
-                Bonus {
-                    name: "Normal Armour Class"
-                    amount: armourClass.value
-                },
-                Bonus {
-                    name: "Touch Penalty"
-                    amount: -acArmourBonus.amount
-                }
-            ]
-        }
-
-        Attribute {
-            name: "Armour Class (Flat-Footed)"
-            uri: parent.uri + "/flatFooted"
-
-            modifiers: [
-                Bonus {
-                    name: "Normal Armour Class"
-                    amount: armourClass.value
-                },
-                Bonus {
-                    name: "Flat Footed Penalty"
-                    amount: -acDexBonus.amount
-                },
-                Bonus {
-                    name: "Chain Shirt"
-                    amount: 4
-                }
-            ]
-        }
+    ArmourClassHelper {
     }
 
     Attribute {
