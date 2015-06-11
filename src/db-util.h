@@ -18,19 +18,19 @@ public:
     ~DbUtil();
 
     bool fetchId(const QString &uri);
-    QList<Bonus *> readModifiers(QObject *parent) const;
-    bool createModifier(int amount, const QString &name);
 
-    bool error() const;
+    void setTableName(const QString &tableName);
+
+    bool createModifier(int amount, const QString &name);
 
     static bool executeQuery(QSqlQuery &query);
 
+    QList<Bonus *> readModifiers(QObject *parent) const;
 
     int 	id() const;
     bool 	isValid() const;
+    bool error() const;
     QString tableName() const;
-
-    void setTableName(const QString &tableName);
 
     template <typename T>
     bool fetchProperty(QString propName, T &ret) const;
