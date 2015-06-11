@@ -14,7 +14,7 @@
         <file>Feat.qml</file>
         <file>str_utils.js</file>
         <file>Spell.qml</file>
-        <file>shared/feats/Power_Attack.qml</file>
-        <file>shared/feats/Weapon_finess.qml</file>
+        <file>shared/feats/PowerAttack.qml</file>
+        <file>shared/feats/WeaponFiness.qml</file>
     </qresource>
 </RCC>

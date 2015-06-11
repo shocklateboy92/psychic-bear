@@ -15,12 +15,7 @@ Item {
                 amount: -2
             }
         ]
-        temporary.modifiers: [
-            Bonus {
-                name: size.name
-                amount: sizeBonus(size.value)
-            }
-        ]
+
     }
 
     Skills {
@@ -41,12 +36,7 @@ Item {
                 amount: 4
             }
         ]
-        temporary.modifiers: [
-            Bonus {
-                name: size.name
-                amount: -sizeBonus(size.value)
-            }
-        ]
+
     }
 
     AbilityScore {
@@ -479,7 +469,7 @@ Item {
             return Math.pow(2, Math.abs(size));
         }
     }
-    Feats.Power_Attack {}
+    Feats.PowerAttack {}
     Feats.Toughness {}
-    Feats.Weapon_finess {}
+    Feats.WeaponFiness {}
 }
