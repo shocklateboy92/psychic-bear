@@ -257,6 +257,22 @@ Item {
         ]
     }
 
+    Attribute {
+        name: "Unspent Skill Points"
+        uri: "attr://skills/totalRanks"
+
+        modifiers: [
+            Bonus {
+                name: "Weaponmaster Base Skills"
+                amount: 6 * level.value
+            },
+            Bonus {
+                name: "Intelligence Bonus"
+                amount: intelligence.permanent.modifier.value * level.value
+            }
+        ]
+    }
+
     Item {
         id: hp
         property string prefix: "attr://combat/hitPoints"
