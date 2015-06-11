@@ -440,6 +440,7 @@ Item {
         id: toughness
         name: "Toughness (Feat)"
     }
+
     Spell {
         id: alterSelf
         name: "Alter self (become small)"
@@ -490,10 +491,10 @@ Item {
         if (size == 0) {
             return 0;
         }
-        else if (size < 0 ){
+        else if (size < 0 ) {
             return -Math.pow(2, Math.abs(size));
         }
-        else if (size > 0){
+        else if (size > 0) {
             return Math.pow(2, Math.abs(size));
         }
     }

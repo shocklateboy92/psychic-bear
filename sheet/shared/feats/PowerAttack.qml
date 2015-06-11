@@ -27,12 +27,12 @@ Feat {
         Bonus {
             id: powerAttackAttack
             target: attackRef.target
-            amount: Math.floor((babRef.target.value/4) + 1)*-1
+            amount: Math.floor((babRef.target.value / 4) + 1) * -1
         },
         Bonus {
             id: powerAttackDamage
             target : damageRef.target
-            amount: Math.floor((babRef.target.value/4) + 1)*2
+            amount: Math.floor((babRef.target.value / 4) + 1) * 2
         }
     ]
 }
