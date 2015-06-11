@@ -425,7 +425,7 @@ Item {
         name: "Alter self (become small)"
         effects: [
             Bonus {
-                target: strength.temporary
+                target: dexterity.temporary
                 amount: 2
             },
             Bonus {
@@ -442,6 +442,14 @@ Item {
             Bonus {
                 target: size
                 amount: -1
+            },
+            Bonus {
+                target: strength.temporary
+                amount: -2
+            },
+            Bonus {
+                target: dexterity.temporary
+                amount: 2
             }
         ]
     }
