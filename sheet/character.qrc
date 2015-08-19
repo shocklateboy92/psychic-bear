@@ -14,5 +14,7 @@
         <file>CommonTypes.qml</file>
         <file>qmldir</file>
         <file>ArmourClassHelper.qml</file>
+        <file>Event.qml</file>
+        <file>EventEffect.qml</file>
     </qresource>
 </RCC>
