@@ -20,6 +20,11 @@ DbUtil& Resource::db()
     return m_db;
 }
 
+const DbUtil& Resource::db() const
+{
+    return m_db;
+}
+
 void Resource::setName(QString name)
 {
     if (m_name == name)
