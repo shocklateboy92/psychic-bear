@@ -22,7 +22,7 @@ bool BonusSource::isConditional() const
     return m_conditional;
 }
 
-bool BonusSource::isEffectivelyConditional()
+bool BonusSource::isEffectivelyConditional() const
 {
     return m_conditional && db().isValid();
 }

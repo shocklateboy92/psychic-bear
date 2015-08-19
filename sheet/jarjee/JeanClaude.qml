@@ -2,6 +2,7 @@ import QtQuick 2.3
 
 import "../"
 import org.lasath.psychic_bear 1.0
+import "../shared/feats" as Feats
 
 Item {
     AbilityScore {
@@ -269,10 +270,6 @@ Item {
                 Bonus {
                     name: constitution.temporary.modifier.name
                     amount: constitution.temporary.modifier.value * level.value
-                },
-                Bonus {
-                    name: "Toughness"
-                    amount: Math.max(3, level.value)
                 },
                 Bonus {
                     name: "Level 1 Health Roll (Max)"
@@ -570,4 +567,5 @@ Item {
         name: "Wear armour (Agile Breastplate)"
         conditional: true
     }
+    Feats.Toughness {}
 }

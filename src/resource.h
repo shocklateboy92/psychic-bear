@@ -17,6 +17,7 @@ public:
     QString name() const;
     QString uri() const;
     DbUtil &db();
+    const DbUtil &db() const;
 
 public slots:
     void setName(QString name);

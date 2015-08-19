@@ -25,7 +25,7 @@ public:
 
     bool isActive() const;
     bool isConditional() const;
-    bool isEffectivelyConditional();
+    bool isEffectivelyConditional() const;
     QQmlListProperty<Bonus> effects();
 
 signals:
