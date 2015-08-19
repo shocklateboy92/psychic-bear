@@ -5,7 +5,7 @@
 #include <numeric>
 
 Attribute::Attribute(QQuickItem *parent)
-    : QQuickItem(parent), m_readOnly(true)
+    : Resource("Attributes", parent), m_readOnly(true)
 {
     AttributeManager::instance().addAttribute(this);
 }
@@ -17,7 +17,7 @@ Attribute::~Attribute()
 
 bool Attribute::fetchId()
 {
-    bool success = m_db.fetchId(uri());
+    bool success = db().fetchId(uri());
     if (!success) {
         qWarning() << "Failed to find Database entry for "
                    << name() << ":" << uri();
@@ -60,43 +60,15 @@ int Attribute::value() const
                 Bonus::add);
 }
 
-QString Attribute::name() const
+bool Attribute::readOnly()
 {
-    return m_name;
-}
-
-QString Attribute::uri() const
-{
-    return m_uri;
-}
-
-bool Attribute::readOnly() const
-{
-    return m_readOnly || m_db.error();
+    return m_readOnly || db().error();
 }
 
 void Attribute::onModifierChanged(Bonus *m)
 {
     Q_UNUSED(m)
     emit valueChanged(value());
-}
-
-void Attribute::setName(QString arg)
-{
-    if (m_name == arg)
-        return;
-
-    m_name = arg;
-    emit nameChanged(arg);
-}
-
-void Attribute::setUri(QString arg)
-{
-    if (m_uri == arg)
-        return;
-
-    m_uri = arg;
-    emit uriChanged(arg);
 }
 
 void Attribute::setReadOnly(bool arg)
@@ -118,7 +90,7 @@ void Attribute::addModifier(Bonus *arg)
 
 void Attribute::updateStaticModifiers()
 {
-    if (m_db.error()) {
+    if (db().error()) {
         qWarning() << "Static modifiers disabled on"
                    << uri() << "due to previous errors";
         return;
@@ -128,7 +100,7 @@ void Attribute::updateStaticModifiers()
         b->deleteLater();
     }
     m_static_modifiers.clear();
-    m_static_modifiers = m_db.readModifiers(this);
+    m_static_modifiers = db().readModifiers(this);
 
     emit modifiersChanged(modifiers());
     emit valueChanged(value());
@@ -136,7 +108,7 @@ void Attribute::updateStaticModifiers()
 
 bool Attribute::createStaticModifier(int amount, const QString &name)
 {
-    bool success = m_db.createModifier(amount, name);
+    bool success = db().createModifier(amount, name);
 
     // Refresh view whether update was successful or not
     updateStaticModifiers();

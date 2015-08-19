@@ -2,6 +2,7 @@ import QtQuick 2.3
 
 import "../"
 import org.lasath.psychic_bear 1.0
+import "../shared/feats" as Feats
 
 Item {
     AbilityScore {
@@ -10,7 +11,6 @@ Item {
 
         permanent.modifiers: [
             Bonus {
-                source: pointBuy
                 amount: 8
             }
         ]
@@ -22,7 +22,6 @@ Item {
 
         permanent.modifiers: [
             Bonus {
-                source: pointBuy
                 amount: 6
             }
         ]
@@ -34,7 +33,6 @@ Item {
 
         permanent.modifiers: [
             Bonus {
-                source: pointBuy
                 amount: 9
             }
         ]
@@ -46,7 +44,6 @@ Item {
 
         permanent.modifiers: [
             Bonus {
-                source: pointBuy
                 amount: 2
             }
         ]
@@ -57,7 +54,6 @@ Item {
         name: "Wisdom"
         permanent.modifiers: [
             Bonus {
-                source: pointBuy
                 amount: 2
             }
         ]
@@ -276,10 +272,6 @@ Item {
                     amount: constitution.temporary.modifier.value * level.value
                 },
                 Bonus {
-                    source: toughness
-                    amount: Math.max(3, level.value)
-                },
-                Bonus {
                     name: "Level 1 Health Roll (Max)"
                     amount: 12
                 },
@@ -335,7 +327,8 @@ Item {
         uri: "attr://combat/armourPenalty"
         modifiers: [
             Bonus {
-                name: "Agile breastplate"
+                source: weararmour
+                name: weararmour.name
                 amount: 4
             }
         ]
@@ -362,7 +355,8 @@ Item {
             },
             Bonus {
                 id: acArmourBonus
-                name: "Breastplate (agile)"
+                source: weararmour
+                name: weararmour.name
                 amount: 6
             }
 
@@ -382,7 +376,8 @@ Item {
                     amount: -acArmourBonus.amount
                 },
                 Bonus {
-                    name: "Breastplate (agile)"
+                    source: weararmour
+                    name: weararmour.name
                     amount: 6
                 }
             ]
@@ -402,7 +397,8 @@ Item {
                     amount: -acDexBonus.amount
                 },
                 Bonus {
-                    name: "Breastplate (agile)"
+                    source: weararmour
+                    name: weararmour.name
                     amount: 6
                 }
             ]
@@ -458,7 +454,23 @@ Item {
                 Bonus {
                     name: strength.temporary.modifier.name
                     amount: strength.temporary.modifier.value
+                },
+                Bonus {
+                    source: pamasterweapon
+                    name: pamasterweapon.name
+                    amount: 2
+                },
+                Bonus {
+                    source: pabarraniweapon
+                    name: pabarraniweapon.name
+                    amount: 1
+                },
+                Bonus {
+                    source: masterofbody
+                    name: masterofbody.name
+                    amount: constitution.temporary.modifier.value
                 }
+
             ]
         }
 
@@ -529,19 +541,31 @@ Item {
     }
 
     BonusSource {
-        id: pointBuy
-        name: "Point Buy"
-    }
-
-    BonusSource {
-        id: race
-        name: "Race (Barrani)"
-    }
-
-    BonusSource {
-        id: toughness
-        uri: "msrc://feats/toughness"
-        name: "Toughness (Feat)"
+        id: pamasterweapon
+        uri: "msrc://feats/masterofweapons"
+        name: "Master of weapons (Polearm)"
         conditional: true
     }
+
+    BonusSource {
+        id: pabarraniweapon
+        uri: "msrc://feats/barranicrafts"
+        name: "Barrani Craftsmen (Polearm +1)"
+        conditional: true
+    }
+
+    BonusSource {
+        id: masterofbody
+        uri: "msrc://feats/masterofbody"
+        name: "Master of body"
+        conditional: true
+    }
+
+    BonusSource {
+        id: weararmour
+        uri: "msrc://body/weararmour"
+        name: "Wear armour (Agile Breastplate)"
+        conditional: true
+    }
+    Feats.Toughness {}
 }
