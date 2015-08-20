@@ -390,11 +390,6 @@ Item {
                 Bonus {
                     name: "Touch Penalty"
                     amount: -acArmourBonus.amount
-                },
-                Bonus {
-                    source: weararmour
-                    name: weararmour.name
-                    amount: 6
                 }
             ]
         }
@@ -411,11 +406,6 @@ Item {
                 Bonus {
                     name: "Flat Footed Penalty"
                     amount: -acDexBonus.amount
-                },
-                Bonus {
-                    source: weararmour
-                    name: weararmour.name
-                    amount: 6
                 }
             ]
         }
