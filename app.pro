@@ -5,7 +5,8 @@ QMAKE_CXXFLAGS += -Wall
 
 SOURCES += \
     db.cpp \
-    app-main.cpp
+    app-main.cpp \
+    app/container-window.cpp
 
 RESOURCES += qml.qrc \
     sheet/character.qrc \
@@ -17,7 +18,8 @@ QML_IMPORT_PATH =
 # Default rules for deployment.
 include(deployment.pri)
 
-HEADERS +=  db.h
+HEADERS +=  db.h \
+    app/container-window.h
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/src/release/ -lcored
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/src/debug/ -lcored

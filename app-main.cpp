@@ -7,6 +7,8 @@
 
 #include <src/filtered-attribute-list.h>
 
+#include <app/container-window.h>
+
 #include <src/attribute-manager.h>
 #include <src/bonus-source.h>
 #include <src/project-context.h>
@@ -44,7 +46,9 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("psychic_bear", &context);
 
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    ContainerWindow root;
+    root.setupUi();
+    root.setVisible(true);
 
     return app.exec();
 }
