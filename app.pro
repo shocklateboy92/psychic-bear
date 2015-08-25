@@ -3,8 +3,9 @@ CONFIG += c++14 qml_debug
 
 QMAKE_CXXFLAGS += -Wall
 
-SOURCES += main.cpp \
+SOURCES += \
     db.cpp \
+    app-main.cpp
 
 RESOURCES += qml.qrc \
     sheet/character.qrc \
