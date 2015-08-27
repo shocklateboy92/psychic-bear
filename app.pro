@@ -5,9 +5,9 @@ QMAKE_CXXFLAGS += -Wall
 
 SOURCES += \
     db.cpp \
-    app-main.cpp \
     app/ui-module.cpp \
-    app/container-window.cpp
+    app/container-window.cpp \
+    app/app-main.cpp
 
 RESOURCES += qml.qrc \
     sheet/character.qrc \

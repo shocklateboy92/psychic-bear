@@ -13,6 +13,7 @@
 #include <src/bonus-source.h>
 #include <src/project-context.h>
 #include "db.h"
+#include "ui-module.h"
 
 int main(int argc, char *argv[])
 {
