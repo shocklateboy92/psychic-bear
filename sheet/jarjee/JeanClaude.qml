@@ -165,6 +165,12 @@ Item {
         ]
     }
 
+    ClassSkill {
+        name: "Perform (Testimony)"
+        ability: charisma
+        ranks: 3
+    }
+
     Repeater {
         model: [
             "Arcana",
@@ -269,7 +275,12 @@ Item {
             Bonus {
                 name: "Intelligence Bonus"
                 amount: intelligence.permanent.modifier.value * level.value
+            },
+            Bonus {
+                name: "Points from Peform (Testimony)"
+                amount: 3
             }
+
         ]
     }
 
