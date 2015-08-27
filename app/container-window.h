@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+class UiModule;
+
 class ContainerWindow : public QMainWindow
 {
     Q_OBJECT
@@ -18,7 +20,8 @@ public slots:
     void setupUi();
 
 private:
-    static QList<QWidget*> createViews();
+    static QList<QDockWidget*> createViews(QList<UiModule*> modules);
+    static QList<UiModule*> createModules(QStringList paths);
 };
 
 #endif // CONTAINERWINDOW_H

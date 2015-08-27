@@ -6,7 +6,7 @@ QMAKE_CXXFLAGS += -Wall
 SOURCES += \
     db.cpp \
     app-main.cpp \
-    app/ui-module.cpp
+    app/ui-module.cpp \
     app/container-window.cpp
 
 RESOURCES += qml.qrc \
@@ -20,7 +20,7 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS +=  db.h \
-    app/container-window.h
+    app/container-window.h \
     app/ui-module.h
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/src/release/ -lcored

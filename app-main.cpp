@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("psychic_bear", &context);
 
-    ContainerWindow root;
+    ContainerWindow root(nullptr);
     root.setupUi();
     root.setVisible(true);
 

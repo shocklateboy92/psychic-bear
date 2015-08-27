@@ -13,7 +13,12 @@ void ContainerWindow::setupUi()
     setWindowTitle("Hello World");
 }
 
-QList<QWidget *> ContainerWindow::createViews()
+QList<QDockWidget *> ContainerWindow::createViews(QList<UiModule *> modules)
+{
+    return {};
+}
+
+QList<UiModule *> ContainerWindow::createModules(QStringList paths)
 {
     return {};
 }

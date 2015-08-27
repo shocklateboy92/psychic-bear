@@ -1,4 +1,5 @@
 #include "ui-module.h"
+#include "resource.h"
 
 UiModule::UiModule()
 {
