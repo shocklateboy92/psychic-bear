@@ -19,7 +19,7 @@ AttributeManager &AttributeManager::instance()
 
 AttributeManager::AttributeList &AttributeManager::attributes()
 {
-    qSort(m_attributes.begin(), m_attributes.end(), [](const Attribute* v1, const Attribute* v2){return v1->name() < v2->name();});
+    qSort(m_attributes.begin(), m_attributes.end(), [](const Resource* v1, const Resource* v2){return v1->name() < v2->name();});
     return m_attributes;
 }
 
