@@ -6,6 +6,7 @@ QMAKE_CXXFLAGS += -Wall
 SOURCES += \
     db.cpp \
     app-main.cpp \
+    app/ui-module.cpp
     app/container-window.cpp
 
 RESOURCES += qml.qrc \
@@ -20,6 +21,7 @@ include(deployment.pri)
 
 HEADERS +=  db.h \
     app/container-window.h
+    app/ui-module.h
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/src/release/ -lcored
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/src/debug/ -lcored
