@@ -5,9 +5,6 @@
 
 #include <QDockWidget>
 
-const QString ContainerWindow::VIEW_PATH_PATTERN
-                = QStringLiteral("qrc:/ui/*View.qml");
-
 const QStringList ContainerWindow::MODULE_SRC_PATHS = {
     "qrc:/ui/scores/AbilityScoresModule.qml",
     "qrc:/ui/scores/AbilityScoresModule.qml",
@@ -40,14 +37,3 @@ void ContainerWindow::setupUi()
         addDockWidget(Qt::LeftDockWidgetArea, dock);
     }
 }
-
-QList<QDockWidget *> ContainerWindow::createViews(QList<UiModule *> modules)
-{
-    return {};
-}
-
-QList<UiModule *> ContainerWindow::createModules(QStringList paths)
-{
-    return {};
-}
-
