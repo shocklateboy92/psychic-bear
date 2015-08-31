@@ -11,4 +11,7 @@
         <file>scores/SubHeading.qml</file>
         <file>ConditionsView.qml</file>
     </qresource>
+    <qresource prefix="/ui/modules">
+        <file>modules/AbilityScoresModule.qml</file>
+    </qresource>
 </RCC>
