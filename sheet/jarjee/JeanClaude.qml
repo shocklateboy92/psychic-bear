@@ -165,6 +165,12 @@ Item {
         ]
     }
 
+    ClassSkill {
+        name: "Perform (Testimony)"
+        ability: charisma
+        ranks: 3
+    }
+
     Repeater {
         model: [
             "Arcana",
@@ -257,6 +263,27 @@ Item {
         ]
     }
 
+    Attribute {
+        name: "Unspent Skill Points"
+        uri: "attr://skills/totalRanks"
+
+        modifiers: [
+            Bonus {
+                name: "Weaponmaster Base Skills"
+                amount: 6 * level.value
+            },
+            Bonus {
+                name: "Intelligence Bonus"
+                amount: intelligence.permanent.modifier.value * level.value
+            },
+            Bonus {
+                name: "Points from Peform (Testimony)"
+                amount: 3
+            }
+
+        ]
+    }
+
     Item {
         id: hp
         property string prefix: "attr://combat/hitPoints"
@@ -327,8 +354,8 @@ Item {
         uri: "attr://combat/armourPenalty"
         modifiers: [
             Bonus {
-                source: weararmour
-                name: weararmour.name
+                source: wearArmour
+                name: wearArmour.name
                 amount: 4
             }
         ]
@@ -355,8 +382,8 @@ Item {
             },
             Bonus {
                 id: acArmourBonus
-                source: weararmour
-                name: weararmour.name
+                source: wearArmour
+                name: wearArmour.name
                 amount: 6
             }
 
@@ -374,11 +401,6 @@ Item {
                 Bonus {
                     name: "Touch Penalty"
                     amount: -acArmourBonus.amount
-                },
-                Bonus {
-                    source: weararmour
-                    name: weararmour.name
-                    amount: 6
                 }
             ]
         }
@@ -397,8 +419,8 @@ Item {
                     amount: -acDexBonus.amount
                 },
                 Bonus {
-                    source: weararmour
-                    name: weararmour.name
+                    source: wearArmour
+                    name: wearArmour.name
                     amount: 6
                 }
             ]
@@ -456,18 +478,18 @@ Item {
                     amount: strength.temporary.modifier.value
                 },
                 Bonus {
-                    source: pamasterweapon
-                    name: pamasterweapon.name
+                    source: paMasterWeapon
+                    name: paMasterWeapon.name
                     amount: 2
                 },
                 Bonus {
-                    source: pabarraniweapon
-                    name: pabarraniweapon.name
+                    source: paBarraniWeapon
+                    name: paBarraniWeapon.name
                     amount: 1
                 },
                 Bonus {
-                    source: masterofbody
-                    name: masterofbody.name
+                    source: masterOfBody
+                    name: masterOfBody.name
                     amount: constitution.temporary.modifier.value
                 }
 
@@ -541,28 +563,28 @@ Item {
     }
 
     BonusSource {
-        id: pamasterweapon
+        id: paMasterWeapon
         uri: "msrc://feats/masterofweapons"
         name: "Master of weapons (Polearm)"
         conditional: true
     }
 
     BonusSource {
-        id: pabarraniweapon
+        id: paBarraniWeapon
         uri: "msrc://feats/barranicrafts"
         name: "Barrani Craftsmen (Polearm +1)"
         conditional: true
     }
 
     BonusSource {
-        id: masterofbody
+        id: masterOfBody
         uri: "msrc://feats/masterofbody"
         name: "Master of body"
         conditional: true
     }
 
     BonusSource {
-        id: weararmour
+        id: wearArmour
         uri: "msrc://body/weararmour"
         name: "Wear armour (Agile Breastplate)"
         conditional: true
