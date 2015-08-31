@@ -1,4 +1,4 @@
-QT += qml quick widgets sql
+QT += qml quick widgets sql quickwidgets
 CONFIG += c++14 qml_debug
 
 QMAKE_CXXFLAGS += -Wall
