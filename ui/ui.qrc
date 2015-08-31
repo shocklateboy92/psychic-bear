@@ -10,8 +10,6 @@
         <file>scores/Heading.qml</file>
         <file>scores/SubHeading.qml</file>
         <file>ConditionsView.qml</file>
-    </qresource>
-    <qresource prefix="/ui/modules">
-        <file>modules/AbilityScoresModule.qml</file>
+        <file>scores/AbilityScoresModule.qml</file>
     </qresource>
 </RCC>
