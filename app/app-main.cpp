@@ -15,6 +15,8 @@
 #include "db.h"
 #include "ui-module.h"
 
+static const char * PB_UI_NAMESPACE = "org.lasath.psychic_bear.ui";
+
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
@@ -46,6 +48,8 @@ int main(int argc, char *argv[])
     }
 
     engine.rootContext()->setContextProperty("psychic_bear", &context);
+
+    qmlRegisterType<UiModule>(PB_UI_NAMESPACE, 1, 0, "Module");
 
     ContainerWindow root(nullptr);
     root.setupUi();
