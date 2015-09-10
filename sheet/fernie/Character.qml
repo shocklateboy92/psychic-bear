@@ -98,6 +98,7 @@ Item {
     Skill {
         name: "Climb"
         ability: strength
+        ranks: 1
     }
 
     Skill {
@@ -119,6 +120,12 @@ Item {
     Skill {
         name: "Disguise"
         ability: dexterity
+    }
+
+    ClassSkill {
+        name: "Elementalist Sight"
+        ability: wisdom
+        ranks: 0
     }
 
     Skill {
