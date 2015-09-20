@@ -6,7 +6,8 @@ Skill {
     modifiers: [
         Bonus {
             name: "Class Skill"
-            amount: 3
+            // Class skill (aptitude) doesn't apply unless already trained
+            amount: ranks > 0 ? 3 : 0
         }
     ]
 }
