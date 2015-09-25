@@ -110,7 +110,7 @@ Item {
     Skill {
         name: "Disable Device"
         ability: dexterity
-        ranks: 1
+        ranks: 2
     }
 
     Skill {
@@ -253,7 +253,7 @@ Item {
     ClassSkill {
         name: "Swim"
         ability: strength
-        ranks: 2
+        ranks: 3
 
         modifiers: [
             Bonus {
@@ -309,6 +309,10 @@ Item {
                 Bonus {
                     name: "Level 3 Health Roll"
                     amount: 7
+                },
+                Bonus {
+                    name: "Level 4 Health Roll"
+                    amount: 11
                 },
                 Bonus {
                     name: "Favoured Class (All Levels)"
@@ -480,7 +484,7 @@ Item {
                 Bonus {
                     source: paMasterWeapon
                     name: paMasterWeapon.name
-                    amount: 2
+                    amount: 3
                 },
                 Bonus {
                     source: paBarraniWeapon
@@ -491,6 +495,27 @@ Item {
                     source: masterOfBody
                     name: masterOfBody.name
                     amount: constitution.temporary.modifier.value
+                }
+            ]
+        }
+
+        Attribute {
+            name: "Melee Damage Bonus"
+            uri: parent.uri + "/melee/damagebonus"
+            modifiers: [
+                Bonus {
+                    source: paMasterWeapon
+                    name: paMasterWeapon.name
+                    amount: 3
+                },
+                Bonus {
+                    source: paBarraniWeapon
+                    name: paBarraniWeapon.name
+                    amount: 1
+                },
+                Bonus {
+                    name: strength.temporary.modifier.name
+                    amount: strength.temporary.modifier.value*1.5
                 }
 
             ]
@@ -507,8 +532,12 @@ Item {
                 Bonus {
                     name: dexterity.temporary.modifier.name
                     amount: dexterity.temporary.modifier.value
+                },
+                Bonus {
+                    source: boMasterWeapon
+                    name: boMasterWeapon.name
+                    amount: 2
                 }
-
             ]
         }
 
@@ -558,20 +587,27 @@ Item {
 
         modifiers: Bonus {
             name: "Weapon master"
-            amount: 3
+            amount: 4
         }
     }
 
     BonusSource {
         id: paMasterWeapon
-        uri: "msrc://feats/masterofweapons"
+        uri: "msrc://feats/pamasterofweapons"
         name: "Master of weapons (Polearm)"
         conditional: true
     }
 
     BonusSource {
+        id: boMasterWeapon
+        uri: "msrc://feats/bomasterofweapons"
+        name: "Master of weapons (Bow)"
+        conditional: true
+    }
+
+    BonusSource {
         id: paBarraniWeapon
-        uri: "msrc://feats/barranicrafts"
+        uri: "msrc://feats/pabarranicrafts"
         name: "Barrani Craftsmen (Polearm +1)"
         conditional: true
     }
