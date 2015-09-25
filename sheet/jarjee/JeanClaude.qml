@@ -515,6 +515,10 @@ Item {
                 Bonus {
                     name: strength.temporary.modifier.name
                     amount: strength.temporary.modifier.value*1.5
+                },
+                Bonus {
+                    name: "Power Attack with Fauchard"
+                    amount: paBarraniWeapon.active && powatt.active ? powatt.powerAttackMeleeBonus/2 : 0
                 }
 
             ]
@@ -624,5 +628,8 @@ Item {
         name: "Wear armour (Agile Breastplate)"
         conditional: true
     }
+
     Feats.Toughness {}
+
+    Feats.PowerAttack {id: powatt}
 }
