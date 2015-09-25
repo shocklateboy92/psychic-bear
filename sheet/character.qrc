@@ -14,6 +14,7 @@
         <file>CommonTypes.qml</file>
         <file>qmldir</file>
         <file>ArmourClassHelper.qml</file>
+        <file>shared/feats/PowerAttack.qml</file>
         <file>shared/rules/ShootingIntoCombat.qml</file>
         <file>shared/classes/Arcanist.qml</file>
         <file>fernie/gregory/Gregory.qml</file>
