@@ -468,10 +468,9 @@ Item {
             }
         ]
 
-
         Attribute {
-            name: "Melee Attack Bonus"
-            uri: parent.uri + "/melee"
+            name: "Melee To Hit Bonus"
+            uri: parent.uri + "/melee/tohit"
             modifiers: [
                 Bonus {
                     name: baseAttackBonus.name
@@ -522,7 +521,7 @@ Item {
         }
 
         Attribute {
-            name: "Ranged Attack Bonus"
+            name: "Ranged To Hit Bonus"
             uri: parent.uri + "/ranged"
             modifiers: [
                 Bonus {
