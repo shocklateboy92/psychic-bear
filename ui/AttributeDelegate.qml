@@ -19,7 +19,7 @@ ListDelegate {
         Label {
             text: root.value
             font.pointSize: 16
-            width: 24
+            width: 36
             horizontalAlignment: Text.AlignRight
         }
         Label {
