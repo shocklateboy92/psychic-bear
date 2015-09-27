@@ -47,6 +47,7 @@ Rectangle {
 
     Dialog {
         id: new_mod_dialog
+        height: 100
         width: 450
         standardButtons: StandardButton.Ok | StandardButton.Cancel
 
