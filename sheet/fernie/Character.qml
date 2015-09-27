@@ -4,6 +4,7 @@ import "../"
 import org.lasath.psychic_bear 1.0
 
 import "../shared/feats" as Feats
+import "../shared/rules" as Rules
 
 Item {
     AbilityScore {
@@ -544,23 +545,7 @@ Item {
 
     Feats.Toughness {}
 
-    BonusSource {
-        uri: "msrc://rules/combat/penalties/shootingIntoCombat"
-        name: "Shooting Into Combat"
-        conditional: true
-
-        effects: [
-            Bonus {
-                amount: -4
-                target: rangedAttackRef.target
-            }
-        ]
-
-        AttributeRef {
-            id: rangedAttackRef
-            targetUri: "attr://combat/baseAttackBonus/ranged"
-        }
-    }
+    Rules.ShootingIntoCombat {}
 
     // 4th level Knack:
     //      - Summoning Prodogy
