@@ -37,7 +37,9 @@ int main(int argc, char *argv[])
     }
 
     for (Attribute *a : AttributeManager::instance().attributes()) {
-        a->fetchId();
+        if (!a->readOnly()) {
+            a->fetchId();
+        }
     }
 
     engine.rootContext()->setContextProperty("psychic_bear", &context);
