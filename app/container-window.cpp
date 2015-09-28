@@ -78,7 +78,7 @@ void ContainerWindow::setupUi()
     menuBar()->addMenu(help);
 
     for (QString path : MODULE_SRC_PATHS) {
-        auto widget = createWidget(path);
+        QQuickWidget *widget = createWidget(path);
 
         UiModule *module = createModule(widget);
 
