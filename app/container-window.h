@@ -15,11 +15,13 @@ class ContainerWindow : public QMainWindow
     static const QStringList MODULE_SRC_PATHS;
 public:
     explicit ContainerWindow(QWidget *parent = 0);
-
 signals:
 
 public slots:
     void setupUi();
+
+    void readSettings();
+    void writeSettings();
 
 private:
     QQmlEngine* m_engine;
@@ -28,6 +30,10 @@ private:
     UiModule* 		createModule(QQuickWidget *widget);
     QDockWidget* 	createDock(UiModule *module, QQuickWidget *widget);
     QAction* 		createAction(QMenu *views, UiModule *module);
+
+    // QWidget interface
+protected:
+    void closeEvent(QCloseEvent *);
 };
 
 #endif // CONTAINERWINDOW_H

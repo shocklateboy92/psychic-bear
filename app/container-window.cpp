@@ -7,6 +7,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QQmlEngine>
+#include <QSettings>
 
 const QStringList ContainerWindow::MODULE_SRC_PATHS = {
     "qrc:/ui/scores/AbilityScoresModule.qml",
@@ -40,6 +41,7 @@ UiModule * ContainerWindow::createModule(QQuickWidget* widget)
 QDockWidget * ContainerWindow::createDock(UiModule *module, QQuickWidget* widget)
 {
     QDockWidget *dock = new QDockWidget(module->name());
+    dock->setObjectName(module->moduleId());
     dock->setWidget(widget);
 
     return dock;
@@ -96,4 +98,28 @@ void ContainerWindow::setupUi()
 
         addDockWidget(Qt::LeftDockWidgetArea, dock);
     }
+
+    readSettings();
+}
+
+void ContainerWindow::readSettings()
+{
+    QSettings settings;
+    restoreGeometry(settings.value("geometry").toByteArray());
+    restoreState(settings.value("windowState").toByteArray());
+}
+
+void ContainerWindow::writeSettings()
+{
+    QSettings settings;
+    settings.setValue("geometry", saveGeometry());
+    settings.setValue("windowState", saveState());
+    settings.sync();
+}
+
+void ContainerWindow::closeEvent(QCloseEvent *e)
+{
+    writeSettings();
+
+    e->accept();
 }
