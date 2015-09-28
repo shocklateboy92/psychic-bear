@@ -20,6 +20,10 @@ static const char * PB_UI_NAMESPACE = "org.lasath.psychic_bear.ui";
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    app.setOrganizationName("Lasath Foundation");
+    app.setOrganizationDomain("lasath.org");
+    app.setApplicationName("Psychic Bear");
+
     QQmlApplicationEngine engine;
     QQmlComponent character(&engine);
     ProjectContext context(&engine);
