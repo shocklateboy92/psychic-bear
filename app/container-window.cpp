@@ -32,6 +32,7 @@ UiModule * ContainerWindow::createModule(QQuickWidget* widget)
 {
     UiModule *module = qobject_cast<UiModule*>(widget->rootObject());
     Q_ASSERT(module);
+    Q_ASSERT(!module->moduleId().isEmpty());
 
     return module;
 }

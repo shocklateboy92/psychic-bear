@@ -7,6 +7,7 @@ import org.lasath.psychic_bear.ui 1.0
 
 Module {
     name: "Ability Scores"
+    moduleId: "abilityScores"
 
     FilteredAttributeList {
         id: perms
