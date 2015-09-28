@@ -3,8 +3,8 @@
         <file>AttributesView.qml</file>
         <file>ListDelegate.qml</file>
         <file>AttributeDelegate.qml</file>
-        <file>ModifiersView.qml</file>
-        <file>NewModifierDialog.qml</file>
+        <file>info/AttributeInfoModule.qml</file>
+        <file>info/NewModifierDialog.qml</file>
         <file>scores/ColumnRepeater.qml</file>
         <file>scores/Heading.qml</file>
         <file>scores/SubHeading.qml</file>

@@ -10,8 +10,7 @@
 
 const QStringList ContainerWindow::MODULE_SRC_PATHS = {
     "qrc:/ui/scores/AbilityScoresModule.qml",
-    "qrc:/ui/scores/AbilityScoresModule.qml",
-    "qrc:/ui/scores/AbilityScoresModule.qml"
+    "qrc:/ui/info/AttributeInfoModule.qml"
 };
 
 ContainerWindow::ContainerWindow(QWidget *parent)
