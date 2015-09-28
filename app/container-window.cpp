@@ -6,6 +6,7 @@
 #include <QDockWidget>
 #include <QMenu>
 #include <QMenuBar>
+#include <QQmlEngine>
 
 const QStringList ContainerWindow::MODULE_SRC_PATHS = {
     "qrc:/ui/scores/AbilityScoresModule.qml",
@@ -13,14 +14,15 @@ const QStringList ContainerWindow::MODULE_SRC_PATHS = {
     "qrc:/ui/scores/AbilityScoresModule.qml"
 };
 
-ContainerWindow::ContainerWindow(QWidget *parent) : QMainWindow(parent)
+ContainerWindow::ContainerWindow(QWidget *parent)
+    : QMainWindow(parent), m_engine(new QQmlEngine(this))
 {
 
 }
 
 QQuickWidget* ContainerWindow::createWidget(const QString &path) {
     // I think the dock will take ownership of this later
-    QQuickWidget *widget = new QQuickWidget;
+    QQuickWidget *widget = new QQuickWidget(m_engine, this);
 
     widget->setSource(QUrl(path));
     widget->setResizeMode(QQuickWidget::SizeRootObjectToView);
