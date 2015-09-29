@@ -9,7 +9,6 @@ import org.lasath.psychic_bear.ui 1.0
 import ".."
 
 Module {
-    property alias filterPattern: attribute_list.pattern
 
     GroupBox {
         id: groupbox
@@ -23,10 +22,7 @@ Module {
             clip: true
             boundsBehavior: Flickable.StopAtBounds
 
-            FilteredAttributeList {
-                id: attribute_list
-            }
-            model: attribute_list.attributes
+            model: matchingResources
 
             delegate: AttributeDelegate {
                 width: parent.width
