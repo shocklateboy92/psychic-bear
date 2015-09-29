@@ -11,7 +11,9 @@
 
 const QStringList ContainerWindow::MODULE_SRC_PATHS = {
     "qrc:/ui/scores/AbilityScoresModule.qml",
-    "qrc:/ui/info/AttributeInfoModule.qml"
+    "qrc:/ui/info/AttributeInfoModule.qml",
+    "qrc:/ui/attrs/CombatAttributesModule.qml",
+    "qrc:/ui/attrs/SkillAttributesModule.qml"
 };
 
 ContainerWindow::ContainerWindow(QWidget *parent)
@@ -102,18 +104,20 @@ void ContainerWindow::setupUi()
     readSettings();
 }
 
+static const int SETTINGS_VERSION = 2;
+
 void ContainerWindow::readSettings()
 {
     QSettings settings;
     restoreGeometry(settings.value("geometry").toByteArray());
-    restoreState(settings.value("windowState").toByteArray());
+    restoreState(settings.value("windowState").toByteArray(), SETTINGS_VERSION);
 }
 
 void ContainerWindow::writeSettings()
 {
     QSettings settings;
     settings.setValue("geometry", saveGeometry());
-    settings.setValue("windowState", saveState());
+    settings.setValue("windowState", saveState(SETTINGS_VERSION));
     settings.sync();
 }
 

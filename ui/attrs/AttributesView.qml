@@ -4,16 +4,18 @@ import QtQuick.Controls.Styles 1.2
 import QtQuick.Layouts 1.1
 
 import org.lasath.psychic_bear 1.0
+import org.lasath.psychic_bear.ui 1.0
 
-Rectangle {
-    property Attribute activeAttribute
+import ".."
+
+Module {
     property alias filterPattern: attribute_list.pattern
-    property alias name: groupbox.title
 
     GroupBox {
         id: groupbox
         anchors.margins: 10
         anchors.fill: parent
+        title: name
 
         ListView {
             id: listView
@@ -31,10 +33,8 @@ Rectangle {
                 text: model.name
                 value: model.value
 
-                active: activeAttribute == modelData
-                onActivationRequest: {
-                    activeAttribute = modelData;
-                }
+                active: UiInfo.activeAttribute == modelData
+                onActivationRequest: UiInfo.activeAttribute = modelData
 
                 separator_visible: index !== (listView.count - 1)
             }

@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/ui">
-        <file>AttributesView.qml</file>
+        <file>attrs/AttributesView.qml</file>
+        <file>attrs/SkillAttributesModule.qml</file>
         <file>ListDelegate.qml</file>
         <file>AttributeDelegate.qml</file>
         <file>info/AttributeInfoModule.qml</file>
@@ -12,5 +13,6 @@
         <file>scores/AbilityScoresModule.qml</file>
         <file>UiInfo.qml</file>
         <file>qmldir</file>
+        <file>attrs/CombatAttributesModule.qml</file>
     </qresource>
 </RCC>
