@@ -9,19 +9,19 @@ Module {
     name: "Ability Scores"
     moduleId: "abilityScores"
 
-    FilteredAttributeList {
+    FilteredResourceList {
         id: perms
         pattern: "attr://abilityScores/*/permanent"
     }
-    FilteredAttributeList {
+    FilteredResourceList {
         id: permaMods
         pattern: "attr://abilityScores/*/permanent/modifier"
     }
-    FilteredAttributeList {
+    FilteredResourceList {
         id: temps
         pattern: "attr://abilityScores/*/temporary"
     }
-    FilteredAttributeList {
+    FilteredResourceList {
         id: tempMods
         pattern: "attr://abilityScores/*/temporary/modifier"
     }
@@ -41,7 +41,7 @@ Module {
         }
 
         Repeater {
-            model: perms.attributes
+            model: perms.matches
             delegate: Label {
                 text: model.name
                 Layout.alignment: Qt.AlignRight
@@ -57,14 +57,14 @@ Module {
             text: "Value"
         }
         ColumnRepeater {
-            model: perms.attributes
+            model: perms.matches
         }
 
         SubHeading {
             text: "Modifier"
         }
         ColumnRepeater {
-            model: permaMods.attributes
+            model: permaMods.matches
         }
 
         SubHeading {
@@ -76,14 +76,14 @@ Module {
             text: "Value"
         }
         ColumnRepeater {
-            model: temps.attributes
+            model: temps.matches
         }
 
         SubHeading {
             text: "Modifier"
         }
         ColumnRepeater {
-            model: tempMods.attributes
+            model: tempMods.matches
         }
     }
 }

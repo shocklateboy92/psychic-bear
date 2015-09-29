@@ -6,31 +6,33 @@
 
 #include <QQuickItem>
 
-class PB_SHARED_EXPORT FilteredAttributeList : public QObject
+// TODO: move into app.pro
+class PB_SHARED_EXPORT ResourceFilter : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString pattern READ pattern
                WRITE setPattern NOTIFY patternChanged)
-    Q_PROPERTY(QQmlListProperty<Attribute> attributes
-               READ attribtues NOTIFY attributesChanged)
+    Q_PROPERTY(QQmlListProperty<Resource> matches
+               READ matches NOTIFY matchesChanged)
 
 public:
-    FilteredAttributeList(QObject *parent = 0);
-    ~FilteredAttributeList();
+    ResourceFilter(QObject *parent = 0);
+    ~ResourceFilter();
 
     QString pattern() const;
-    ProjectContext::AttributeList attribtues();
+    ProjectContext::ResourceList matches();
 
 signals:
     void patternChanged(QString arg);
-    void attributesChanged(ProjectContext::AttributeList arg);
+    void matchesChanged(ProjectContext::ResourceList arg);
 
 public slots:
     void setPattern(QString arg);
+    void updateResources(Resource::List availableResources);
 
 private:
     QString m_pattern;
-    AttributeManager::AttributeList m_attributes;
+    Resource::List m_matches;
 };
 
 #endif // FILTEREDATTRIBUTELIST_H
