@@ -5,7 +5,7 @@
 #include <QQmlContext>
 #include <core_plugin.h>
 
-#include <src/filtered-attribute-list.h>
+#include <src/resource-filter.h>
 
 #include <app/container-window.h>
 
