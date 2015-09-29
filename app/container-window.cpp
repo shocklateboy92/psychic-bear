@@ -9,6 +9,7 @@
 #include <QMenuBar>
 #include <QQmlEngine>
 #include <QSettings>
+#include <resource-filter.h>
 
 const QStringList ContainerWindow::MODULE_SRC_PATHS = {
     "qrc:/ui/scores/AbilityScoresModule.qml",
@@ -52,6 +53,8 @@ UiModule * ContainerWindow::createModule(QQuickWidget* widget)
     Q_ASSERT(module);
     Q_ASSERT(!module->moduleId().isEmpty());
 
+    // TODO: Consider moving this into UiModule
+    // like ResourceFilter::updateReources()
     Resource::List matchingRes;
     for (QString &pattern : module->requiredResources()) {
         QRegExp regex(pattern, Qt::CaseInsensitive, QRegExp::Wildcard);
@@ -63,6 +66,12 @@ UiModule * ContainerWindow::createModule(QQuickWidget* widget)
     }
 
     module->setMatchingResources(matchingRes);
+
+    QList<ResourceFilter*> filters;
+    ProjectContext::populateInstancesOf<ResourceFilter>(module, filters);
+    for (auto res : filters) {
+        res->updateResources(context()->allResources());
+    }
 
     return module;
 }
