@@ -9,7 +9,7 @@ SOURCES += \
     app/container-window.cpp \
     app/app-main.cpp
 
-RESOURCES += qml.qrc \
+RESOURCES += \
     sheet/character.qrc \
     ui/ui.qrc
 
