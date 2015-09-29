@@ -1,5 +1,6 @@
 #include "container-window.h"
 #include "ui-module.h"
+#include "project-context.h"
 
 #include <QtQuickWidgets/QQuickWidget>
 
@@ -16,10 +17,18 @@ const QStringList ContainerWindow::MODULE_SRC_PATHS = {
     "qrc:/ui/attrs/SkillAttributesModule.qml"
 };
 
+static const int SETTINGS_VERSION = 4;
+
 ContainerWindow::ContainerWindow(QWidget *parent)
-    : QMainWindow(parent), m_engine(new QQmlEngine(this))
+    : QMainWindow(parent), m_engine(new QQmlEngine(this)),
+      m_context(nullptr)
 {
 
+}
+
+void ContainerWindow::setProjectContext(ProjectContext *context)
+{
+    m_context = context;
 }
 
 QQuickWidget* ContainerWindow::createWidget(const QString &path) {
@@ -36,6 +45,18 @@ UiModule * ContainerWindow::createModule(QQuickWidget* widget)
     UiModule *module = qobject_cast<UiModule*>(widget->rootObject());
     Q_ASSERT(module);
     Q_ASSERT(!module->moduleId().isEmpty());
+
+    Resource::List matchingRes;
+    for (QString &pattern : module->requiredResources()) {
+        QRegExp regex(pattern, Qt::CaseInsensitive, QRegExp::Wildcard);
+        for (Resource *res : context()->allResources()) {
+            if (regex.exactMatch(res->uri())) {
+                matchingRes.append(res);
+            }
+        }
+    }
+
+    module->setMatchingResources(matchingRes);
 
     return module;
 }
@@ -104,8 +125,6 @@ void ContainerWindow::setupUi()
     readSettings();
 }
 
-static const int SETTINGS_VERSION = 2;
-
 void ContainerWindow::readSettings()
 {
     QSettings settings;
@@ -120,6 +139,11 @@ void ContainerWindow::writeSettings()
     settings.setValue("windowState", saveState(SETTINGS_VERSION));
     settings.sync();
 }
+ProjectContext *ContainerWindow::context() const
+{
+    return m_context;
+}
+
 
 void ContainerWindow::closeEvent(QCloseEvent *e)
 {

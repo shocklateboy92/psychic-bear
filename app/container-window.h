@@ -6,6 +6,7 @@
 class QQmlEngine;
 class UiModule;
 class QQuickWidget;
+class ProjectContext;
 
 class ContainerWindow : public QMainWindow
 {
@@ -15,7 +16,9 @@ class ContainerWindow : public QMainWindow
     static const QStringList MODULE_SRC_PATHS;
 public:
     explicit ContainerWindow(QWidget *parent = 0);
-signals:
+
+    ProjectContext *context() const;
+    void setProjectContext(ProjectContext *context);
 
 public slots:
     void setupUi();
@@ -25,6 +28,7 @@ public slots:
 
 private:
     QQmlEngine* m_engine;
+    ProjectContext *m_context;
 
     QQuickWidget* 	createWidget(const QString &path);
     UiModule* 		createModule(QQuickWidget *widget);

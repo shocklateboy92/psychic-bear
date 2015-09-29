@@ -1,14 +1,15 @@
 #include "ui-module.h"
 #include "resource.h"
 
-UiModule::UiModule()
+UiModule::UiModule(QQuickItem *parent)
+    : QQuickItem(parent)
 {
 
 }
 
-UiModule::ResourceList UiModule::resources() const
+UiModule::ResourceList UiModule::matchingResources()
 {
-    return m_resources;
+    return ResourceList(dynamic_cast<QObject*>(this), m_resources);
 }
 
 QString UiModule::moduleId() const
@@ -51,5 +52,11 @@ void UiModule::setRequiredResources(QStringList requiredResources)
 
     m_requiredResources = requiredResources;
     emit requiredResourcesChanged(requiredResources);
+}
+
+void UiModule::setMatchingResources(Resource::List list)
+{
+    m_resources = list;
+    emit matchingResourcesChanged(matchingResources());
 }
 

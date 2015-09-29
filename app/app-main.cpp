@@ -56,6 +56,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<UiModule>(PB_UI_NAMESPACE, 1, 0, "Module");
 
     ContainerWindow root(nullptr);
+    root.setProjectContext(&context);
     root.setupUi();
     root.setVisible(true);
 

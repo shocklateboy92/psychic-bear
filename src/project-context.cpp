@@ -2,7 +2,7 @@
 #include "attribute-ref.h"
 
 ProjectContext::ProjectContext(QObject *parent)
-    : QObject(parent)
+    : QObject(parent), m_resources()
 {
 }
 
@@ -46,6 +46,13 @@ void ProjectContext::setCharacterRoot(QObject *root)
             a->setTarget(attributeUriMap[a->targetUri()]);
         }
     }
+
+    populateInstancesOf<Resource>(root, m_resources);
+}
+
+Resource::List ProjectContext::allResources()
+{
+    return m_resources;
 }
 
 template <typename T>

@@ -27,8 +27,11 @@ public:
     template <typename T>
     static void PB_SHARED_EXPORT populateInstancesOf(QObject *obj, QList<T*> &res);
 
+    Resource::List allResources();
+
 private:
     BonusSource::List m_bonusSrcList;
+    Resource::List m_resources;
 };
 
 #endif // PROJECTCONTEXT_H
