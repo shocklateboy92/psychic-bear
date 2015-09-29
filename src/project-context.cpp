@@ -1,5 +1,6 @@
 #include "project-context.h"
 #include "attribute-ref.h"
+#include "resource-filter.h"
 
 ProjectContext::ProjectContext(QObject *parent)
     : QObject(parent), m_resources()
@@ -11,23 +12,8 @@ ProjectContext::~ProjectContext()
 
 }
 
-ProjectContext::AttributeList ProjectContext::all_attributes()
-{
-    return AttributeList(this, AttributeManager::instance().attributes());
-}
-
-ProjectContext::BonusSourceList ProjectContext::all_bonus_sources()
-{
-    return BonusSourceList(this, m_bonusSrcList);
-}
-
 void ProjectContext::setCharacterRoot(QObject *root)
 {
-    populateInstancesOf(root, m_bonusSrcList);
-    for (BonusSource *msrc : m_bonusSrcList) {
-        msrc->fetchDbValues();
-    }
-
     QHash<QString, Attribute*> attributeUriMap;
     QList<Attribute*> attributeList;
 
@@ -38,7 +24,6 @@ void ProjectContext::setCharacterRoot(QObject *root)
     }
 
     QList<AttributeRef*> attributeRefList;
-
     populateInstancesOf<AttributeRef>(root, attributeRefList);
 
     for (AttributeRef *a : attributeRefList) {
@@ -53,16 +38,4 @@ void ProjectContext::setCharacterRoot(QObject *root)
 Resource::List ProjectContext::allResources()
 {
     return m_resources;
-}
-
-template <typename T>
-void ProjectContext::populateInstancesOf(QObject *obj, QList<T*> &res) {
-    auto cast = qobject_cast<T*>(obj);
-    if (cast) {
-        res.append(cast);
-    }
-
-    for (QObject *child : obj->children()) {
-        populateInstancesOf(child, res);
-    }
 }
