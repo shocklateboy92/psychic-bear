@@ -9,7 +9,7 @@
         <file>scores/ColumnRepeater.qml</file>
         <file>scores/Heading.qml</file>
         <file>scores/SubHeading.qml</file>
-        <file>ConditionsView.qml</file>
+        <file>conds/ConditionsModule.qml</file>
         <file>scores/AbilityScoresModule.qml</file>
         <file>UiInfo.qml</file>
         <file>qmldir</file>

@@ -14,7 +14,8 @@ const QStringList ContainerWindow::MODULE_SRC_PATHS = {
     "qrc:/ui/scores/AbilityScoresModule.qml",
     "qrc:/ui/info/AttributeInfoModule.qml",
     "qrc:/ui/attrs/CombatAttributesModule.qml",
-    "qrc:/ui/attrs/SkillAttributesModule.qml"
+    "qrc:/ui/attrs/SkillAttributesModule.qml",
+    "qrc:/ui/conds/ConditionsModule.qml"
 };
 
 static const int SETTINGS_VERSION = 4;
