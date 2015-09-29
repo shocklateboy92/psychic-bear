@@ -38,6 +38,11 @@ QQuickWidget* ContainerWindow::createWidget(const QString &path) {
 
     widget->setSource(QUrl(path));
     widget->setResizeMode(QQuickWidget::SizeRootObjectToView);
+
+    for (auto err : widget->errors()) {
+        qWarning() << err;
+    }
+
     return widget;
 }
 
