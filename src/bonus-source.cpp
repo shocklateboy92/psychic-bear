@@ -51,6 +51,16 @@ QQmlListProperty<Bonus> BonusSource::effects()
     };
 }
 
+bool BonusSource::isDynamic() const
+{
+    return isConditional();
+}
+
+bool BonusSource::initDb()
+{
+    return fetchDbValues();
+}
+
 void BonusSource::setActive(bool active)
 {
     if (m_active == active)

@@ -45,9 +45,12 @@ int main(int argc, char *argv[])
         context.setCharacterRoot(charObject);
     }
 
-    for (Attribute *a : AttributeManager::instance().attributes()) {
-        if (!a->readOnly()) {
-            a->fetchId();
+    for (Resource *a : context.allResources()) {
+        if (a->isDynamic()) {
+            bool success = a->initDb();
+            if (!success) {
+                qWarning() << "failed to initialize DB for" << a->name();
+            }
         }
     }
 
