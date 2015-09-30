@@ -28,6 +28,9 @@ public:
     bool isEffectivelyConditional() const;
     QQmlListProperty<Bonus> effects();
 
+    bool isDynamic() const override;
+    bool initDb() override;
+
 signals:
     void activeChanged(bool active);
     void conditionalChanged(bool conditional);

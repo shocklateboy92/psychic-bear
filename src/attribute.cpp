@@ -60,9 +60,21 @@ int Attribute::value() const
                 Bonus::add);
 }
 
-bool Attribute::readOnly()
+bool Attribute::readOnly() const
 {
     return m_readOnly || db().error();
+}
+
+bool Attribute::isDynamic() const
+{
+    return !readOnly();
+}
+
+bool Attribute::initDb()
+{
+    bool success = fetchId();
+    updateStaticModifiers();
+    return success;
 }
 
 void Attribute::onModifierChanged(Bonus *m)

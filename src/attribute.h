@@ -27,7 +27,10 @@ public:
 
     QQmlListProperty<Bonus> modifiers();
     int value() const;
-    bool readOnly();
+    bool readOnly() const;
+
+    bool isDynamic() const override;
+    bool initDb() override;
 
 signals:
     void modifiersChanged(QQmlListProperty<Bonus> arg);
