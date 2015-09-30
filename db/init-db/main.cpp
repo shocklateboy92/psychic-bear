@@ -58,7 +58,9 @@ int main(int argc, char *argv[])
         qFatal("Failed to open database");
     }
 
-    populate_db<Attribute>(db, AttributeManager::instance().attributes());
+    Attribute::List attributes;
+    ProjectContext::populateInstancesOf<Attribute>(character, attributes);
+    populate_db<Attribute>(db, attributes);
 
     BonusSource::List bonusSources;
     ProjectContext::populateInstancesOf<BonusSource>(character, bonusSources);
