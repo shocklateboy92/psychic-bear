@@ -20,6 +20,8 @@ class PB_SHARED_EXPORT Attribute : public Resource
     using ModelType = QList<QString>;
     using ModelPointer = ModelType;
 public:
+    using List = QList<Attribute*>;
+
     Attribute(QQuickItem *parent = nullptr);
     ~Attribute();
 
