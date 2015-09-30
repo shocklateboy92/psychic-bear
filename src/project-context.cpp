@@ -1,6 +1,7 @@
 #include "project-context.h"
 #include "attribute-ref.h"
 #include "resource-filter.h"
+#include "attribute.h"
 
 ProjectContext::ProjectContext(QObject *parent)
     : QObject(parent), m_resources()

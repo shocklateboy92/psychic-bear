@@ -9,7 +9,6 @@
 
 #include <app/container-window.h>
 
-#include <src/attribute-manager.h>
 #include <src/bonus-source.h>
 #include <src/project-context.h>
 #include "db.h"

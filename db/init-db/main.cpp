@@ -8,11 +8,11 @@
 #include <attribute.h>
 
 #include <QSqlQuery>
-#include <attribute-manager.h>
 #include <core_plugin.h>
 #include <functional>
 #include <project-context.h>
 #include <bonus-source.h>
+#include <attribute.h>
 
 template <typename T>
 void populate_db(QSqlDatabase &db, QList<T*> input);

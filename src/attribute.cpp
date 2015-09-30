@@ -1,5 +1,4 @@
 #include "attribute.h"
-#include "attribute-manager.h"
 #include "bonus-type.h"
 #include <algorithm>
 #include <numeric>
@@ -7,7 +6,6 @@
 Attribute::Attribute(QQuickItem *parent)
     : Resource("Attributes", parent), m_readOnly(true)
 {
-    AttributeManager::instance().addAttribute(this);
 }
 
 Attribute::~Attribute()

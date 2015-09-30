@@ -1,7 +1,6 @@
 #ifndef PROJECTCONTEXT_H
 #define PROJECTCONTEXT_H
 
-#include "attribute-manager.h"
 #include "bonus-source.h"
 
 #include <QObject>
