@@ -27,14 +27,7 @@ private:
 
 template <typename T>
 void ProjectContext::populateInstancesOf(QObject *obj, QList<T*> &res) {
-    auto cast = qobject_cast<T*>(obj);
-    if (cast) {
-        res.append(cast);
-    }
-
-    for (QObject *child : obj->children()) {
-        populateInstancesOf(child, res);
-    }
+    res = obj->findChildren<T*>();
 }
 
 #endif // PROJECTCONTEXT_H
