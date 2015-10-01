@@ -9,19 +9,19 @@ Module {
     name: "Ability Scores"
     moduleId: "abilityScores"
 
-    FilteredResourceList {
+    ResourceFilter {
         id: perms
         pattern: "attr://abilityScores/*/permanent"
     }
-    FilteredResourceList {
+    ResourceFilter {
         id: permaMods
         pattern: "attr://abilityScores/*/permanent/modifier"
     }
-    FilteredResourceList {
+    ResourceFilter {
         id: temps
         pattern: "attr://abilityScores/*/temporary"
     }
-    FilteredResourceList {
+    ResourceFilter {
         id: tempMods
         pattern: "attr://abilityScores/*/temporary/modifier"
     }
