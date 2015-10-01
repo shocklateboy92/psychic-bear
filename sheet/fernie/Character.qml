@@ -155,7 +155,7 @@ Item {
         ranks: 3
     }
 
-    Repeater {
+    Instantiator {
         model: [
             "Arcana",
             "Dungeoneering",
