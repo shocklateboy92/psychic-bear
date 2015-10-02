@@ -8,6 +8,7 @@ Module {
     moduleId: "actions"
 
     anchors.margins: 10
+    GroupBox {
 
     ToolButton {
         id: backButton
@@ -15,7 +16,7 @@ Module {
             top: parent.top
             bottom: parent.bottom
             left: parent.left
-            margins: 10
+//            margins: 10
         }
         width: 0
 
@@ -34,25 +35,30 @@ Module {
             }
         ]
     }
+        title: "Available Actions :"
+        anchors.fill: parent
+        anchors.margins: 10
+        clip: true
 
-    StackView {
-        id: stack
-        anchors {
-            top: parent.top
-            bottom: parent.bottom
-            left: backButton.right
-            right: parent.right
-            margins: 10
-            leftMargin: 0
-        }
 
-        initialItem: GroupBox {
-            title: "Available Actions :"
-            width: parent.width
-            height: parent.height
+        StackView {
+            id: stack
+            anchors {
+                top: parent.top
+                bottom: parent.bottom
+                left: backButton.right
+                right: parent.right
+//                margins: 10
+//                leftMargin: 0
+            }
+//            anchors.fill: parent
+//            anchors.margins: 10
 
-            ListView {
-                anchors.fill: parent
+            initialItem: ListView {
+
+                width: parent.width
+                height: parent.height
+
                 model: dummyData
 
                 delegate: Button {
