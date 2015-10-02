@@ -14,5 +14,7 @@
         <file>UiInfo.qml</file>
         <file>qmldir</file>
         <file>attrs/CombatAttributesModule.qml</file>
+        <file>actions/QuickActionsModule.qml</file>
+        <file>actions/ActionsView.qml</file>
     </qresource>
 </RCC>
