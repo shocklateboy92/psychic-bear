@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.3
 
 import org.lasath.psychic_bear 1.0
 
@@ -25,5 +25,26 @@ Item {
             }
             console.log(str);
         }
+    }
+
+    Instantiator {
+        model: 10
+
+        Attribute {
+            name: "Level " + modelData + " Spells Per Day (Total)"
+            uri: "attr://spells/castsPerDay/total/" + modelData
+
+            modifiers: [
+                Bonus {
+                    name: "Arcanist Base"
+                    amount: getSpellsPerDayOf(modelData, levelRef.target.value)
+                }
+            ]
+        }
+    }
+
+    AttributeRef {
+        id: levelRef
+        targetUri: "attr://level"
     }
 }
