@@ -19,18 +19,6 @@ Item {
         return Math.max(Math.ceil((abilityModifier - spellLevel + 1) / 4), 0);
     }
 
-    Component.onCompleted: {
-        //        console.log(Math.ceil(1 / 2));
-        for (var j = 1; j < 20; j++) {
-            //            var str = j + ": ";
-            var str = "";
-            for (var i = 1; i < 9; i++) {
-                str += getSpellsPerDayOf(i, j) + " ";
-            }
-            console.log(str);
-        }
-    }
-
     Instantiator {
         model: [1,2,3,4,5,6,7,8,9]
 
