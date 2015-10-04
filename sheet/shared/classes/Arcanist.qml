@@ -20,9 +20,9 @@ Item {
     }
 
     Component.onCompleted: {
-//        console.log(Math.ceil(1 / 2));
+        //        console.log(Math.ceil(1 / 2));
         for (var j = 1; j < 20; j++) {
-//            var str = j + ": ";
+            //            var str = j + ": ";
             var str = "";
             for (var i = 1; i < 9; i++) {
                 str += getSpellsPerDayOf(i, j) + " ";
@@ -34,20 +34,51 @@ Item {
     Instantiator {
         model: [1,2,3,4,5,6,7,8,9]
 
-        Attribute {
-            name: "Level " + modelData + " Spells Per Day (Total)"
-            uri: "attr://spells/castsPerDay/total/" + modelData
+        Item {
+            property int spellLevel: modelData
 
-            modifiers: [
-                Bonus {
-                    name: "Arcanist Base"
-                    amount: getSpellsPerDayOf(modelData, levelRef.target.value)
-                },
-                Bonus {
-                    name: "Bonus Spells (INT)"
-                    amount: getBonusSpellsPerDayOf(modelData, intRef.target.value)
-                }
-            ]
+            Attribute {
+                id: totalSpells
+                name: "Total Level " + spellLevel + " Spells Per Day"
+                uri: "attr://spells/castsPerDay/total/" + spellLevel
+
+                modifiers: [
+                    Bonus {
+                        name: "Arcanist Base"
+                        amount: getSpellsPerDayOf(spellLevel, levelRef.target.value)
+                    },
+                    Bonus {
+                        name: "Bonus Spells (INT)"
+                        amount: getBonusSpellsPerDayOf(spellLevel, intRef.target.value)
+                    }
+                ]
+            }
+
+            Attribute {
+                name: "Remaining Level " + spellLevel + " Spells Per Day"
+                uri: "attr://spells/castsPerDay/remaining/" + spellLevel
+                readOnly: false
+
+                modifiers: [
+                    Bonus {
+                        name: "Total Spells"
+                        amount: totalSpells.value
+                    }
+                ]
+            }
+
+            Attribute {
+                name: "Prepared Level " + spellLevel + " Spells Per Day"
+                uri: "attr://spells/prepared/total"
+
+                modifiers: [
+                    Bonus {
+                        // TODO: Make function for prepared spells per day table
+                        name: "Arcanist Base"
+                        amount: 2
+                    }
+                ]
+            }
         }
     }
 
