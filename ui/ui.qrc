@@ -14,5 +14,6 @@
         <file>UiInfo.qml</file>
         <file>qmldir</file>
         <file>attrs/CombatAttributesModule.qml</file>
+        <file>spells/SpellsModule.qml</file>
     </qresource>
 </RCC>
