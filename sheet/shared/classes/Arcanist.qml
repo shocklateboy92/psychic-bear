@@ -15,6 +15,10 @@ Item {
         return 0;
     }
 
+    function getBonusSpellsPerDayOf(spellLevel, abilityModifier) {
+        return Math.max(Math.ceil((abilityModifier - spellLevel + 1) / 4), 0);
+    }
+
     Component.onCompleted: {
 //        console.log(Math.ceil(1 / 2));
         for (var j = 1; j < 20; j++) {
@@ -28,7 +32,7 @@ Item {
     }
 
     Instantiator {
-        model: 10
+        model: [1,2,3,4,5,6,7,8,9]
 
         Attribute {
             name: "Level " + modelData + " Spells Per Day (Total)"
@@ -38,6 +42,10 @@ Item {
                 Bonus {
                     name: "Arcanist Base"
                     amount: getSpellsPerDayOf(modelData, levelRef.target.value)
+                },
+                Bonus {
+                    name: "Bonus Spells (INT)"
+                    amount: getBonusSpellsPerDayOf(modelData, intRef.target.value)
                 }
             ]
         }
@@ -46,5 +54,9 @@ Item {
     AttributeRef {
         id: levelRef
         targetUri: "attr://level"
+    }
+    AttributeRef {
+        id: intRef
+        targetUri: "attr://abilityScores/intelligence/permanent/modifier"
     }
 }
