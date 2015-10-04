@@ -14,5 +14,6 @@
         <file>CommonTypes.qml</file>
         <file>qmldir</file>
         <file>ArmourClassHelper.qml</file>
+        <file>shared/classes/Arcanist.qml</file>
     </qresource>
 </RCC>
