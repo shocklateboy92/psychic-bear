@@ -1,0 +1,122 @@
+import QtQuick 2.3
+
+import "../"
+import org.lasath.psychic_bear 1.0
+
+import "../shared/feats" as Feats
+import "../shared/classes" as Classes
+
+Item {
+    AbilityScore {
+        id: strength
+        name: "Strength"
+
+        permanent.modifiers: [
+            Bonus {
+                source: pointBuy
+                amount: 2
+            },
+            Bonus {
+                source: oldAge
+                amount: -3
+            }
+        ]
+    }
+
+    AbilityScore {
+        id: dexterity
+        name: "Dexterity"
+
+        permanent.modifiers: [
+            Bonus {
+                source: pointBuy
+                amount: 4
+            },
+            Bonus {
+                source: oldAge
+                amount: -3
+            }
+        ]
+    }
+
+    AbilityScore {
+        id: constitution
+        name: "Constitution"
+
+        permanent.modifiers: [
+            Bonus {
+                source: pointBuy
+                amount: 4
+            },
+            Bonus {
+                source: oldAge
+                amount: -3
+            }
+        ]
+    }
+
+    AbilityScore {
+        id: intelligence
+        name: "Intelligence"
+
+        permanent.modifiers: [
+            Bonus {
+                source: pointBuy
+                amount: 6
+            },
+            Bonus {
+                source: race
+                amount: 2
+            },
+            Bonus {
+                source: oldAge
+                amount: 2
+            }
+        ]
+    }
+
+    AbilityScore {
+        id: wisdom
+        name: "Wisdom"
+
+        permanent.modifiers: [
+            Bonus {
+                source: pointBuy
+                amount: 5
+            },
+            Bonus {
+                source: oldAge
+                amount: 2
+            }
+        ]
+    }
+
+    AbilityScore {
+        id: charisma
+        name: "Charisma"
+        permanent.modifiers: [
+            Bonus {
+                source: pointBuy
+                amount: -5
+            },
+            Bonus {
+                source: oldAge
+                amount: 2
+            }
+        ]
+    }
+
+    Classes.Arcanist {
+    }
+
+    BonusSource {
+        id: pointBuy
+        name: "Point Buy"
+    }
+
+    BonusSource {
+        id: race
+        name: "Race (Human)"
+    }
+}
+
