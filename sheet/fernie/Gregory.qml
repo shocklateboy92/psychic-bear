@@ -106,7 +106,35 @@ Item {
         ]
     }
 
+    Attribute {
+        id: level
+        name: "Character Level"
+        uri: "attr://level"
+
+        modifiers: Bonus {
+            name: "Elementalist"
+            amount: 2
+        }
+    }
+
     Classes.Arcanist {
+    }
+
+    Skills {
+    }
+
+    SavingThrow {
+        name: "Fortitude"
+        ability: constitution
+    }
+    SavingThrow {
+        name: "Reflex"
+        ability: dexterity
+    }
+    SavingThrow {
+        name: "Will"
+        ability: wisdom
+        primary: true
     }
 
     BonusSource {
@@ -117,6 +145,11 @@ Item {
     BonusSource {
         id: race
         name: "Race (Human)"
+    }
+
+    BonusSource {
+        id: oldAge
+        name: "Old Age"
     }
 }
 

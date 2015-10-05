@@ -17,5 +17,6 @@
         <file>shared/rules/ShootingIntoCombat.qml</file>
         <file>shared/classes/Arcanist.qml</file>
         <file>fernie/Gregory.qml</file>
+        <file>fernie/Skills.qml</file>
     </qresource>
 </RCC>
