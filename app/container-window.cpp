@@ -20,7 +20,7 @@ const QStringList ContainerWindow::MODULE_SRC_PATHS = {
     "qrc:/ui/spells/SpellsModule.qml"
 };
 
-static const int SETTINGS_VERSION = 5;
+static const int SETTINGS_VERSION = 6;
 
 ContainerWindow::ContainerWindow(QWidget *parent)
     : QMainWindow(parent), m_engine(new QQmlEngine(this)),
