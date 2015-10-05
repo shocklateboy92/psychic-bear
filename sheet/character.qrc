@@ -17,5 +17,6 @@
         <file>shared/classes/Arcanist.qml</file>
         <file>fernie/Gregory.qml</file>
         <file>fernie/Skills.qml</file>
+        <file>fernie/Combat.qml</file>
     </qresource>
 </RCC>

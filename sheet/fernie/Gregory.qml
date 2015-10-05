@@ -123,18 +123,7 @@ Item {
     Skills {
     }
 
-    SavingThrow {
-        name: "Fortitude"
-        ability: constitution
-    }
-    SavingThrow {
-        name: "Reflex"
-        ability: dexterity
-    }
-    SavingThrow {
-        name: "Will"
-        ability: wisdom
-        primary: true
+    Combat {
     }
 
     BonusSource {

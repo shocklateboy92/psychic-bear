@@ -83,12 +83,13 @@ Item {
             "Geography",
             "History",
             "Local",
+            "Nature",
             "Nobility",
             "Planes",
             "Religion"
         ]
 
-        Skill {
+        ClassSkill {
             name: "Knowledge (" + modelData + ")"
             ability: intelligence
             ranks: 1
@@ -117,9 +118,10 @@ Item {
         ability: dexterity
     }
 
-    Skill {
+    ClassSkill {
         name: "Sense Motive"
         ability: wisdom
+        ranks: level.value
     }
 
     Skill {
@@ -127,9 +129,10 @@ Item {
         ability: dexterity
     }
 
-    Skill {
+    ClassSkill {
         name: "Spellcraft"
         ability: intelligence
+        ranks: level.value
     }
 
     Skill {
@@ -137,9 +140,10 @@ Item {
         ability: dexterity
     }
 
-    Skill {
+    ClassSkill {
         name: "Survival"
         ability: wisdom
+        ranks: 1
     }
 
     Skill {
