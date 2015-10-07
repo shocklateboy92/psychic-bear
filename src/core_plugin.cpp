@@ -4,6 +4,7 @@
 #include "bonus-source.h"
 #include "bonus-type.h"
 #include "attribute-ref.h"
+#include "spell-list.h"
 
 #include <qqml.h>
 
@@ -17,6 +18,7 @@ void CorePlugin::registerTypes(const char *uri)
     qmlRegisterType<ResourceFilter>(uri, 1, 0, "ResourceFilter");
     qmlRegisterType<BonusType>(uri, 1, 0, "BonusType");
     qmlRegisterType<AttributeRef>(uri, 1, 0, "AttributeRef");
+    qmlRegisterType<SpellList>(uri, 1, 0, "SpellList");
 }
 
 const char * CorePlugin::PB_NAMESPACE = "org.lasath.psychic_bear";
