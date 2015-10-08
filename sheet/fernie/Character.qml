@@ -181,6 +181,12 @@ Item {
         ranks: 1
     }
 
+    ClassSkill {
+        name: "Knowledge (Navigate City)"
+        ability: intelligence
+        ranks: 1
+    }
+
     Skill {
         name: "Linguistics"
         ability: intelligence
@@ -191,6 +197,12 @@ Item {
         name: "Perception"
         ability: wisdom
         ranks: level.value
+    }
+
+    ClassSkill {
+        name: "Perform (Floral Arrangement)"
+        ability: charisma
+        ranks: 1
     }
 
     Skill {
@@ -248,7 +260,7 @@ Item {
             },
             Bonus {
                 name: "In-Game Point (Hawks Class)"
-                amount: 1
+                amount: 3
             }
         ]
     }
