@@ -70,6 +70,10 @@ Item {
         }
     }
 
+    SpellList {
+        className: "wizard"
+    }
+
     AttributeRef {
         id: levelRef
         targetUri: "attr://level"

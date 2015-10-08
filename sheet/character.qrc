@@ -19,4 +19,7 @@
         <file>fernie/Skills.qml</file>
         <file>fernie/Combat.qml</file>
     </qresource>
+    <qresource prefix="/doc/spel">
+        <file>spell_full.json</file>
+    </qresource>
 </RCC>
