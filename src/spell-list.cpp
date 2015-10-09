@@ -16,7 +16,9 @@ public:
 
         QJsonParseError error;
         QJsonDocument doc = QJsonDocument::fromJson(input.readAll(), &error);
-        qDebug() << error.errorString();
+        if (error.error) {
+            qWarning() << "Unable to read spells database" << ':' << error.errorString();
+        }
         Q_ASSERT(doc.isArray());
 
         auto array = doc.array();
@@ -63,6 +65,11 @@ SpellList::Model *SpellList::model() const
     return m_model;
 }
 
+SpellList::AttributeList SpellList::slotCounts() const
+{
+    return m_slotCounts;
+}
+
 void SpellList::setClassName(QString className)
 {
     if (m_className == className)
@@ -72,24 +79,49 @@ void SpellList::setClassName(QString className)
     emit classNameChanged(className);
 }
 
+void SpellList::setSlotCounts(SpellList::AttributeList slotCounts)
+{
+    qDebug();
+    QList<Spell> spellSlots;
+    for (int i = 0; i < slotCounts.count(); i++) {
+        auto attr = qobject_cast<Attribute*>(slotCounts.at(i));
+        if (!attr) {
+            qWarning() << "Error: got slot count object of type" << slotCounts.listElementType() << "when expecting 'Attribute'";
+        }
+
+        int slotsForLevel = attr->value();
+        for (int j = 0; j < slotsForLevel; j++) {
+            spellSlots.push_back({i + 1});
+        }
+        qDebug() << slotsForLevel;
+    }
+
+    m_model->setSpells(spellSlots);
+
+    m_slotCounts = slotCounts;
+    emit slotCountsChanged(slotCounts);
+}
+
 SpellList::Model::Model(SpellList *parent)
     : QAbstractListModel(parent)
 {
 
 }
-void SpellList::Model::setSpells(const QList<int> &spellIds)
+void SpellList::Model::setSpells(const QList<SpellList::Spell> &spellIds)
 {
     m_spellIds = spellIds;
 }
 
 int SpellList::Model::rowCount(const QModelIndex &parent) const
 {
-    return 0;
+    Q_UNUSED(parent)
+    return m_spellIds.size();
 }
 
 QVariant SpellList::Model::data(const QModelIndex &index, int role) const
 {
-    return QVariant();
+    Q_ASSERT(index.isValid());
+    return m_spellIds.at(index.row()).dataFor(role);
 }
 
 QHash<int, QByteArray> SpellList::Model::roleNames() const
@@ -97,6 +129,16 @@ QHash<int, QByteArray> SpellList::Model::roleNames() const
     return allSpells->getHeaders();
 }
 
+SpellList::Spell::Spell(int level)
+    : m_level(level), m_id(-1)
+{
+}
 
+QVariant SpellList::Spell::dataFor(int role) const
+{
+    if (m_id >= 0) {
+        return allSpells->getInfoFor(m_id, role);
+    }
 
-
+    return QVariant();
+}

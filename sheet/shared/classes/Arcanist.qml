@@ -19,8 +19,14 @@ Item {
         return Math.max(Math.ceil((abilityModifier - spellLevel + 1) / 4), 0);
     }
 
+
+    QtObject {
+        id: _private
+        property variant spellLevels: [1,2,3,4,5,6,7,8,9]
+    }
+
     Instantiator {
-        model: [1,2,3,4,5,6,7,8,9]
+        model: _private.spellLevels
 
         Item {
             property int spellLevel: modelData
@@ -54,24 +60,37 @@ Item {
                     }
                 ]
             }
+        }
+    }
 
-            Attribute {
-                name: "Prepared Level " + spellLevel + " Spells Per Day"
-                uri: "attr://spells/prepared/total"
+    Instantiator {
+        id: prepList
+        model: _private.spellLevels
 
-                modifiers: [
-                    Bonus {
-                        // TODO: Make function for prepared spells per day table
-                        name: "Arcanist Base"
-                        amount: 2
-                    }
-                ]
-            }
+        Attribute {
+            property int spellLevel: modelData
+            name: "Prepared Level " + spellLevel + " Spells Per Day"
+            uri: "attr://spells/prepared/total/" + spellLevel
+
+            modifiers: [
+                Bonus {
+                    // TODO: Make function for prepared spells per day table
+                    name: "Arcanist Base"
+                    amount: 2
+                }
+            ]
         }
     }
 
     SpellList {
+        id: spellList
         className: "wizard"
+
+        ResourceFilter {
+            pattern: "attr://spells/prepared/total/*"
+
+            onMatchesChanged: spellList.slotCounts = matches
+        }
     }
 
     AttributeRef {
