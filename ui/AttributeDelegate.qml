@@ -6,6 +6,7 @@ import org.lasath.psychic_bear 1.0
 ListDelegate {
     property string text
     property int value
+    property bool strikeout: false
 
     id: root
     width: text_row.width
@@ -21,11 +22,13 @@ ListDelegate {
             font.pointSize: 16
             width: 36
             horizontalAlignment: Text.AlignRight
+            font.strikeout: root.strikeout
         }
         Label {
             text: root.text
             verticalAlignment: Text.AlignVCenter
             height: parent.height
+            font.strikeout: root.strikeout
         }
     }
 }

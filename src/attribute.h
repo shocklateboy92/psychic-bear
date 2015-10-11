@@ -20,6 +20,8 @@ class PB_SHARED_EXPORT Attribute : public Resource
     using ModelType = QList<QString>;
     using ModelPointer = ModelType;
 public:
+    using List = QList<Attribute*>;
+
     Attribute(QQuickItem *parent = nullptr);
     ~Attribute();
 
@@ -27,7 +29,10 @@ public:
 
     QQmlListProperty<Bonus> modifiers();
     int value() const;
-    bool readOnly();
+    bool readOnly() const;
+
+    bool isDynamic() const override;
+    bool initDb() override;
 
 signals:
     void modifiersChanged(QQmlListProperty<Bonus> arg);

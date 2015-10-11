@@ -8,11 +8,11 @@
 #include <attribute.h>
 
 #include <QSqlQuery>
-#include <attribute-manager.h>
 #include <core_plugin.h>
 #include <functional>
 #include <project-context.h>
 #include <bonus-source.h>
+#include <attribute.h>
 
 template <typename T>
 void populate_db(QSqlDatabase &db, QList<T*> input);
@@ -58,7 +58,9 @@ int main(int argc, char *argv[])
         qFatal("Failed to open database");
     }
 
-    populate_db<Attribute>(db, AttributeManager::instance().attributes());
+    Attribute::List attributes;
+    ProjectContext::populateInstancesOf<Attribute>(character, attributes);
+    populate_db<Attribute>(db, attributes);
 
     BonusSource::List bonusSources;
     ProjectContext::populateInstancesOf<BonusSource>(character, bonusSources);

@@ -25,6 +25,16 @@ const DbUtil& Resource::db() const
     return m_db;
 }
 
+bool Resource::isDynamic() const
+{
+    return false;
+}
+
+bool Resource::initDb()
+{
+    return false;
+}
+
 void Resource::setName(QString name)
 {
     if (m_name == name)

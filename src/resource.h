@@ -22,6 +22,9 @@ public:
     DbUtil &db();
     const DbUtil &db() const;
 
+    virtual bool isDynamic() const;
+    virtual bool initDb();
+
 public slots:
     void setName(QString name);
     void setUri(QString uri);

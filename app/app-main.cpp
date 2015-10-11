@@ -5,11 +5,10 @@
 #include <QQmlContext>
 #include <core_plugin.h>
 
-#include <src/filtered-attribute-list.h>
+#include <src/resource-filter.h>
 
 #include <app/container-window.h>
 
-#include <src/attribute-manager.h>
 #include <src/bonus-source.h>
 #include <src/project-context.h>
 #include "db.h"
@@ -45,9 +44,12 @@ int main(int argc, char *argv[])
         context.setCharacterRoot(charObject);
     }
 
-    for (Attribute *a : AttributeManager::instance().attributes()) {
-        if (!a->readOnly()) {
-            a->fetchId();
+    for (Resource *a : context.allResources()) {
+        if (a->isDynamic()) {
+            bool success = a->initDb();
+            if (!success) {
+                qWarning() << "failed to initialize DB for" << a->name();
+            }
         }
     }
 

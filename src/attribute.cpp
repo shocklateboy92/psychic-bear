@@ -1,5 +1,4 @@
 #include "attribute.h"
-#include "attribute-manager.h"
 #include "bonus-type.h"
 #include <algorithm>
 #include <numeric>
@@ -7,7 +6,6 @@
 Attribute::Attribute(QQuickItem *parent)
     : Resource("Attributes", parent), m_readOnly(true)
 {
-    AttributeManager::instance().addAttribute(this);
 }
 
 Attribute::~Attribute()
@@ -60,9 +58,21 @@ int Attribute::value() const
                 Bonus::add);
 }
 
-bool Attribute::readOnly()
+bool Attribute::readOnly() const
 {
     return m_readOnly || db().error();
+}
+
+bool Attribute::isDynamic() const
+{
+    return !readOnly();
+}
+
+bool Attribute::initDb()
+{
+    bool success = fetchId();
+    updateStaticModifiers();
+    return success;
 }
 
 void Attribute::onModifierChanged(Bonus *m)
