@@ -50,9 +50,8 @@ private:
 Q_GLOBAL_STATIC(SpellInfo, allSpells)
 
 SpellList::SpellList(QQuickItem *parent)
-    : Resource(QStringLiteral("SpellLists"), parent), m_model(new Model(this))
+    : Resource(QStringLiteral("SpellLists"), parent)
 {
-    allSpells->getInfoFor(0, 0);
 }
 
 QString SpellList::className() const
@@ -60,14 +59,14 @@ QString SpellList::className() const
     return m_className;
 }
 
-SpellList::Model *SpellList::model() const
+SpellList::ModelList SpellList::model()
 {
-    return m_model;
+    return {this, m_modelList};
 }
 
-SpellList::AttributeList SpellList::slotCounts() const
+int SpellList::maxLevel() const
 {
-    return m_slotCounts;
+    return m_maxLevel;
 }
 
 void SpellList::setClassName(QString className)
@@ -79,34 +78,32 @@ void SpellList::setClassName(QString className)
     emit classNameChanged(className);
 }
 
-void SpellList::setSlotCounts(SpellList::AttributeList slotCounts)
+void SpellList::setMaxLevel(int maxLevel)
 {
-    qDebug();
-    QList<Spell> spellSlots;
-    for (int i = 0; i < slotCounts.count(); i++) {
-        auto attr = qobject_cast<Attribute*>(slotCounts.at(i));
-        if (!attr) {
-            qWarning() << "Error: got slot count object of type" << slotCounts.listElementType() << "when expecting 'Attribute'";
-        }
+    if (m_maxLevel == maxLevel)
+        return;
 
-        int slotsForLevel = attr->value();
-        for (int j = 0; j < slotsForLevel; j++) {
-            spellSlots.push_back({i + 1});
-        }
-        qDebug() << slotsForLevel;
+    m_maxLevel = maxLevel;
+
+    // in case this isn't during initialization,
+    // and there are already other models.
+    for (auto model : m_modelList) {
+        model->deleteLater();
+    }
+    m_modelList.clear();
+
+    for (int i = 0; i < maxLevel; i++) {
+        m_modelList.push_back(new Model(this, i));
     }
 
-    m_model->setSpells(spellSlots);
-
-    m_slotCounts = slotCounts;
-    emit slotCountsChanged(slotCounts);
+    emit maxLevelChanged(maxLevel);
 }
 
-SpellList::Model::Model(SpellList *parent)
-    : QAbstractListModel(parent)
+SpellList::Model::Model(SpellList *parent, int level)
+    : QAbstractListModel(parent), m_level(level)
 {
-
 }
+
 void SpellList::Model::setSpells(const QList<SpellList::Spell> &spellIds)
 {
     m_spellIds = spellIds;

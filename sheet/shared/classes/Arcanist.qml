@@ -84,13 +84,10 @@ Item {
 
     SpellList {
         id: spellList
+        name: "Primary Prepared SpellList"
+        uri: "spel://spellLists/prepared/default"
         className: "wizard"
-
-        ResourceFilter {
-            pattern: "attr://spells/prepared/total/*"
-
-            onMatchesChanged: spellList.slotCounts = matches
-        }
+        maxLevel: 9
     }
 
     AttributeRef {

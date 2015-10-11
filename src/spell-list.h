@@ -12,37 +12,37 @@ class SpellList : public Resource
     Q_OBJECT
     Q_PROPERTY(QString className READ className
                WRITE setClassName NOTIFY classNameChanged)
-    Q_PROPERTY(Model model READ model NOTIFY modelChanged)
-    Q_PROPERTY(QQmlListReference slotCounts READ slotCounts
-               WRITE setSlotCounts NOTIFY slotCountsChanged)
-    using AttributeList = QQmlListReference;
+    Q_PROPERTY(int maxLevel READ maxLevel
+               WRITE setMaxLevel NOTIFY maxLevelChanged)
+    Q_PROPERTY(QQmlListProperty<QAbstractListModel> model READ model NOTIFY modelChanged)
 public:
     class Model;
+    using ModelList = QQmlListProperty<QAbstractListModel>;
 
     SpellList(QQuickItem *parent = nullptr);
 
     QString className() const;
-    Model* 	model()	const;
+    ModelList 	model();
 
-    AttributeList slotCounts() const;
+    int maxLevel() const;
 
 signals:
     void classNameChanged(QString className);
     void modelChanged(Model* model);
 
-    void slotCountsChanged(AttributeList slotCounts);
+    void maxLevelChanged(int maxLevel);
 
 public slots:
     void setClassName(QString className);
 
-    void setSlotCounts(AttributeList slotCounts);
+    void setMaxLevel(int maxLevel);
 
 private:
     QString m_className;
-    Model* m_model;
+    QList<QAbstractListModel*> m_modelList;
 
     class Spell;
-    AttributeList m_slotCounts;
+    int m_maxLevel;
 };
 
 // TODO: Maybe make this a proxy model?
@@ -54,11 +54,12 @@ public:
     QVariant data(const QModelIndex &index, int role) const;
     QHash<int, QByteArray> roleNames() const;
 
-    Model(SpellList *parent);
+    Model(SpellList *parent, int level);
 
     void setSpells(const QList<SpellList::Spell> &spellIds);
 
 private:
+    int m_level;
     QList<SpellList::Spell> m_spellIds;
 };
 
