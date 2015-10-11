@@ -1,14 +1,18 @@
 <RCC>
     <qresource prefix="/ui">
-        <file>AttributesView.qml</file>
+        <file>attrs/AttributesView.qml</file>
+        <file>attrs/SkillAttributesModule.qml</file>
         <file>ListDelegate.qml</file>
         <file>AttributeDelegate.qml</file>
-        <file>ModifiersView.qml</file>
-        <file>NewModifierDialog.qml</file>
-        <file>scores/AbilityScoresArea.qml</file>
+        <file>info/AttributeInfoModule.qml</file>
+        <file>info/NewModifierDialog.qml</file>
         <file>scores/ColumnRepeater.qml</file>
         <file>scores/Heading.qml</file>
         <file>scores/SubHeading.qml</file>
-        <file>ConditionsView.qml</file>
+        <file>conds/ConditionsModule.qml</file>
+        <file>scores/AbilityScoresModule.qml</file>
+        <file>UiInfo.qml</file>
+        <file>qmldir</file>
+        <file>attrs/CombatAttributesModule.qml</file>
     </qresource>
 </RCC>

@@ -4,9 +4,15 @@ import QtQuick.Controls.Styles 1.2
 import QtQuick.Dialogs 1.2
 
 import org.lasath.psychic_bear 1.0
+import org.lasath.psychic_bear.ui 1.0
 
-Rectangle {
-    property Attribute targetAttribute
+import ".."
+
+Module {
+    property Attribute targetAttribute: UiInfo.activeAttribute
+
+    name: "Current Attribute Details"
+    moduleId: "attributeDetails"
 
     GroupBox {
         title: "Attribute Modifiers :"
@@ -41,6 +47,7 @@ Rectangle {
         }
     }
 
+    // TODO: evaluate if this is needed
     onTargetAttributeChanged: {
         targetAttribute.updateStaticModifiers();
     }

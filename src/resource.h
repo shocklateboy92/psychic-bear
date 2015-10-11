@@ -13,7 +13,10 @@ class PB_SHARED_EXPORT Resource : public QQuickItem
     Q_PROPERTY(QString uri READ uri WRITE setUri NOTIFY uriChanged)
 
 public:
+    using List = QList<Resource*>;
+
     Resource(QString tableName, QQuickItem *parent = nullptr);
+
     QString name() const;
     QString uri() const;
     DbUtil &db();

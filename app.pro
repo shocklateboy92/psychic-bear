@@ -1,12 +1,15 @@
-QT += qml quick widgets sql
+QT += qml quick widgets sql quickwidgets
 CONFIG += c++14 qml_debug
 
 QMAKE_CXXFLAGS += -Wall
 
-SOURCES += main.cpp \
+SOURCES += \
     db.cpp \
+    app/ui-module.cpp \
+    app/container-window.cpp \
+    app/app-main.cpp
 
-RESOURCES += qml.qrc \
+RESOURCES += \
     sheet/character.qrc \
     ui/ui.qrc
 
@@ -16,7 +19,9 @@ QML_IMPORT_PATH =
 # Default rules for deployment.
 include(deployment.pri)
 
-HEADERS +=  db.h
+HEADERS +=  db.h \
+    app/container-window.h \
+    app/ui-module.h
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/src/release/ -lcored
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/src/debug/ -lcored

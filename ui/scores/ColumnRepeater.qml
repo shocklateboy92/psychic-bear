@@ -22,8 +22,8 @@ Repeater {
 
         height: label.paintedHeight
 
-        onActivationRequest: scoresArea.activeAttribute = modelData
-        active: scoresArea.activeAttribute == modelData
+        onActivationRequest: UiInfo.activeAttribute = modelData
+        active: UiInfo.activeAttribute == modelData
     }
 }
 
