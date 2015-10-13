@@ -15,7 +15,6 @@ class SpellList : public Resource
     Q_PROPERTY(Model model READ model NOTIFY modelChanged)
 public:
     class Model;
-    using ModelList = QQmlListProperty<Model>;
 
     SpellList(QQuickItem *parent = nullptr);
 
@@ -41,18 +40,21 @@ private:
     Model* m_model;
 };
 
-// TODO: Maybe make this a proxy model?
+// I choose to split this into a separate class, and use
+// composition, because I didn't want to have to deal with
+// the diamond inheritence problem with QObject
 class SpellList::Model : public QAbstractListModel {
+
+public:
+    Model(SpellList *parent);
+
+    void setSpells(const QList<SpellList::Spell> &spellIds);
 
     // QAbstractItemModel interface
 public:
     int rowCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
     QHash<int, QByteArray> roleNames() const;
-
-    Model(SpellList *parent);
-
-    void setSpells(const QList<SpellList::Spell> &spellIds);
 
 private:
     QList<SpellList::Spell> m_spellIds;
