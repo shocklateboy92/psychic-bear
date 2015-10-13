@@ -71,6 +71,11 @@ void SpellList::createNewSlot()
     m_model->insertRow(m_model->rowCount());
 }
 
+void SpellList::updateSpellSlot(int slot, int spellId)
+{
+    m_model->updateSpell(slot, spellId);
+}
+
 bool SpellList::isDynamic() const
 {
     // all spell lists are dynamic - I don't see much
@@ -164,6 +169,17 @@ bool SpellList::Model::insertRows(int row, int count, const QModelIndex &parent)
     return true;
 }
 
+void SpellList::Model::updateSpell(int slot, int spellId)
+{
+    m_spellIds[slot].updateSpell(spellId);
+    dataChanged(index(slot), index(slot));
+}
+
+QList<SpellList::Spell> SpellList::Model::spellIds() const
+{
+    return m_spellIds;
+}
+
 
 // SpellList::Spell implementation
 const QString SpellList::Spell::TABLE_NAME =
@@ -182,6 +198,13 @@ QVariant SpellList::Spell::dataFor(int role) const
 
     return QVariant();
 }
+
+void SpellList::Spell::updateSpell(int spellId)
+{
+    m_spellId = spellId;
+    m_db.writeProperty("spellId", m_spellId);
+}
+
 
 
 // SpellInfo implementation

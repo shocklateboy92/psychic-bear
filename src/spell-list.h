@@ -13,7 +13,7 @@ class SpellList : public Resource
     Q_PROPERTY(QString className READ className
                WRITE setClassName NOTIFY classNameChanged)
     Q_PROPERTY(int level READ level WRITE setLevel NOTIFY levelChanged)
-    Q_PROPERTY(QObject* model READ model NOTIFY modelChanged)
+    Q_PROPERTY(QAbstractItemModel* model READ model NOTIFY modelChanged)
 public:
     class Model;
 
@@ -38,6 +38,7 @@ public slots:
     void setLevel(int level);
 
     void createNewSlot();
+    void updateSpellSlot(int slot, int spellId);
 
 private:
     class Spell;
@@ -55,6 +56,7 @@ class SpellList::Model : public QAbstractListModel {
 public:
     Model(SpellList *parent);
 
+    QList<SpellList::Spell> spellIds() const;
     void setSpells(const QList<SpellList::Spell> &spellIds);
 
     // QAbstractItemModel interface
@@ -64,6 +66,7 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 
     bool insertRows(int row, int count, const QModelIndex &parent) override;
+    void updateSpell(int slot, int spellId);
 
 private:
     QList<SpellList::Spell> m_spellIds;
@@ -74,6 +77,7 @@ class SpellList::Spell {
 public:
     Spell(const DbUtil &db, int level, int spellId);
     QVariant dataFor(int role) const;
+    void updateSpell(int spellId);
 
     static const QString TABLE_NAME;
 
