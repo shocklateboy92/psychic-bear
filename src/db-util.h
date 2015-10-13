@@ -37,6 +37,10 @@ public:
     template <typename T>
     bool writeProperty(QString propName, const T &val);
 
+    QList<QVariantList> readRelationProperties(QString relation,
+            QString table,
+            QStringList properties);
+
 private:
     int m_id;
     bool m_error;

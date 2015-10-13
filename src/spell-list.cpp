@@ -126,8 +126,8 @@ QHash<int, QByteArray> SpellList::Model::roleNames() const
     return allSpells->getHeaders();
 }
 
-SpellList::Spell::Spell(int level)
-    : m_level(level), m_id(-1)
+SpellList::Spell::Spell(int level, int id)
+    : m_level(level), m_id(id)
 {
 }
 
@@ -138,4 +138,36 @@ QVariant SpellList::Spell::dataFor(int role) const
     }
 
     return QVariant();
+}
+
+
+bool SpellList::isDynamic() const
+{
+    return true;
+}
+
+bool SpellList::initDb()
+{
+    bool success = db().fetchId(uri());
+
+    if (success) {
+        auto members = db().readRelationProperties(
+                    "spellList",
+                    "SpellListMembers",
+                    {
+                        "level",
+                        "spellId"
+                    });
+
+        QList<Spell> spells;
+        for (QVariantList props : members) {
+            spells.push_back({
+                                 props.at(0).toInt(),
+                                 props.at(1).toInt()
+                             });
+        }
+
+    }
+
+    return success;
 }

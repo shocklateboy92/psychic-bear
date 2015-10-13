@@ -84,6 +84,28 @@ QString DbUtil::tableName() const
     return m_tableName;
 }
 
+QList<QVariantList> DbUtil::readRelationProperties(
+        QString relation,
+        QString table,
+        QStringList properties)
+{
+    QList<QVariantList> ret;
+    QSqlQuery query;
+    query.prepare(QStringLiteral("SELECT %2 FROM %3 WHERE %1 = :id")
+                  .arg(relation).arg(properties.join(",")).arg(table));
+    query.bindValue(":id", id());
+
+    while (query.next()) {
+        QVariantList row;
+        for (int i = 0; i < properties.size(); i++) {
+            row.push_back(query.value(i));
+        }
+        ret.push_back(row);
+    }
+
+    return ret;
+}
+
 void DbUtil::setTableName(const QString &tableName)
 {
     m_tableName = tableName;

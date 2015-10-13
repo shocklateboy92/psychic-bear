@@ -14,10 +14,11 @@ class SpellList : public Resource
                WRITE setClassName NOTIFY classNameChanged)
     Q_PROPERTY(int maxLevel READ maxLevel
                WRITE setMaxLevel NOTIFY maxLevelChanged)
-    Q_PROPERTY(QQmlListProperty<QAbstractListModel> model READ model NOTIFY modelChanged)
+    Q_PROPERTY(QQmlListProperty<Model> model READ model NOTIFY modelChanged)
 public:
     class Model;
-    using ModelList = QQmlListProperty<QAbstractListModel>;
+    class Spell;
+    using ModelList = QQmlListProperty<Model>;
 
     SpellList(QQuickItem *parent = nullptr);
 
@@ -39,10 +40,14 @@ public slots:
 
 private:
     QString m_className;
-    QList<QAbstractListModel*> m_modelList;
+    QList<Model*> m_modelList;
 
-    class Spell;
     int m_maxLevel;
+
+    // Resource interface
+public:
+    bool isDynamic() const;
+    bool initDb();
 };
 
 // TODO: Maybe make this a proxy model?
@@ -65,7 +70,7 @@ private:
 
 class SpellList::Spell {
 public:
-    Spell(int level);
+    Spell(int level, int id);
     QVariant dataFor(int role) const;
 
 private:
