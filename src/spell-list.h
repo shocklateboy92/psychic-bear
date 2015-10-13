@@ -37,6 +37,8 @@ public slots:
     void setClassName(QString className);
     void setLevel(int level);
 
+    void createNewSlot();
+
 private:
     class Spell;
 
@@ -61,13 +63,17 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
 
+    bool insertRows(int row, int count, const QModelIndex &parent) override;
+
 private:
     QList<SpellList::Spell> m_spellIds;
+    SpellList *m_parent;
 };
 
 class SpellList::Spell {
 public:
     Spell(int level, int id);
+    Spell(const DbUtil &db, int level, int id);
     QVariant dataFor(int role) const;
 
 private:

@@ -66,6 +66,11 @@ void SpellList::setLevel(int level)
     emit levelChanged(level);
 }
 
+void SpellList::createNewSlot()
+{
+    m_model->insertRow(m_model->rowCount());
+}
+
 bool SpellList::isDynamic() const
 {
     // all spell lists are dynamic - I don't see much
@@ -102,7 +107,7 @@ bool SpellList::initDb()
 
 // SpellList::Model implementation
 SpellList::Model::Model(SpellList *parent)
-    : QAbstractListModel(parent)
+    : QAbstractListModel(parent), m_parent(parent)
 {
 }
 
@@ -137,6 +142,12 @@ QHash<int, QByteArray> SpellList::Model::roleNames() const
 SpellList::Spell::Spell(int level, int id)
     : m_level(level), m_id(id)
 {
+}
+
+SpellList::Spell::Spell(const DbUtil &db, int level, int id)
+    : Spell(level, id)
+{
+
 }
 
 QVariant SpellList::Spell::dataFor(int role) const
@@ -187,4 +198,30 @@ QVariant SpellInfo::getInfoFor(int spellId, int role) {
 const QHash<int, QByteArray> &SpellInfo::getHeaders() const
 {
     return m_headers;
+}
+
+
+bool SpellList::Model::insertRows(int row, int count, const QModelIndex &parent)
+{
+    Q_UNUSED(parent);
+
+    beginInsertRows(parent, row, row + count);
+    for (int i = 0; i < count; i++) {
+        auto db = m_parent->db().createRelationRecord(
+                    "spellList",
+                    "SpellListMembers",
+                    {
+                        "level",
+                        "spellId"
+                    },
+                    {
+                        m_parent->level(),
+                        -1
+                    });
+
+        m_spellIds.insert(row, {db, m_parent->level(), -1});
+    }
+    endInsertRows();
+
+    return true;
 }

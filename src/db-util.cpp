@@ -11,6 +11,12 @@ DbUtil::DbUtil(QString tableName)
 
 }
 
+DbUtil::DbUtil(QString tableName, int id)
+    : DbUtil(tableName)
+{
+    m_id = id;
+}
+
 DbUtil::~DbUtil()
 {
 
@@ -106,6 +112,35 @@ QList<QVariantList> DbUtil::readRelationProperties(
     }
 
     return ret;
+}
+
+DbUtil DbUtil::createRelationRecord(
+        QString relation,
+        QString table,
+        QStringList properties,
+        QVariantList values)
+{
+    QSqlQuery query;
+    query.prepare(QStringLiteral("INSERT INTO %1 (%3, %2) VALUES (?%4)")
+                  .arg(table)
+                  .arg(properties.join(", "))
+                  .arg(relation)
+                  .arg(QStringLiteral(", ?")
+                       .repeated(properties.length())
+                       )
+                  );
+
+    // Since the first column will be the relation,
+    // which is the owner of this DbUtil instance.
+    query.addBindValue(id());
+
+    for (auto p : values) {
+        query.addBindValue(p);
+    }
+
+    executeQuery(query);
+
+    return {table, query.lastInsertId().toInt()};
 }
 
 void DbUtil::setTableName(const QString &tableName)
