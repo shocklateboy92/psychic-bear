@@ -205,7 +205,7 @@ bool SpellList::Model::insertRows(int row, int count, const QModelIndex &parent)
 {
     Q_UNUSED(parent);
 
-    beginInsertRows(parent, row, row + count);
+    beginInsertRows(parent, row, row + count -1);
     for (int i = 0; i < count; i++) {
         auto db = m_parent->db().createRelationRecord(
                     "spellList",
