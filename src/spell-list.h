@@ -12,6 +12,7 @@ class SpellList : public Resource
     Q_OBJECT
     Q_PROPERTY(QString className READ className
                WRITE setClassName NOTIFY classNameChanged)
+    Q_PROPERTY(int level READ level WRITE setLevel NOTIFY levelChanged)
     Q_PROPERTY(Model model READ model NOTIFY modelChanged)
 public:
     class Model;
@@ -20,6 +21,7 @@ public:
 
     QString className() const;
     Model* 	model()	const;
+    int 	level() const;
 
     // Resource interface
 public:
@@ -29,15 +31,18 @@ public:
 signals:
     void classNameChanged(QString className);
     void modelChanged(Model* model);
+    void levelChanged(int level);
 
 public slots:
     void setClassName(QString className);
+    void setLevel(int level);
 
 private:
     class Spell;
-    QString m_className;
 
-    Model* m_model;
+    QString m_className;
+    Model* 	m_model;
+    int 	m_level;
 };
 
 // I choose to split this into a separate class, and use

@@ -87,6 +87,7 @@ Item {
         name: "Primary Prepared SpellList, Level 1"
         uri: "spel://spellLists/prepared/default"
         className: "wizard"
+        level: 1
     }
 
     AttributeRef {

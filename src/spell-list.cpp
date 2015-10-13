@@ -29,7 +29,7 @@ Q_GLOBAL_STATIC(SpellInfo, allSpells)
 // SpellList implementation
 SpellList::SpellList(QQuickItem *parent)
     : Resource(QStringLiteral("SpellLists"), parent),
-      m_model(new Model(this))
+      m_model(new Model(this)), m_level(0)
 {
 }
 
@@ -43,6 +43,11 @@ SpellList::Model *SpellList::model() const
     return m_model;
 }
 
+int SpellList::level() const
+{
+    return m_level;
+}
+
 void SpellList::setClassName(QString className)
 {
     if (m_className == className)
@@ -50,6 +55,15 @@ void SpellList::setClassName(QString className)
 
     m_className = className;
     emit classNameChanged(className);
+}
+
+void SpellList::setLevel(int level)
+{
+    if (m_level == level)
+        return;
+
+    m_level = level;
+    emit levelChanged(level);
 }
 
 bool SpellList::isDynamic() const
