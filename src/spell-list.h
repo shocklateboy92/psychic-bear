@@ -13,7 +13,7 @@ class SpellList : public Resource
     Q_PROPERTY(QString className READ className
                WRITE setClassName NOTIFY classNameChanged)
     Q_PROPERTY(int level READ level WRITE setLevel NOTIFY levelChanged)
-    Q_PROPERTY(Model model READ model NOTIFY modelChanged)
+    Q_PROPERTY(QObject* model READ model NOTIFY modelChanged)
 public:
     class Model;
 
