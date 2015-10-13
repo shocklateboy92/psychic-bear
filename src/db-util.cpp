@@ -92,8 +92,10 @@ QList<QVariantList> DbUtil::readRelationProperties(
     QList<QVariantList> ret;
     QSqlQuery query;
     query.prepare(QStringLiteral("SELECT %2 FROM %3 WHERE %1 = :id")
-                  .arg(relation).arg(properties.join(",")).arg(table));
+                  .arg(relation).arg(properties.join(", ")).arg(table));
     query.bindValue(":id", id());
+
+    executeQuery(query);
 
     while (query.next()) {
         QVariantList row;
