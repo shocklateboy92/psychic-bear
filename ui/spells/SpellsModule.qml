@@ -2,6 +2,7 @@ import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
+import org.lasath.psychic_bear 1.0
 import org.lasath.psychic_bear.ui 1.0
 import ".."
 import "../attrs"
@@ -18,11 +19,13 @@ Module {
         model: matchingResources
 
         delegate: Column {
+            property SpellList spellList: modelData
+
             width: parent.width
             spacing: 5
 
             Label {
-                text: modelData.name
+                text: spellList.name
                 font.pointSize: 16
                 Layout.fillWidth: true
             }
@@ -32,13 +35,21 @@ Module {
 
                 Column {
                     Repeater {
-                        model: modelData.model
+                        model: spellList.model
                         delegate: Text {
-                            text: model.name
+                            text: model.name ? model.name : "Unused Spell Slot"
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: spellList.updateSpellSlot(
+                                               index,
+                                               Math.floor(Math.random() * 2000)
+                                               )
+                            }
                         }
                     }
                     ToolButton {
                         text: "+"
+                        onClicked: spellList.createNewSlot()
                     }
                 }
             }
