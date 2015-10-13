@@ -84,10 +84,9 @@ Item {
 
     SpellList {
         id: spellList
-        name: "Primary Prepared SpellList"
+        name: "Primary Prepared SpellList, Level 1"
         uri: "spel://spellLists/prepared/default"
         className: "wizard"
-        maxLevel: 9
     }
 
     AttributeRef {

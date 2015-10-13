@@ -50,8 +50,9 @@ private:
 Q_GLOBAL_STATIC(SpellInfo, allSpells)
 
 SpellList::SpellList(QQuickItem *parent)
-    : Resource(QStringLiteral("SpellLists"), parent)
+    : Resource(QStringLiteral("SpellLists"), parent), m_model(new Model(this))
 {
+    allSpells->getInfoFor(0, 0);
 }
 
 QString SpellList::className() const
@@ -59,14 +60,9 @@ QString SpellList::className() const
     return m_className;
 }
 
-SpellList::ModelList SpellList::model()
+SpellList::Model *SpellList::model() const
 {
-    return {this, m_modelList};
-}
-
-int SpellList::maxLevel() const
-{
-    return m_maxLevel;
+    return m_model;
 }
 
 void SpellList::setClassName(QString className)
@@ -78,32 +74,12 @@ void SpellList::setClassName(QString className)
     emit classNameChanged(className);
 }
 
-void SpellList::setMaxLevel(int maxLevel)
+SpellList::Model::Model(SpellList *parent)
+    : QAbstractListModel(parent)
 {
-    if (m_maxLevel == maxLevel)
-        return;
 
-    m_maxLevel = maxLevel;
 
-    // in case this isn't during initialization,
-    // and there are already other models.
-    for (auto model : m_modelList) {
-        model->deleteLater();
-    }
-    m_modelList.clear();
-
-    for (int i = 0; i < maxLevel; i++) {
-        m_modelList.push_back(new Model(this, i));
-    }
-
-    emit maxLevelChanged(maxLevel);
 }
-
-SpellList::Model::Model(SpellList *parent, int level)
-    : QAbstractListModel(parent), m_level(level)
-{
-}
-
 void SpellList::Model::setSpells(const QList<SpellList::Spell> &spellIds)
 {
     m_spellIds = spellIds;
@@ -166,7 +142,7 @@ bool SpellList::initDb()
                                  props.at(1).toInt()
                              });
         }
-
+        m_model->setSpells(spells);
     }
 
     return success;

@@ -19,7 +19,6 @@ void CorePlugin::registerTypes(const char *uri)
     qmlRegisterType<BonusType>(uri, 1, 0, "BonusType");
     qmlRegisterType<AttributeRef>(uri, 1, 0, "AttributeRef");
     qmlRegisterType<SpellList>(uri, 1, 0, "SpellList");
-    qmlRegisterUncreatableType<SpellList::Model>(uri, 1, 0, "SpellListModel", "SpellList internal type, do not create.");
 }
 
 const char * CorePlugin::PB_NAMESPACE = "org.lasath.psychic_bear";
