@@ -72,13 +72,15 @@ private:
 
 class SpellList::Spell {
 public:
-    Spell(int level, int id);
-    Spell(const DbUtil &db, int level, int id);
+    Spell(const DbUtil &db, int level, int spellId);
     QVariant dataFor(int role) const;
+
+    static const QString TABLE_NAME;
 
 private:
     int m_level;
-    int m_id;
+    int m_spellId;
+    DbUtil m_db;
 };
 
 #endif // SPELLLIST_H
