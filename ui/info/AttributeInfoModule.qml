@@ -47,11 +47,6 @@ Module {
         }
     }
 
-    // TODO: evaluate if this is needed
-    onTargetAttributeChanged: {
-        targetAttribute.updateStaticModifiers();
-    }
-
     Dialog {
         id: new_mod_dialog
         height: 100
