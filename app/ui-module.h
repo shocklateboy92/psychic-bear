@@ -14,7 +14,8 @@ class UiModule : public QQuickItem
                WRITE setRequiredResources NOTIFY requiredResourcesChanged)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QString moduleId READ moduleId WRITE setModuleId NOTIFY moduleIdChanged)
-    Q_PROPERTY(QQmlListProperty<Resource> matchingResources READ matchingResources NOTIFY matchingResourcesChanged)
+    Q_PROPERTY(QQmlListProperty<Resource> matchingResources READ matchingResources
+               NOTIFY matchingResourcesChanged)
 
 public:
     UiModule(QQuickItem *parent = nullptr);
@@ -34,7 +35,7 @@ public slots:
     void setModuleId(QString moduleId);
     void setName(QString name);
     void setRequiredResources(QStringList requiredResources);
-    void setMatchingResources(Resource::List list);
+    void updateMatchingResources(Resource::List list);
 
 private:
     Resource::List m_resources;

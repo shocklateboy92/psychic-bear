@@ -52,17 +52,7 @@ UiModule * ContainerWindow::createModule(QQuickWidget* widget)
     Q_ASSERT(module);
     Q_ASSERT(!module->moduleId().isEmpty());
 
-    Resource::List matchingRes;
-    for (QString &pattern : module->requiredResources()) {
-        QRegExp regex(pattern, Qt::CaseInsensitive, QRegExp::Wildcard);
-        for (Resource *res : context()->allResources()) {
-            if (regex.exactMatch(res->uri())) {
-                matchingRes.append(res);
-            }
-        }
-    }
-
-    module->setMatchingResources(matchingRes);
+    module->updateMatchingResources(context()->allResources());
 
     return module;
 }

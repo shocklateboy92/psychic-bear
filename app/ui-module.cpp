@@ -54,9 +54,19 @@ void UiModule::setRequiredResources(QStringList requiredResources)
     emit requiredResourcesChanged(requiredResources);
 }
 
-void UiModule::setMatchingResources(Resource::List list)
+void UiModule::updateMatchingResources(Resource::List list)
 {
-    m_resources = list;
+    m_resources.clear();
+
+    for (QString &pattern : requiredResources()) {
+        QRegExp regex(pattern, Qt::CaseInsensitive, QRegExp::Wildcard);
+        for (Resource *res : list) {
+            if (regex.exactMatch(res->uri())) {
+                m_resources.append(res);
+            }
+        }
+    }
+
     emit matchingResourcesChanged(matchingResources());
 }
 
