@@ -4,6 +4,7 @@ import "../"
 import org.lasath.psychic_bear 1.0
 
 import "../shared/feats" as Feats
+import "../shared/rules" as Rules
 
 Item {
     AbilityScore {
@@ -109,7 +110,7 @@ Item {
     ClassSkill {
         name: "Diplomacy"
         ability: charisma
-        ranks: 2
+        ranks: 4
     }
 
     Skill {
@@ -119,13 +120,14 @@ Item {
 
     Skill {
         name: "Disguise"
-        ability: dexterity
+        ability: charisma
+        ranks: 1
     }
 
     ClassSkill {
         name: "Elementalist Sight"
         ability: wisdom
-        ranks: 0
+        ranks: 1
     }
 
     Skill {
@@ -162,7 +164,6 @@ Item {
             "Geography",
             "History",
             "Local",
-            "Nature",
             "Nobility",
             "Planes",
             "Religion"
@@ -172,6 +173,12 @@ Item {
             name: "Knowledge (" + modelData + ")"
             ability: intelligence
         }
+    }
+
+    ClassSkill {
+        name: "Knowledge (Nature)"
+        ability: intelligence
+        ranks: 1
     }
 
     Skill {
@@ -238,6 +245,10 @@ Item {
             Bonus {
                 name: "Human Favoured Class"
                 amount: level.value
+            },
+            Bonus {
+                name: "In-Game Point (Hawks Class)"
+                amount: 1
             }
         ]
     }
@@ -267,6 +278,10 @@ Item {
                 Bonus {
                     name: "Level 3 Health Roll"
                     amount: 6
+                },
+                Bonus {
+                    name: "Level 4 Health Roll"
+                    amount: 8
                 },
                 Bonus {
                     name: "Favoured Class (All Levels)"
@@ -495,7 +510,7 @@ Item {
 
         modifiers: Bonus {
             name: "Elementalist"
-            amount: 3
+            amount: 4
         }
     }
 
@@ -526,8 +541,12 @@ Item {
     BonusSource {
         uri: "msrc://feats/forceOfWill"
         name: "Extra Knacks: Force of Will (Feat)"
-        conditional: true
     }
 
     Feats.Toughness {}
+
+    Rules.ShootingIntoCombat {}
+
+    // 4th level Knack:
+    //      - Summoning Prodogy
 }

@@ -7,14 +7,23 @@
 
 #include <src/filtered-attribute-list.h>
 
+#include <app/container-window.h>
+
 #include <src/attribute-manager.h>
 #include <src/bonus-source.h>
 #include <src/project-context.h>
 #include "db.h"
+#include "ui-module.h"
+
+static const char * PB_UI_NAMESPACE = "org.lasath.psychic_bear.ui";
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    app.setOrganizationName("Lasath Foundation");
+    app.setOrganizationDomain("lasath.org");
+    app.setApplicationName("Psychic Bear");
+
     QQmlApplicationEngine engine;
     QQmlComponent character(&engine);
     ProjectContext context(&engine);
@@ -37,12 +46,19 @@ int main(int argc, char *argv[])
     }
 
     for (Attribute *a : AttributeManager::instance().attributes()) {
-        a->fetchId();
+        if (!a->readOnly()) {
+            a->fetchId();
+        }
     }
 
     engine.rootContext()->setContextProperty("psychic_bear", &context);
 
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    qmlRegisterType<UiModule>(PB_UI_NAMESPACE, 1, 0, "Module");
+
+    ContainerWindow root(nullptr);
+    root.setProjectContext(&context);
+    root.setupUi();
+    root.setVisible(true);
 
     return app.exec();
 }

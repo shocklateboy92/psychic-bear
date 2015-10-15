@@ -11,6 +11,7 @@ Item {
         name: root.name + " (Temp)"
         uri: prefix + "/temporary"
 
+        readOnly: false
 		modifiers: [
 			Bonus {
 				name: "Permanent Value"
