@@ -430,11 +430,6 @@ Item {
                 Bonus {
                     name: "Flat Footed Penalty"
                     amount: -acDexBonus.amount
-                },
-                Bonus {
-                    source: wearArmour
-                    name: wearArmour.name
-                    amount: 6
                 }
             ]
         }
