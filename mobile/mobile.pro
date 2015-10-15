@@ -16,8 +16,8 @@ QML_IMPORT_PATH =
 # Default rules for deployment.
 include(deployment.pri)
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../src/ -lcore
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../src/ -lcored
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../src/release -lcore
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../src/debug -lcored
 else:unix: LIBS += -L$$OUT_PWD/../src/ -lcore
 
 INCLUDEPATH += $$PWD/../src

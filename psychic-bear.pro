@@ -16,4 +16,7 @@ android {
     SUBDIRS += mobile
 } else {
     SUBDIRS += app db/init-db db/migrate
+
+    # Turns out, this is actually useful for debugging the UI
+    SUBDIRS += mobile
 }
