@@ -1,7 +1,10 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+
 #include <core_plugin.h>
 #include <project-context.h>
+
 #include "../app/ui-module.h"
 
 int main(int argc, char *argv[])
@@ -24,6 +27,11 @@ int main(int argc, char *argv[])
     }
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    for (QObject *obj : engine.rootObjects()) {
+        for (UiModule *module : obj->findChildren<UiModule*>()) {
+            module->updateMatchingResources(context.allResources());
+        }
+    }
 
     return app.exec();
 }
