@@ -197,6 +197,12 @@ Item {
     }
 
     Skill {
+        name: "Knowledge (Navigation)"
+        ability: intelligence
+        ranks: 1
+    }
+
+    Skill {
         name: "Linguistics"
         ability: intelligence
     }
@@ -279,8 +285,11 @@ Item {
             Bonus {
                 name: "Points from Peform (Testimony)"
                 amount: 3
+            },
+            Bonus {
+                name: "Points from Knowledge (Navigate)"
+                amount: 1
             }
-
         ]
     }
 
