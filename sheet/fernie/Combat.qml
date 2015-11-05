@@ -49,6 +49,14 @@ Item {
         }
 
         Attribute {
+            id: nonLethal
+            name: "Non-Lethal Hit Point Damage"
+            uri: hp.prefix + "/nonLethal"
+
+            readOnly: false
+        }
+
+        Attribute {
             name: "Hit Points from Death"
             uri: hp.prefix + "/tillDeath"
             modifiers: [
@@ -59,8 +67,11 @@ Item {
                 Bonus {
                     name: currentHp.name
                     amount: currentHp.value
+                },
+                Bonus {
+                    name: nonLethal.name
+                    amount: nonLethal.value
                 }
-
             ]
         }
     }

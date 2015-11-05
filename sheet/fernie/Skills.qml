@@ -45,11 +45,6 @@ Item {
         ability: charisma
     }
 
-    ClassSkill {
-        name: "Elementalist Sight"
-        ability: wisdom
-    }
-
     Skill {
         name: "Escape Artist"
         ability: dexterity
@@ -57,7 +52,7 @@ Item {
 
     Skill {
         name: "Fly"
-        ability: charisma
+        ability: dexterity
     }
 
     Skill {
