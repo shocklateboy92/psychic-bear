@@ -222,6 +222,7 @@ Item {
     Skill {
         name: "Sense Motive"
         ability: wisdom
+        ranks: 1
     }
 
     Skill {
@@ -259,7 +260,7 @@ Item {
     ClassSkill {
         name: "Swim"
         ability: strength
-        ranks: 3
+        ranks: 4
 
         modifiers: [
             Bonus {
@@ -323,6 +324,11 @@ Item {
                     name: "Level 4 Health Roll"
                     amount: 11
                 },
+                Bonus {
+                    name: "Level 5 Health Roll"
+                    amount: 6
+                },
+
                 Bonus {
                     name: "Favoured Class (All Levels)"
                     amount: level.value
@@ -594,7 +600,7 @@ Item {
 
         modifiers: Bonus {
             name: "Weapon master"
-            amount: 4
+            amount: 5
         }
     }
 
