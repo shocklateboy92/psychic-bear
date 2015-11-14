@@ -90,17 +90,17 @@ bool SpellList::initDb()
     if (success) {
         auto members = db().readRelationProperties(
                     "spellList",
-                    Spell::TABLE_NAME,
+                    Entry::TABLE_NAME,
                     {
                         "level",
                         "spellId",
                         "id"
                     });
 
-        QList<Spell> spells;
+        QList<Entry> spells;
         for (QVariantList props : members) {
             spells.push_back({
-                                 DbUtil(Spell::TABLE_NAME, props.at(2).toInt()),
+                                 DbUtil(Entry::TABLE_NAME, props.at(2).toInt()),
                                  props.at(0).toInt(),
                                  props.at(1).toInt(),
                              });
@@ -118,7 +118,7 @@ SpellList::Model::Model(SpellList *parent)
 {
 }
 
-void SpellList::Model::setSpells(const QList<SpellList::Spell> &spellIds)
+void SpellList::Model::setSpells(const QList<SpellList::Entry> &spellIds)
 {
     // in case there's a view already attached, we need
     // to tell it that everything is going to change.
@@ -152,7 +152,7 @@ bool SpellList::Model::insertRows(int row, int count, const QModelIndex &parent)
     for (int i = 0; i < count; i++) {
         auto db = m_parent->db().createRelationRecord(
                     "spellList",
-                    Spell::TABLE_NAME,
+                    Entry::TABLE_NAME,
                     {
                         "level",
                         "spellId"
@@ -175,22 +175,22 @@ void SpellList::Model::updateSpell(int slot, int spellId)
     dataChanged(index(slot), index(slot));
 }
 
-QList<SpellList::Spell> SpellList::Model::spellIds() const
+QList<SpellList::Entry> SpellList::Model::spellIds() const
 {
     return m_spellIds;
 }
 
 
-// SpellList::Spell implementation
-const QString SpellList::Spell::TABLE_NAME =
+// SpellList::Entry implementation
+const QString SpellList::Entry::TABLE_NAME =
         QStringLiteral("SpellListMembers");
 
-SpellList::Spell::Spell(const DbUtil &db, int level, int spellId)
+SpellList::Entry::Entry(const DbUtil &db, int level, int spellId)
     : m_level(level), m_db(db), m_spellId(spellId)
 {
 }
 
-QVariant SpellList::Spell::dataFor(int role) const
+QVariant SpellList::Entry::dataFor(int role) const
 {
     if (m_spellId >= 0) {
         return allSpells->getInfoFor(m_spellId, role);
@@ -199,7 +199,7 @@ QVariant SpellList::Spell::dataFor(int role) const
     return QVariant();
 }
 
-void SpellList::Spell::updateSpell(int spellId)
+void SpellList::Entry::updateSpell(int spellId)
 {
     m_spellId = spellId;
     m_db.writeProperty("spellId", m_spellId);

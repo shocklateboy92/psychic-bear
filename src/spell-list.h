@@ -41,7 +41,7 @@ public slots:
     void updateSpellSlot(int slot, int spellId);
 
 private:
-    class Spell;
+    class Entry;
 
     QString m_className;
     Model* 	m_model;
@@ -56,8 +56,8 @@ class SpellList::Model : public QAbstractListModel {
 public:
     Model(SpellList *parent);
 
-    QList<SpellList::Spell> spellIds() const;
-    void setSpells(const QList<SpellList::Spell> &spellIds);
+    QList<SpellList::Entry> spellIds() const;
+    void setSpells(const QList<SpellList::Entry> &spellIds);
 
     // QAbstractItemModel interface
 public:
@@ -69,13 +69,13 @@ public:
     void updateSpell(int slot, int spellId);
 
 private:
-    QList<SpellList::Spell> m_spellIds;
+    QList<SpellList::Entry> m_spellIds;
     SpellList *m_parent;
 };
 
-class SpellList::Spell {
+class SpellList::Entry {
 public:
-    Spell(const DbUtil &db, int level, int spellId);
+    Entry(const DbUtil &db, int level, int spellId);
     QVariant dataFor(int role) const;
     void updateSpell(int spellId);
 
