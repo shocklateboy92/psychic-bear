@@ -186,7 +186,7 @@ const QString SpellList::Spell::TABLE_NAME =
         QStringLiteral("SpellListMembers");
 
 SpellList::Spell::Spell(const DbUtil &db, int level, int spellId)
-    : m_level(level), m_db(db), m_spellId(spellId)
+    : m_level(level), m_spellId(spellId), m_db(db)
 {
 }
 
