@@ -46,13 +46,13 @@ Module {
             implicitHeight: 36
 
             ListView {
-            id: attributeList
-            anchors {
-                top: parent.top
-                bottom: attributeNewModifier.top
-                left: parent.left
-                right: parent.right
-            }
+                id: attributeList
+                anchors {
+                    top: parent.top
+                    bottom: attributeNewModifier.top
+                    left: parent.left
+                    right: parent.right
+                }
 
                 clip: true
                 boundsBehavior: Flickable.StopAtBounds
@@ -68,7 +68,7 @@ Module {
             }
 
             Button {
-            id: attributeNewModifier
+                id: attributeNewModifier
                 anchors {
                     left: parent.left
                     right: parent.right
