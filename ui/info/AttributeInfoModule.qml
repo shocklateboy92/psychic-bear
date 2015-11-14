@@ -20,7 +20,14 @@ Module {
         anchors.fill: parent
 
         ListView {
-            anchors.fill: parent
+            id: attributeList
+            anchors {
+                top: parent.top
+                bottom: attributeNewModifier.top
+                left: parent.left
+                right: parent.right
+            }
+
             clip: true
             boundsBehavior: Flickable.StopAtBounds
 
@@ -34,6 +41,7 @@ Module {
         }
 
         Button {
+            id: attributeNewModifier
             anchors {
                 left: parent.left
                 right: parent.right
