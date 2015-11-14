@@ -37,16 +37,10 @@ int main(int argc, char *argv[])
     CorePlugin plugin;
     plugin.registerTypes(CorePlugin::PB_NAMESPACE);
 
-    QQmlEngine engine;
     QString path = QStringLiteral("qrc:/sheet/%1.qml").arg(argv[2]);
-    QQmlComponent component(&engine, QUrl(path));
-    auto character = component.create();
+    ProjectContext context;
 
-    if (component.isError()) {
-        for (QQmlError err : component.errors()) {
-            qWarning() << err.toString();
-        }
-
+    if (!context.createCharacter(path)) {
         qFatal("Character Errors Occured. Exiting");
         return 2;
     }
@@ -58,51 +52,24 @@ int main(int argc, char *argv[])
         qFatal("Failed to open database");
     }
 
-    Attribute::List attributes;
-    ProjectContext::populateInstancesOf<Attribute>(character, attributes);
-    populate_db<Attribute>(db, attributes);
-
-    BonusSource::List bonusSources;
-    ProjectContext::populateInstancesOf<BonusSource>(character, bonusSources);
-    populate_db<BonusSource>(db, bonusSources);
+    populate_db<Resource>(db,context.allResources());
 
     return 0;
 }
-
-template <>
-const QString ResourceInfo<Attribute>::tableName = "Attributes";
-
-template <>
-std::function<bool(Attribute*)> ResourceInfo<Attribute>::enabled =
-        [](Attribute *a) -> bool { return !a->readOnly(); };
-
-template <>
-std::function<bool(Attribute*)> ResourceInfo<Attribute>::valid =
-        std::bind(&Attribute::fetchId, std::placeholders::_1);
-
-template <>
-const QString ResourceInfo<BonusSource>::tableName = "BonusSources";
-
-template <>
-std::function<bool(BonusSource*)> ResourceInfo<BonusSource>::enabled =
-        std::bind(&BonusSource::isConditional, std::placeholders::_1);
-
-template <>
-std::function<bool(BonusSource*)> ResourceInfo<BonusSource>::valid =
-        std::bind(&BonusSource::fetchDbValues, std::placeholders::_1);
 
 template <typename T>
 void populate_db(QSqlDatabase &db, QList<T*> input) {
 
     QList<T*> writable;
     std::copy_if(input.begin(), input.end(), std::back_inserter(writable),
-                 ResourceInfo<T>::enabled);
+                 std::bind(&Resource::isDynamic, std::placeholders::_1));
 
     QList<T*> nonDb;
     std::remove_copy_if(writable.begin(), writable.end(),
-                        std::back_inserter(nonDb), ResourceInfo<T>::valid);
+                        std::back_inserter(nonDb),
+                        std::bind(&Resource::initDb, std::placeholders::_1));
 
-    qDebug() << "Processing" << ResourceInfo<T>::tableName;
+    qDebug() << "Processing All Resources";
     qDebug() << "Total :" << input.length();
     qDebug() << "Read Only :" << input.length() - writable.length();
     qDebug() << "Already in Database :" << writable.length() - nonDb.length();
@@ -118,19 +85,22 @@ void populate_db(QSqlDatabase &db, QList<T*> input) {
 
     Q_ASSERT(db.isOpen());
 
-    QSqlQuery query;
-    auto qstr = QStringLiteral("INSERT INTO %1 (uri) VALUES (:uri)")
-            .arg(ResourceInfo<T>::tableName);
-    query.prepare(qstr);
-    query.bindValue(":uri", paths);
-
     db.transaction();
-    if(!query.execBatch()) {
-        qWarning() << query.lastError();
-        qFatal("Database Error");
-        db.rollback();
+
+    for (Resource *res : nonDb) {
+        QSqlQuery query;
+        auto qstr = QStringLiteral("INSERT INTO %1 (uri) VALUES (:uri)")
+                .arg(res->db().tableName());
+        query.prepare(qstr);
+
+        query.bindValue(":uri", res->uri());
+        if(!DbUtil::executeQuery(query)) {
+            db.rollback();
+            qFatal("Database Error");
+        }
+        qDebug() << query.executedQuery();
+
     }
-    qDebug() << query.executedQuery();
     db.commit();
 
     qDebug() << "Added" << nonDb.length() << "to Databse";
