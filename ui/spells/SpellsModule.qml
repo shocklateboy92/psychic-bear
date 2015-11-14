@@ -26,7 +26,8 @@ Module {
             Label {
                 text: spellList.name
                 font.pointSize: 16
-                Layout.fillWidth: true
+                wrapMode: Text.Wrap
+                width: parent.width
             }
 
             GroupBox {
