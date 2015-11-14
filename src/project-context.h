@@ -15,7 +15,7 @@ public:
     explicit ProjectContext(QObject *parent = 0);
     ~ProjectContext();
 
-    void setCharacterRoot(QObject *root);
+    bool createCharacter(const QUrl &path);
     Resource::List allResources();
 
     template <typename T>
@@ -23,6 +23,9 @@ public:
 
 private:
     Resource::List m_resources;
+    QQmlEngine *m_engine;
+
+    void setCharacterRoot(QObject *root);
 };
 
 template <typename T>
