@@ -2,7 +2,7 @@ CREATE TABLE `SpellLists` (
         `id`	INTEGER,
         `uri`	TEXT NOT NULL UNIQUE,
         PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE `SpellListMembers` (
         `id`	INTEGER,

@@ -8,7 +8,7 @@
 #include <QSqlDriver>
 #include <QSqlQuery>
 
-static const int CURRENT_VERSION = 1;
+static const int CURRENT_VERSION = 2;
 
 int main(int argc, char *argv[])
 {
