@@ -165,6 +165,10 @@ void SpellList::Model::setSpells(const QList<SpellList::Entry> &spellIds)
 
 int SpellList::Model::getIdOf(int index)
 {
+    if (index < 0 || index > m_spellIds.count()) {
+        return -1;
+    }
+
     return m_spellIds.at(index).spellId();
 }
 

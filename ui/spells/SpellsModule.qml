@@ -38,6 +38,7 @@ Module {
                     width: parent.width
 
                     Repeater {
+                        id: listRepeater
                         model: spellList.model
 
                         delegate: ListDelegate {
@@ -46,43 +47,51 @@ Module {
                             id: listDelegate
 
                             width: parent.width
-                            height: row.height
+                            height: row.height + 10
 
                             FontMetrics {
                                 id: titleMetrics
                                 font: titleLabel.font
                             }
 
-                            RowLayout {
+                            ColumnLayout {
                                 id: row
-                                width: parent.width
-                                height: titleMetrics.height + 10
+                                width: parent.width - 10
+                                spacing: 0
+
+                                anchors.centerIn: parent
 
                                 // Non-editing (display) stuff
                                 Label {
                                     id: titleLabel
                                     visible: !editing
-                                    Layout.alignment: Qt.AlignVCenter
 
                                     text: model.name ? model.name : "Unused Spell Slot"
-                                    font.pointSize: 12
-                                    font.italic: true
+                                    font.bold: true
                                 }
                                 Label {
                                     visible: !editing
-                                    Layout.alignment: Qt.AlignLeft
                                     Layout.fillWidth: true
-                                    Layout.minimumWidth: 0
 
-                                    text: model.short_description.trim()
+                                    wrapMode: Text.Wrap
+                                    text: model.short_description ?
+                                              model.short_description.trim() : ""
+
                                     elide: Text.ElideRight
+                                    maximumLineCount: listDelegate.active ? 20 : 1
                                 }
-                                Button {
+                                Row {
                                     visible: !editing && listDelegate.active
-                                    onClicked: editing = !editing
+                                    ToolButton {
+                                        text: "Cast"
+                                    }
 
-                                    text: "Edit"
-                                    Layout.rightMargin: 10
+                                    ToolButton {
+                                        onClicked: editing = !editing
+
+                                        text: "Edit"
+                                    }
+                                    Layout.alignment: Qt.AlignRight
                                 }
 
                                 // Editing stuff
@@ -105,31 +114,39 @@ Module {
                                         editing = false;
                                     }
 
+                                    Keys.onEscapePressed: {
+                                        editing = false;
+                                    }
+
                                     onVisibleChanged: {
                                         currentIndex = find(titleLabel.text);
                                         selectAll();
                                         forceActiveFocus();
                                     }
                                 }
-                                Button {
-                                    visible: editing
-                                    Layout.rightMargin: 5
 
-                                    text: "Remove"
-                                    onClicked: spellList.removeSlot(index)
-                                }
+                                // We'll put this button back once the functionality
+                                // has been implemented.
+//                                Button {
+//                                    visible: editing
+//                                    Layout.rightMargin: 5
+
+//                                    text: "Remove"
+//                                    onClicked: spellList.removeSlot(index)
+//                                }
                             }
 
                             onActivationRequest: active = !active
+                            separator_visible: index < listRepeater.count - 1
                         }
                     }
-
-                    ToolButton {
-                        text: "Create New Slot"
-                        onClicked: spellList.createNewSlot()
-                        height: titleMetrics.height
-                    }
                 }
+            }
+
+            Button {
+                anchors.right: parent.right
+                text: "Create New Slot"
+                onClicked: spellList.createNewSlot()
             }
         }
     }
