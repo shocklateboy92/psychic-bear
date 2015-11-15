@@ -82,6 +82,12 @@ Module {
                                 }
                                 Row {
                                     visible: !editing && listDelegate.active
+
+                                    ToolButton {
+                                        text: "Details"
+                                        onClicked: Qt.openUrlExternally(model.linktext)
+                                    }
+
                                     ToolButton {
                                         text: "Cast"
                                     }
