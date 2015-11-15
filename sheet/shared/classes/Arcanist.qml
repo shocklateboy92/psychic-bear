@@ -26,7 +26,7 @@ Item {
     }
 
     Instantiator {
-        model: _private.spellLevels
+        model: 3
 
         Item {
             property int spellLevel: modelData
@@ -60,35 +60,17 @@ Item {
                     }
                 ]
             }
+
+            SpellList {
+                name: "Primary Prepared SpellList, Level %1".arg(spellLevel)
+                uri: "spel://spellLists/prepared/default/%1".arg(spellLevel)
+
+                className: "wiz"
+                level: spellLevel
+            }
         }
     }
 
-    Instantiator {
-        id: prepList
-        model: _private.spellLevels
-
-        Attribute {
-            property int spellLevel: modelData
-            name: "Prepared Level " + spellLevel + " Spells Per Day"
-            uri: "attr://spells/prepared/total/" + spellLevel
-
-            modifiers: [
-                Bonus {
-                    // TODO: Make function for prepared spells per day table
-                    name: "Arcanist Base"
-                    amount: 2
-                }
-            ]
-        }
-    }
-
-    SpellList {
-        id: spellList
-        name: "Primary Prepared SpellList, Level 1"
-        uri: "spel://spellLists/prepared/default"
-        className: "wiz"
-        level: 1
-    }
 
     AttributeRef {
         id: levelRef
