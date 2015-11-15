@@ -31,6 +31,7 @@ Module {
             }
 
             GroupBox {
+                title: "Slots :"
                 width: parent.width
 
                 Column {
@@ -41,6 +42,7 @@ Module {
 
                         delegate: ListDelegate {
                             property bool editing: false
+
                             id: listDelegate
 
                             width: parent.width
@@ -64,6 +66,7 @@ Module {
 
                                     text: model.name ? model.name : "Unused Spell Slot"
                                     font.pointSize: 12
+                                    font.italic: true
                                 }
                                 Label {
                                     visible: !editing
@@ -89,7 +92,24 @@ Module {
                                     Layout.leftMargin: 5
 
                                     textRole: "name"
-                                    model: spellList.model
+                                    model: spellList.availableSpells
+
+                                    editable: true
+                                    onAccepted: {
+                                        spellList.updateSpellSlot(
+                                                    index,
+                                                    model.getIdOf(
+                                                        currentIndex
+                                                        )
+                                                    );
+                                        editing = false;
+                                    }
+
+                                    onVisibleChanged: {
+                                        currentIndex = find(titleLabel.text);
+                                        selectAll();
+                                        forceActiveFocus();
+                                    }
                                 }
                                 Button {
                                     visible: editing
@@ -103,9 +123,11 @@ Module {
                             onActivationRequest: active = !active
                         }
                     }
+
                     ToolButton {
-                        text: "+"
+                        text: "Create New Slot"
                         onClicked: spellList.createNewSlot()
+                        height: titleMetrics.height
                     }
                 }
             }

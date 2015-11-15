@@ -14,7 +14,9 @@ class SpellInfo {
 public:
     SpellInfo();
     QVariant getInfoFor(int spellId, int role);
+
     const QHash<int, QByteArray>& getHeaders() const;
+    const QList<QVariantList>& getData() const;
 
 private:
     QList<QVariantList> m_data;
@@ -29,7 +31,8 @@ Q_GLOBAL_STATIC(SpellInfo, allSpells)
 // SpellList implementation
 SpellList::SpellList(QQuickItem *parent)
     : Resource(QStringLiteral("SpellLists"), parent),
-      m_model(new Model(this)), m_level(0)
+      m_model(new Model(this)), m_level(-1),
+      m_availableSpells(new Model(this))
 {
 }
 
@@ -48,6 +51,11 @@ int SpellList::level() const
     return m_level;
 }
 
+SpellList::Model *SpellList::availableSpells() const
+{
+    return m_availableSpells;
+}
+
 void SpellList::setClassName(QString className)
 {
     if (m_className == className)
@@ -55,6 +63,8 @@ void SpellList::setClassName(QString className)
 
     m_className = className;
     emit classNameChanged(className);
+
+    updateAvailableSpells();
 }
 
 void SpellList::setLevel(int level)
@@ -64,6 +74,8 @@ void SpellList::setLevel(int level)
 
     m_level = level;
     emit levelChanged(level);
+
+    updateAvailableSpells();
 }
 
 void SpellList::createNewSlot()
@@ -74,6 +86,30 @@ void SpellList::createNewSlot()
 void SpellList::updateSpellSlot(int slot, int spellId)
 {
     m_model->updateSpell(slot, spellId);
+}
+
+void SpellList::updateAvailableSpells()
+{
+    // Make sure all relevant properties are set
+    if (level() < 0 || className().isEmpty()) {
+        return;
+    }
+
+    int role = allSpells->getHeaders().key(className().toLatin1(), -1);
+    if (role < 0) {
+        qWarning() << className() << "is not a valid class name";
+        return;
+    }
+
+    QList<Entry> available;
+    int count = 0;
+    for (QVariant spell : allSpells->getData()) {
+        if (spell.toList().at(role) == level()) {
+            available.push_back({{""}, level(), count});
+        }
+        count++;
+    }
+    m_availableSpells->setSpells(available);
 }
 
 bool SpellList::isDynamic() const
@@ -125,6 +161,11 @@ void SpellList::Model::setSpells(const QList<SpellList::Entry> &spellIds)
     beginResetModel();
     m_spellIds = spellIds;
     endResetModel();
+}
+
+int SpellList::Model::getIdOf(int index)
+{
+    return m_spellIds.at(index).spellId();
 }
 
 int SpellList::Model::rowCount(const QModelIndex &parent) const
@@ -205,6 +246,10 @@ void SpellList::Entry::updateSpell(int spellId)
     m_db.writeProperty("spellId", m_spellId);
 }
 
+int SpellList::Entry::spellId() const
+{
+    return m_spellId;
+}
 
 
 // SpellInfo implementation
@@ -245,5 +290,10 @@ QVariant SpellInfo::getInfoFor(int spellId, int role) {
 const QHash<int, QByteArray> &SpellInfo::getHeaders() const
 {
     return m_headers;
+}
+
+const QList<QVariantList> &SpellInfo::getData() const
+{
+return m_data;
 }
 

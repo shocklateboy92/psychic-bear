@@ -14,6 +14,8 @@ class SpellList : public Resource
                WRITE setClassName NOTIFY classNameChanged)
     Q_PROPERTY(int level READ level WRITE setLevel NOTIFY levelChanged)
     Q_PROPERTY(QAbstractItemModel* model READ model NOTIFY modelChanged)
+    Q_PROPERTY(QAbstractItemModel* availableSpells
+               READ availableSpells NOTIFY availableSpellsChanged)
 public:
     class Model;
 
@@ -22,6 +24,7 @@ public:
     QString className() const;
     Model* 	model()	const;
     int 	level() const;
+    Model*  availableSpells() const;
 
     // Resource interface
 public:
@@ -32,6 +35,7 @@ signals:
     void classNameChanged(QString className);
     void modelChanged(Model* model);
     void levelChanged(int level);
+    void availableSpellsChanged(Model* availableSpells);
 
 public slots:
     void setClassName(QString className);
@@ -43,9 +47,12 @@ public slots:
 private:
     class Entry;
 
+    void updateAvailableSpells();
+
     QString m_className;
     Model* 	m_model;
     int 	m_level;
+    Model* m_availableSpells;
 };
 
 // I choose to split this into a separate class, and use
@@ -53,11 +60,14 @@ private:
 // the diamond inheritence problem with QObject
 class SpellList::Model : public QAbstractListModel {
 
+    Q_OBJECT
 public:
     Model(SpellList *parent);
 
     QList<SpellList::Entry> spellIds() const;
     void setSpells(const QList<SpellList::Entry> &spellIds);
+
+    Q_INVOKABLE int getIdOf(int index);
 
     // QAbstractItemModel interface
 public:
@@ -80,6 +90,8 @@ public:
     void updateSpell(int spellId);
 
     static const QString TABLE_NAME;
+
+    int spellId() const;
 
 private:
     int m_level;
