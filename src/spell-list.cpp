@@ -32,6 +32,7 @@ Q_GLOBAL_STATIC(SpellInfo, allSpells)
 SpellList::SpellList(QQuickItem *parent)
     : Resource(QStringLiteral("SpellLists"), parent),
       m_level(-1),
+      m_complete(false),
       m_model(new Model(this)),
       m_availableSpells(new Model(this)),
       m_totalCasts(nullptr),
@@ -52,6 +53,11 @@ SpellList::Model *SpellList::model() const
 int SpellList::level() const
 {
     return m_level;
+}
+
+bool SpellList::complete() const
+{
+    return m_complete;
 }
 
 SpellList::Model *SpellList::availableSpells() const
@@ -83,6 +89,7 @@ void SpellList::setClassName(QString className)
     emit classNameChanged(className);
 
     updateAvailableSpells();
+    populate();
 }
 
 void SpellList::setLevel(int level)
@@ -94,6 +101,18 @@ void SpellList::setLevel(int level)
     emit levelChanged(level);
 
     updateAvailableSpells();
+    populate();
+}
+
+void SpellList::setComplete(bool complete)
+{
+    if (m_complete == complete)
+        return;
+
+    m_complete = complete;
+    populate();
+
+    emit completeChanged(complete);
 }
 
 void SpellList::createNewSlot()
@@ -133,6 +152,29 @@ void SpellList::setSaveDc(Attribute *saveDc)
     emit saveDcChanged(saveDc);
 }
 
+void SpellList::populate()
+{
+    if (!complete() || level() < 0 || className().isEmpty()) {
+        return;
+    }
+
+    int role = allSpells->getHeaders().key(className().toLatin1(), -1);
+    if (role < 0) {
+        qWarning() << className() << "is not a valid class name";
+        return;
+    }
+
+    QList<Entry> available;
+    int count = 0;
+    for (QVariant spell : allSpells->getData()) {
+        if (spell.toList().at(role) == level()) {
+            available.push_back({{""}, level(), count});
+        }
+        count++;
+    }
+    model()->setSpells(available);
+}
+
 void SpellList::updateAvailableSpells()
 {
     // Make sure all relevant properties are set
@@ -159,9 +201,7 @@ void SpellList::updateAvailableSpells()
 
 bool SpellList::isDynamic() const
 {
-    // all spell lists are dynamic - I don't see much
-    // point in having a spell-list of hardcoded spells.
-    return true;
+    return !complete();
 }
 
 bool SpellList::initDb()

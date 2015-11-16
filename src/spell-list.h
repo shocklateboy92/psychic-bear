@@ -22,6 +22,8 @@ class SpellList : public Resource
                WRITE setRemainingCasts NOTIFY remainingCastsChanged)
     Q_PROPERTY(Attribute* saveDc READ saveDc
                WRITE setSaveDc NOTIFY saveDcChanged)
+    Q_PROPERTY(bool complete READ complete
+               WRITE setComplete NOTIFY completeChanged)
 public:
     class Model;
 
@@ -29,6 +31,7 @@ public:
 
     QString className() const;
     int 	level() const;
+    bool    complete() const;
 
     Model* 	model()	const;
     Model*  availableSpells() const;
@@ -45,6 +48,7 @@ public:
 signals:
     void classNameChanged(QString className);
     void levelChanged(int level);
+    void completeChanged(bool complete);
 
     void modelChanged(Model* model);
     void availableSpellsChanged(Model* availableSpells);
@@ -56,6 +60,7 @@ signals:
 public slots:
     void setClassName(QString className);
     void setLevel(int level);
+    void setComplete(bool complete);
 
     void createNewSlot();
     void updateSpellSlot(int slot, int spellId);
@@ -67,10 +72,12 @@ public slots:
 private:
     class Entry;
 
+    void populate();
     void updateAvailableSpells();
 
     QString m_className;
     int 	m_level;
+    bool    m_complete;
     Model* 	m_model;
     Model*  m_availableSpells;
     Attribute* m_totalCasts;

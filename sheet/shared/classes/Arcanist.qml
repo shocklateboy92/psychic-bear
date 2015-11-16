@@ -106,6 +106,8 @@ Item {
                 totalCasts: totalSpells
                 remainingCasts: remainingSpells
                 saveDc: saveDC
+
+                complete: spellLevel == 0
             }
         }
     }
