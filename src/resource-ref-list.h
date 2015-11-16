@@ -12,8 +12,6 @@ class ResourceRefList : public QAbstractListModel
                WRITE setUriFilter NOTIFY uriFilterChanged)
 
     // QAbstractItemModel interface
-    QStringList m_uriFilter;
-
 public:
     virtual int rowCount(const QModelIndex &parent) const override;
     virtual QVariant data(const QModelIndex &index, int role) const override;
@@ -26,7 +24,7 @@ public:
 
 public slots:
     void onResourceCreated(Resource* res);
-    void onResourceDestroyed(Resource* res);
+    void onResourceDestroyed(QObject *obj);
     void setUriFilter(QStringList uriFilter);
 
 signals:
@@ -34,6 +32,7 @@ signals:
 
 private:
     Resource::List m_data;
+    QStringList m_uriFilter;
 };
 
 #endif // RESOURCEREFLIST_H

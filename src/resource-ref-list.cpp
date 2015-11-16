@@ -1,3 +1,4 @@
+#include "resource-manager.h"
 #include "resource-ref-list.h"
 
 ResourceRefList::ResourceRefList(QObject *parent)
@@ -16,21 +17,38 @@ void ResourceRefList::onResourceCreated(Resource *res)
     // We shouldn't be getting events before we have constraints
     Q_ASSERT(!uriFilter().isEmpty());
 
+    // We're doing all the filtering receiver side
     for (QString &pattern : uriFilter()) {
-
         QRegExp regex(pattern, Qt::CaseInsensitive, QRegExp::Wildcard);
         if (regex.exactMatch(res->uri())) {
 
             beginInsertRows(QModelIndex(), m_data.length(), m_data.length());
+
             m_data.append(res);
+            connect(res, &Resource::destroyed,
+                    this, &ResourceRefList::onResourceDestroyed);
+
+            // This shouldn't happen
+            connect(res, &Resource::uriChanged,
+                    [=](const QString &uri) {
+                qWarning() << "Uri changed after initialization: " << uri;
+
+                if (!regex.exactMatch(uri)) {
+                    onResourceDestroyed(res);
+                }
+            });
+
             endInsertRows();
         }
     }
 }
 
-void ResourceRefList::onResourceDestroyed(Resource *res)
+void ResourceRefList::onResourceDestroyed(QObject *obj)
 {
-    m_data.removeOne(res);
+    auto res = qobject_cast<Resource*>(obj);
+    bool success = m_data.removeOne(res);
+    // we shouldn't get events about resources that aren't ours
+    Q_ASSERT(success);
 }
 
 void ResourceRefList::setUriFilter(QStringList uriFilter)
@@ -41,7 +59,8 @@ void ResourceRefList::setUriFilter(QStringList uriFilter)
     m_uriFilter = uriFilter;
     emit uriFilterChanged(uriFilter);
 
-    // TODO: register with manager here
+    connect(ResourceManager::instance(), &ResourceManager::resourceCreated,
+            this, &ResourceRefList::onResourceCreated);
 }
 
 int ResourceRefList::rowCount(const QModelIndex &parent) const
