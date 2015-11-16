@@ -87,7 +87,7 @@ Module {
 
                                     wrapMode: Text.Wrap
                                     text: model.short_description ?
-                                              model.short_description.trim() : ""
+                                              model.short_description.trim() : model.description.trim()
 
                                     elide: Text.ElideRight
                                     maximumLineCount: listDelegate.active ? 20 : 1
