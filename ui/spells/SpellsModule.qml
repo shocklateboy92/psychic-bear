@@ -7,6 +7,8 @@ import org.lasath.psychic_bear.ui 1.0
 import ".."
 
 Module {
+    property ListDelegate activeDelegate
+
     name: "Spells"
     moduleId: "defaultSpells"
 
@@ -16,6 +18,7 @@ Module {
         anchors.fill: parent
         anchors.margins: 10
         model: matchingResources
+        spacing: 10
 
         delegate: Column {
             property SpellList spellList: modelData
@@ -28,11 +31,12 @@ Module {
                 font.pointSize: 16
                 wrapMode: Text.Wrap
                 width: parent.width
+                horizontalAlignment: Text.AlignLeft
             }
 
             GroupBox {
-                title: "Slots :"
                 width: parent.width
+                title: "Cast: 3, Remaning: 4, Save DC: 15"
 
                 Column {
                     width: parent.width
@@ -48,6 +52,17 @@ Module {
 
                             width: parent.width
                             height: row.height + 10
+
+                            active: activeDelegate === this
+                            onActivationRequest: {
+                                if (active) {
+                                    activeDelegate = null;
+                                } else {
+                                    activeDelegate = this;
+                                }
+                            }
+
+                            separator_visible: index < listRepeater.count - 1
 
                             FontMetrics {
                                 id: titleMetrics
@@ -141,15 +156,12 @@ Module {
 //                                    onClicked: spellList.removeSlot(index)
 //                                }
                             }
-
-                            onActivationRequest: active = !active
-                            separator_visible: index < listRepeater.count - 1
                         }
                     }
                 }
             }
 
-            Button {
+            ToolButton {
                 anchors.right: parent.right
                 text: "Create New Slot"
                 onClicked: spellList.createNewSlot()

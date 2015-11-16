@@ -62,7 +62,7 @@ Item {
             }
 
             SpellList {
-                name: "Primary Prepared SpellList, Level %1".arg(spellLevel)
+                name: "Prepared Spells, Level %1".arg(spellLevel)
                 uri: "spel://spellLists/prepared/default/%1".arg(spellLevel)
 
                 className: "wiz"
