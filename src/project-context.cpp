@@ -3,14 +3,33 @@
 #include "resource-filter.h"
 #include "attribute.h"
 
+#include <QQmlEngine>
+
 ProjectContext::ProjectContext(QObject *parent)
-    : QObject(parent), m_resources()
+    : QObject(parent), m_resources(),
+      m_engine(new QQmlEngine(this))
 {
 }
 
 ProjectContext::~ProjectContext()
 {
 
+}
+
+bool ProjectContext::createCharacter(const QUrl &path)
+{
+    QQmlComponent character(m_engine);
+
+    character.loadUrl(path);
+    if (character.isError()) {
+        qWarning() << character.errors();
+        return false;
+    }
+
+    auto charObject = character.create();
+    setCharacterRoot(charObject);
+
+    return true;
 }
 
 void ProjectContext::setCharacterRoot(QObject *root)

@@ -23,9 +23,7 @@ int main(int argc, char *argv[])
     app.setOrganizationDomain("lasath.org");
     app.setApplicationName("Psychic Bear");
 
-    QQmlApplicationEngine engine;
-    QQmlComponent character(&engine);
-    ProjectContext context(&engine);
+    ProjectContext context;
 
     CorePlugin().registerTypes(CorePlugin::PB_NAMESPACE);
 
@@ -37,13 +35,7 @@ int main(int argc, char *argv[])
     qSetMessagePattern("[%{type}] %{function}(): %{message}");
     db::initialize();
 
-    character.loadUrl(QUrl(QStringLiteral("qrc:/sheet/%1.qml").arg(argv[1])));
-    if (character.isError()) {
-        qWarning() << character.errors();
-    } else {
-        auto charObject = character.create();
-        context.setCharacterRoot(charObject);
-    }
+    context.createCharacter(QUrl(QStringLiteral("qrc:/sheet/%1.qml").arg(argv[1])));
 
     for (Resource *a : context.allResources()) {
         if (a->isDynamic()) {
@@ -54,11 +46,9 @@ int main(int argc, char *argv[])
         }
     }
 
-    engine.rootContext()->setContextProperty("psychic_bear", &context);
-
     qmlRegisterType<UiModule>(PB_UI_NAMESPACE, 1, 0, "Module");
 
-    ContainerWindow root(nullptr);
+    ContainerWindow root;
     root.setProjectContext(&context);
     root.setupUi();
     root.setVisible(true);
