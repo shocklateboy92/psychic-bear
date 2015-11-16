@@ -2,14 +2,15 @@
 #include "resource.h"
 
 UiModule::UiModule(QQuickItem *parent)
-    : QQuickItem(parent)
+    : QQuickItem(parent), m_refList(new ResourceRefList(this))
 {
-
+    connect(m_refList, &ResourceRefList::uriFilterChanged,
+            this, &UiModule::requiredResourcesChanged);
 }
 
 UiModule::ResourceList UiModule::matchingResources()
 {
-    return ResourceList(dynamic_cast<QObject*>(this), m_resources);
+    return m_refList;
 }
 
 QString UiModule::moduleId() const
@@ -24,7 +25,7 @@ QString UiModule::name() const
 
 QStringList UiModule::requiredResources() const
 {
-    return m_requiredResources;
+    return m_refList->uriFilter();
 }
 
 void UiModule::setModuleId(QString moduleId)
@@ -47,16 +48,5 @@ void UiModule::setName(QString name)
 
 void UiModule::setRequiredResources(QStringList requiredResources)
 {
-    if (m_requiredResources == requiredResources)
-        return;
-
-    m_requiredResources = requiredResources;
-    emit requiredResourcesChanged(requiredResources);
+    m_refList->setUriFilter(requiredResources);
 }
-
-void UiModule::setMatchingResources(Resource::List list)
-{
-    m_resources = list;
-    emit matchingResourcesChanged(matchingResources());
-}
-

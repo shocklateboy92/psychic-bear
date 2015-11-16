@@ -1,3 +1,4 @@
+#include "resource-manager.h"
 #include "resource.h"
 
 Resource::Resource(QString table, QQuickItem *parent)
@@ -51,4 +52,6 @@ void Resource::setUri(QString uri)
 
     m_uri = uri;
     emit uriChanged(uri);
+
+    ResourceManager::instance()->registerResource(this);
 }
