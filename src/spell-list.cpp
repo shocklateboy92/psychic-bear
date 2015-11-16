@@ -60,6 +60,11 @@ bool SpellList::complete() const
     return m_complete;
 }
 
+SpellList *SpellList::source() const
+{
+    return m_source;
+}
+
 Attribute *SpellList::totalCasts() const
 {
     return m_totalCasts;
@@ -106,6 +111,15 @@ void SpellList::setComplete(bool complete)
     populate();
 
     emit completeChanged(complete);
+}
+
+void SpellList::setSource(SpellList *source)
+{
+    if (m_source == source)
+        return;
+
+    m_source = source;
+    emit sourceChanged(source);
 }
 
 void SpellList::createNewSlot()

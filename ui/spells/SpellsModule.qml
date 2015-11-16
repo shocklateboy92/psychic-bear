@@ -123,7 +123,7 @@ Module {
                                     Layout.leftMargin: 5
 
                                     textRole: "name"
-                                    model: spellList.availableSpells
+                                    model: spellList.source.model
 
                                     editable: true
                                     onAccepted: {
