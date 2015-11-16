@@ -107,6 +107,10 @@ Module {
 
                                     ToolButton {
                                         text: "Cast"
+                                        onClicked: {
+                                            spellList.remainingCasts
+                                                .createStaticModifier(-1, model.name);
+                                        }
                                     }
 
                                     ToolButton {
