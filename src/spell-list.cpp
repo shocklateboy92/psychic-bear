@@ -60,11 +60,6 @@ bool SpellList::complete() const
     return m_complete;
 }
 
-SpellList::Model *SpellList::availableSpells() const
-{
-    return m_availableSpells;
-}
-
 Attribute *SpellList::totalCasts() const
 {
     return m_totalCasts;
@@ -88,7 +83,6 @@ void SpellList::setClassName(QString className)
     m_className = className;
     emit classNameChanged(className);
 
-    updateAvailableSpells();
     populate();
 }
 
@@ -100,7 +94,6 @@ void SpellList::setLevel(int level)
     m_level = level;
     emit levelChanged(level);
 
-    updateAvailableSpells();
     populate();
 }
 
@@ -173,30 +166,6 @@ void SpellList::populate()
         count++;
     }
     model()->setSpells(available);
-}
-
-void SpellList::updateAvailableSpells()
-{
-    // Make sure all relevant properties are set
-    if (level() < 0 || className().isEmpty()) {
-        return;
-    }
-
-    int role = allSpells->getHeaders().key(className().toLatin1(), -1);
-    if (role < 0) {
-        qWarning() << className() << "is not a valid class name";
-        return;
-    }
-
-    QList<Entry> available;
-    int count = 0;
-    for (QVariant spell : allSpells->getData()) {
-        if (spell.toList().at(role) == level()) {
-            available.push_back({{""}, level(), count});
-        }
-        count++;
-    }
-    m_availableSpells->setSpells(available);
 }
 
 bool SpellList::isDynamic() const

@@ -14,8 +14,6 @@ class SpellList : public Resource
                WRITE setClassName NOTIFY classNameChanged)
     Q_PROPERTY(int level READ level WRITE setLevel NOTIFY levelChanged)
     Q_PROPERTY(QAbstractItemModel* model READ model NOTIFY modelChanged)
-    Q_PROPERTY(QAbstractItemModel* availableSpells
-               READ availableSpells NOTIFY availableSpellsChanged)
     Q_PROPERTY(Attribute* totalCasts READ totalCasts
                WRITE setTotalCasts NOTIFY totalCastsChanged)
     Q_PROPERTY(Attribute* remainingCasts READ remainingCasts
@@ -34,7 +32,6 @@ public:
     bool    complete() const;
 
     Model* 	model()	const;
-    Model*  availableSpells() const;
 
     Attribute* totalCasts() const;
     Attribute* remainingCasts() const;
@@ -51,7 +48,6 @@ signals:
     void completeChanged(bool complete);
 
     void modelChanged(Model* model);
-    void availableSpellsChanged(Model* availableSpells);
 
     void totalCastsChanged(Attribute* totalCasts);
     void remainingCastsChanged(Attribute* remainingCasts);
@@ -73,7 +69,6 @@ private:
     class Entry;
 
     void populate();
-    void updateAvailableSpells();
 
     QString m_className;
     int 	m_level;
