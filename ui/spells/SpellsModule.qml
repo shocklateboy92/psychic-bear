@@ -9,11 +9,6 @@ import ".."
 Module {
     property ListDelegate activeDelegate
 
-    name: "Spells"
-    moduleId: "defaultSpells"
-
-    requiredResources: "spel://spellLists/*"
-
     ListView {
         anchors.fill: parent
         anchors.margins: 10

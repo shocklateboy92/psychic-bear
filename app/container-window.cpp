@@ -17,10 +17,12 @@ const QStringList ContainerWindow::MODULE_SRC_PATHS = {
     "qrc:/ui/attrs/CombatAttributesModule.qml",
     "qrc:/ui/attrs/SkillAttributesModule.qml",
     "qrc:/ui/conds/ConditionsModule.qml",
+    "qrc:/ui/spells/SpontaneousSpellsModule.qml",
+    "qrc:/ui/spells/PreparedSpellsModule.qml",
     "qrc:/ui/attrs/CastingAttributesModule.qml"
 };
 
-static const int SETTINGS_VERSION = 7;
+static const int SETTINGS_VERSION = 8;
 
 ContainerWindow::ContainerWindow(QWidget *parent)
     : QMainWindow(parent), m_engine(new QQmlEngine(this)),

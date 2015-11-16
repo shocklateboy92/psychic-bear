@@ -16,5 +16,7 @@
         <file>attrs/CombatAttributesModule.qml</file>
         <file>attrs/CastingAttributesModule.qml</file>
         <file>spells/SpellsModule.qml</file>
+        <file>spells/PreparedSpellsModule.qml</file>
+        <file>spells/SpontaneousSpellsModule.qml</file>
     </qresource>
 </RCC>
