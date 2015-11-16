@@ -46,9 +46,14 @@ void ResourceRefList::onResourceCreated(Resource *res)
 void ResourceRefList::onResourceDestroyed(QObject *obj)
 {
     auto res = qobject_cast<Resource*>(obj);
-    bool success = m_data.removeOne(res);
+
+    bool index = m_data.indexOf(res);
     // we shouldn't get events about resources that aren't ours
-    Q_ASSERT(success);
+    Q_ASSERT(index);
+
+    beginRemoveRows(QModelIndex(), index, index);
+    m_data.removeAt(index);
+    endRemoveRows();
 }
 
 void ResourceRefList::setUriFilter(QStringList uriFilter)
