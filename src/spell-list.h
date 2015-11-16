@@ -13,15 +13,20 @@ class SpellList : public Resource
     Q_PROPERTY(QString className READ className
                WRITE setClassName NOTIFY classNameChanged)
     Q_PROPERTY(int level READ level WRITE setLevel NOTIFY levelChanged)
-    Q_PROPERTY(QAbstractItemModel* model READ model NOTIFY modelChanged)
-    Q_PROPERTY(QAbstractItemModel* availableSpells
-               READ availableSpells NOTIFY availableSpellsChanged)
+
+    Q_PROPERTY(bool complete READ complete
+               WRITE setComplete NOTIFY completeChanged)
+    Q_PROPERTY(SpellList* source READ source
+               WRITE setSource NOTIFY sourceChanged)
+
     Q_PROPERTY(Attribute* totalCasts READ totalCasts
                WRITE setTotalCasts NOTIFY totalCastsChanged)
     Q_PROPERTY(Attribute* remainingCasts READ remainingCasts
                WRITE setRemainingCasts NOTIFY remainingCastsChanged)
     Q_PROPERTY(Attribute* saveDc READ saveDc
                WRITE setSaveDc NOTIFY saveDcChanged)
+
+    Q_PROPERTY(QAbstractItemModel* model READ model NOTIFY modelChanged)
 public:
     class Model;
 
@@ -30,8 +35,10 @@ public:
     QString className() const;
     int 	level() const;
 
+    bool       complete() const;
+    SpellList* source() const;
+
     Model* 	model()	const;
-    Model*  availableSpells() const;
 
     Attribute* totalCasts() const;
     Attribute* remainingCasts() const;
@@ -46,8 +53,10 @@ signals:
     void classNameChanged(QString className);
     void levelChanged(int level);
 
+    void completeChanged(bool complete);
+    void sourceChanged(SpellList* source);
+
     void modelChanged(Model* model);
-    void availableSpellsChanged(Model* availableSpells);
 
     void totalCastsChanged(Attribute* totalCasts);
     void remainingCastsChanged(Attribute* remainingCasts);
@@ -56,6 +65,9 @@ signals:
 public slots:
     void setClassName(QString className);
     void setLevel(int level);
+
+    void setComplete(bool complete);
+    void setSource(SpellList* source);
 
     void createNewSlot();
     void updateSpellSlot(int slot, int spellId);
@@ -67,15 +79,17 @@ public slots:
 private:
     class Entry;
 
-    void updateAvailableSpells();
+    void populate();
 
     QString m_className;
     int 	m_level;
+    bool    m_complete;
     Model* 	m_model;
     Model*  m_availableSpells;
     Attribute* m_totalCasts;
     Attribute* m_remainingCasts;
     Attribute* m_saveDc;
+    SpellList* m_source;
 };
 
 // I choose to split this into a separate class, and use

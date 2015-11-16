@@ -95,8 +95,11 @@ Item {
                 totalCasts: totalSpells
                 remainingCasts: remainingSpells
                 saveDc: saveDC
+
+                source: knownList
             }
             SpellList {
+                id: knownList
 
                 name: "Known Spells, Level %1".arg(spellLevel)
                 uri: "spel://spellLists/known/" + spellLevel
@@ -107,6 +110,14 @@ Item {
                 totalCasts: totalSpells
                 remainingCasts: remainingSpells
                 saveDc: saveDC
+
+                complete: spellLevel == 0
+
+                source: SpellList {
+                    className: "wiz"
+                    level: spellLevel
+                    complete: true
+                }
             }
         }
     }

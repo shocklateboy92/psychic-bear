@@ -36,4 +36,6 @@ void db::initialize()
 //            }
 //        }
 //    }
+
+        QSqlQuery().exec("PRAGMA foreign_keys = ON;");
 }
