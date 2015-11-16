@@ -20,24 +20,16 @@ Item {
     }
 
 
-    QtObject {
-        id: _private
-        property variant spellLevels: [1,2,3,4,5,6,7,8,9]
-    }
-
     Instantiator {
-        model: 3
+        // FIXME: re-enable once a resource-manager has been built that
+        //        can handle objects being destroyed
+//        model: Math.max(Math.floor(levelRef.target.value / 2), 1) + 1
+        model: 2
 
-        SpellList {
+        Item {
             property int spellLevel: modelData
 
-            name: "Prepared Spells, Level %1".arg(spellLevel)
-            uri: "spel://spellLists/prepared/default/%1".arg(spellLevel)
-
-            className: "wiz"
-            level: spellLevel
-
-            totalCasts: Attribute {
+            Attribute {
                 id: totalSpells
                 name: "Total Level " + spellLevel + " Spells Per Day"
                 uri: "attr://spells/castsPerDay/total/" + spellLevel
@@ -53,8 +45,8 @@ Item {
                     }
                 ]
             }
-
-            remainingCasts: Attribute {
+            Attribute {
+                id: remainingSpells
                 name: "Remaining Level " + spellLevel + " Spells Per Day"
                 uri: "attr://spells/castsPerDay/remaining/" + spellLevel
                 readOnly: false
@@ -65,6 +57,29 @@ Item {
                         amount: totalSpells.value
                     }
                 ]
+            }
+
+            SpellList {
+
+                name: "Prepared Spells, Level %1".arg(spellLevel)
+                uri: "spel://spellLists/prepared/default/%1".arg(spellLevel)
+
+                className: "wiz"
+                level: spellLevel
+
+                totalCasts: totalSpells
+                remainingCasts: remainingSpells
+            }
+            SpellList {
+
+                name: "Known Spells, Level %1".arg(spellLevel)
+                uri: "spel://spellLists/known/" + spellLevel
+
+                className: "wiz"
+                level: spellLevel
+
+                totalCasts: totalSpells
+                remainingCasts: remainingSpells
             }
         }
     }
