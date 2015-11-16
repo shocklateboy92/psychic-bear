@@ -20,7 +20,10 @@ Item {
     }
 
     Instantiator {
-        model: [1,2,3,4,5,6,7,8,9]
+        // FIXME: re-enable once a resource-manager has been built that
+        //        can handle objects being destroyed
+//        model: Math.max(Math.floor(levelRef.target.value / 2), 1) + 1
+        model: 2
 
         Item {
             property int spellLevel: modelData
@@ -43,6 +46,7 @@ Item {
             }
 
             Attribute {
+                id: remainingSpells
                 name: "Remaining Level " + spellLevel + " Spells Per Day"
                 uri: "attr://spells/castsPerDay/remaining/" + spellLevel
                 readOnly: false
@@ -56,19 +60,68 @@ Item {
             }
 
             Attribute {
-                name: "Prepared Level " + spellLevel + " Spells Per Day"
-                uri: "attr://spells/prepared/total"
+                id: saveDC
+                name: "Level %1 Spell Save DC".arg(spellLevel)
+                uri: "attr://spells/savingThrow/" + spellLevel
 
                 modifiers: [
                     Bonus {
-                        // TODO: Make function for prepared spells per day table
-                        name: "Arcanist Base"
+                        name: "Base"
+                        amount: 10
+                    },
+                    Bonus {
+                        name: "Spell Level"
+                        amount: spellLevel
+                    },
+                    Bonus {
+                        name: intTempRef.target.name
+                        amount: intTempRef.target.value
+                    },
+                    Bonus {
+                        source: potentMagic
                         amount: 2
                     }
                 ]
             }
+
+            SpellList {
+
+                name: "Prepared Spells, Level %1".arg(spellLevel)
+                uri: "spel://spellLists/prepared/default/%1".arg(spellLevel)
+
+                className: "wiz"
+                level: spellLevel
+
+                totalCasts: totalSpells
+                remainingCasts: remainingSpells
+                saveDc: saveDC
+            }
+            SpellList {
+
+                name: "Known Spells, Level %1".arg(spellLevel)
+                uri: "spel://spellLists/known/" + spellLevel
+
+                className: "wiz"
+                level: spellLevel
+
+                totalCasts: totalSpells
+                remainingCasts: remainingSpells
+                saveDc: saveDC
+            }
         }
     }
+
+
+    BonusSource {
+        id: potentMagic
+
+        name: "Potent Magic (Arcanist Exploit)"
+        uri: "msrc://classFeatures/arcanist/exploits/potentMagic"
+
+        conditional: true
+        active: false
+    }
+
 
     AttributeRef {
         id: levelRef
@@ -77,5 +130,9 @@ Item {
     AttributeRef {
         id: intRef
         targetUri: "attr://abilityScores/intelligence/permanent/modifier"
+    }
+    AttributeRef {
+        id: intTempRef
+        targetUri: "attr://abilityScores/intelligence/temporary/modifier"
     }
 }

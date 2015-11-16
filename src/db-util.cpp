@@ -11,6 +11,12 @@ DbUtil::DbUtil(QString tableName)
 
 }
 
+DbUtil::DbUtil(QString tableName, int id)
+    : DbUtil(tableName)
+{
+    m_id = id;
+}
+
 DbUtil::~DbUtil()
 {
 
@@ -82,6 +88,59 @@ bool DbUtil::isValid() const
 QString DbUtil::tableName() const
 {
     return m_tableName;
+}
+
+QList<QVariantList> DbUtil::readRelationProperties(
+        QString relation,
+        QString table,
+        QStringList properties)
+{
+    QList<QVariantList> ret;
+    QSqlQuery query;
+    query.prepare(QStringLiteral("SELECT %2 FROM %3 WHERE %1 = :id")
+                  .arg(relation).arg(properties.join(", ")).arg(table));
+    query.bindValue(":id", id());
+
+    executeQuery(query);
+
+    while (query.next()) {
+        QVariantList row;
+        for (int i = 0; i < properties.size(); i++) {
+            row.push_back(query.value(i));
+        }
+        ret.push_back(row);
+    }
+
+    return ret;
+}
+
+DbUtil DbUtil::createRelationRecord(
+        QString relation,
+        QString table,
+        QStringList properties,
+        QVariantList values)
+{
+    QSqlQuery query;
+    query.prepare(QStringLiteral("INSERT INTO %1 (%3, %2) VALUES (?%4)")
+                  .arg(table)
+                  .arg(properties.join(", "))
+                  .arg(relation)
+                  .arg(QStringLiteral(", ?")
+                       .repeated(properties.length())
+                       )
+                  );
+
+    // Since the first column will be the relation,
+    // which is the owner of this DbUtil instance.
+    query.addBindValue(id());
+
+    for (auto p : values) {
+        query.addBindValue(p);
+    }
+
+    executeQuery(query);
+
+    return {table, query.lastInsertId().toInt()};
 }
 
 void DbUtil::setTableName(const QString &tableName)

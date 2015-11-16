@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
         return 2;
     }
 
+    qSetMessagePattern("[%{type}] %{function}(): %{message}");
     db::initialize();
 
     character.loadUrl(QUrl(QStringLiteral("qrc:/sheet/%1.qml").arg(argv[1])));

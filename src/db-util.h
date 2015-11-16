@@ -15,6 +15,7 @@ class DbUtil
 {
 public:
     DbUtil(QString tableName);
+    DbUtil(QString tableName, int id);
     ~DbUtil();
 
     bool fetchId(const QString &uri);
@@ -36,6 +37,14 @@ public:
     bool fetchProperty(QString propName, T &ret) const;
     template <typename T>
     bool writeProperty(QString propName, const T &val);
+
+    QList<QVariantList> readRelationProperties(QString relation,
+            QString table,
+            QStringList properties);
+    DbUtil createRelationRecord(QString relation,
+                                QString table,
+                                QStringList properties,
+                                QVariantList values);
 
 private:
     int m_id;

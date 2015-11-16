@@ -17,10 +17,12 @@ const QStringList ContainerWindow::MODULE_SRC_PATHS = {
     "qrc:/ui/attrs/CombatAttributesModule.qml",
     "qrc:/ui/attrs/SkillAttributesModule.qml",
     "qrc:/ui/conds/ConditionsModule.qml",
-    "qrc:/ui/spells/SpellsModule.qml"
+    "qrc:/ui/spells/SpontaneousSpellsModule.qml",
+    "qrc:/ui/spells/PreparedSpellsModule.qml",
+    "qrc:/ui/attrs/CastingAttributesModule.qml"
 };
 
-static const int SETTINGS_VERSION = 6;
+static const int SETTINGS_VERSION = 8;
 
 ContainerWindow::ContainerWindow(QWidget *parent)
     : QMainWindow(parent), m_engine(new QQmlEngine(this)),
@@ -54,11 +56,6 @@ UiModule * ContainerWindow::createModule(QQuickWidget* widget)
     Q_ASSERT(module);
     Q_ASSERT(!module->moduleId().isEmpty());
 
-    QList<ResourceFilter*> filters;
-    ProjectContext::populateInstancesOf<ResourceFilter>(module, filters);
-    for (auto res : filters) {
-        res->updateResources(context()->allResources());
-    }
 
     return module;
 }

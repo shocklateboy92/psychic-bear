@@ -112,8 +112,8 @@ Item {
         uri: "attr://level"
 
         modifiers: Bonus {
-            name: "Elementalist"
-            amount: 2
+            name: "Arcanist"
+            amount: 3
         }
     }
 
