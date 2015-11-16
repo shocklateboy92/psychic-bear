@@ -20,6 +20,8 @@ class SpellList : public Resource
                WRITE setTotalCasts NOTIFY totalCastsChanged)
     Q_PROPERTY(Attribute* remainingCasts READ remainingCasts
                WRITE setRemainingCasts NOTIFY remainingCastsChanged)
+    Q_PROPERTY(Attribute* saveDc READ saveDc
+               WRITE setSaveDc NOTIFY saveDcChanged)
 public:
     class Model;
 
@@ -33,6 +35,7 @@ public:
 
     Attribute* totalCasts() const;
     Attribute* remainingCasts() const;
+    Attribute* saveDc() const;
 
     // Resource interface
 public:
@@ -48,6 +51,7 @@ signals:
 
     void totalCastsChanged(Attribute* totalCasts);
     void remainingCastsChanged(Attribute* remainingCasts);
+    void saveDcChanged(Attribute* saveDc);
 
 public slots:
     void setClassName(QString className);
@@ -58,6 +62,7 @@ public slots:
 
     void setTotalCasts(Attribute* totalCasts);
     void setRemainingCasts(Attribute* remainingCasts);
+    void setSaveDc(Attribute* saveDc);
 
 private:
     class Entry;
@@ -70,6 +75,7 @@ private:
     Model*  m_availableSpells;
     Attribute* m_totalCasts;
     Attribute* m_remainingCasts;
+    Attribute* m_saveDc;
 };
 
 // I choose to split this into a separate class, and use

@@ -36,9 +36,9 @@ Module {
 
             GroupBox {
                 width: parent.width
-                title: "Cast: %1, Remaning: %2, Save DC: 15"
+                title: "Cast: %1, Remaning: %2, Save DC: %3"
                         .arg(spellList.totalCasts.value - spellList.remainingCasts.value)
-                        .arg(spellList.remainingCasts.value)
+                        .arg(spellList.remainingCasts.value).arg(spellList.saveDc.value)
 
                 Column {
                     width: parent.width

@@ -69,6 +69,11 @@ Attribute *SpellList::remainingCasts() const
     return m_remainingCasts;
 }
 
+Attribute *SpellList::saveDc() const
+{
+    return m_saveDc;
+}
+
 void SpellList::setClassName(QString className)
 {
     if (m_className == className)
@@ -117,6 +122,15 @@ void SpellList::setRemainingCasts(Attribute *remainingCasts)
 
     m_remainingCasts = remainingCasts;
     emit remainingCastsChanged(remainingCasts);
+}
+
+void SpellList::setSaveDc(Attribute *saveDc)
+{
+    if (m_saveDc == saveDc)
+        return;
+
+    m_saveDc = saveDc;
+    emit saveDcChanged(saveDc);
 }
 
 void SpellList::updateAvailableSpells()

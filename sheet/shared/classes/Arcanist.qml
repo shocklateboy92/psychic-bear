@@ -93,6 +93,7 @@ Item {
 
                 totalCasts: totalSpells
                 remainingCasts: remainingSpells
+                saveDc: saveDC
             }
             SpellList {
 
@@ -104,6 +105,7 @@ Item {
 
                 totalCasts: totalSpells
                 remainingCasts: remainingSpells
+                saveDc: saveDC
             }
         }
     }
