@@ -4,6 +4,7 @@
 #include "bonus-source.h"
 #include "bonus-type.h"
 #include "attribute-ref.h"
+#include "resource-ref-list.h"
 
 #include <qqml.h>
 
@@ -14,7 +15,7 @@ void CorePlugin::registerTypes(const char *uri)
     qmlRegisterType<Bonus>(uri, 1, 0, "Bonus");
     qmlRegisterUncreatableType<Resource>(uri, 1, 0, "Resource", "Please instanciate BonusSource/Attribute directly.");
     qmlRegisterType<BonusSource>(uri, 1, 0, "BonusSource");
-    qmlRegisterType<ResourceFilter>(uri, 1, 0, "ResourceFilter");
+    qmlRegisterType<ResourceRefList>(uri, 1, 0, "ResourceFilter");
     qmlRegisterType<BonusType>(uri, 1, 0, "BonusType");
     qmlRegisterType<AttributeRef>(uri, 1, 0, "AttributeRef");
 }
