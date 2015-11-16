@@ -31,8 +31,11 @@ Q_GLOBAL_STATIC(SpellInfo, allSpells)
 // SpellList implementation
 SpellList::SpellList(QQuickItem *parent)
     : Resource(QStringLiteral("SpellLists"), parent),
-      m_model(new Model(this)), m_level(-1),
-      m_availableSpells(new Model(this))
+      m_level(-1),
+      m_model(new Model(this)),
+      m_availableSpells(new Model(this)),
+      m_totalCasts(nullptr),
+      m_remainingCasts(nullptr)
 {
 }
 
@@ -54,6 +57,16 @@ int SpellList::level() const
 SpellList::Model *SpellList::availableSpells() const
 {
     return m_availableSpells;
+}
+
+Attribute *SpellList::totalCasts() const
+{
+    return m_totalCasts;
+}
+
+Attribute *SpellList::remainingCasts() const
+{
+    return m_remainingCasts;
 }
 
 void SpellList::setClassName(QString className)
@@ -86,6 +99,24 @@ void SpellList::createNewSlot()
 void SpellList::updateSpellSlot(int slot, int spellId)
 {
     m_model->updateSpell(slot, spellId);
+}
+
+void SpellList::setTotalCasts(Attribute *totalCasts)
+{
+    if (m_totalCasts == totalCasts)
+        return;
+
+    m_totalCasts = totalCasts;
+    emit totalCastsChanged(totalCasts);
+}
+
+void SpellList::setRemainingCasts(Attribute *remainingCasts)
+{
+    if (m_remainingCasts == remainingCasts)
+        return;
+
+    m_remainingCasts = remainingCasts;
+    emit remainingCastsChanged(remainingCasts);
 }
 
 void SpellList::updateAvailableSpells()

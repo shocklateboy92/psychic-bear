@@ -28,10 +28,16 @@ Item {
     Instantiator {
         model: 3
 
-        Item {
+        SpellList {
             property int spellLevel: modelData
 
-            Attribute {
+            name: "Prepared Spells, Level %1".arg(spellLevel)
+            uri: "spel://spellLists/prepared/default/%1".arg(spellLevel)
+
+            className: "wiz"
+            level: spellLevel
+
+            totalCasts: Attribute {
                 id: totalSpells
                 name: "Total Level " + spellLevel + " Spells Per Day"
                 uri: "attr://spells/castsPerDay/total/" + spellLevel
@@ -48,7 +54,7 @@ Item {
                 ]
             }
 
-            Attribute {
+            remainingCasts: Attribute {
                 name: "Remaining Level " + spellLevel + " Spells Per Day"
                 uri: "attr://spells/castsPerDay/remaining/" + spellLevel
                 readOnly: false
@@ -59,14 +65,6 @@ Item {
                         amount: totalSpells.value
                     }
                 ]
-            }
-
-            SpellList {
-                name: "Prepared Spells, Level %1".arg(spellLevel)
-                uri: "spel://spellLists/prepared/default/%1".arg(spellLevel)
-
-                className: "wiz"
-                level: spellLevel
             }
         }
     }

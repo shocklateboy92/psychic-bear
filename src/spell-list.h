@@ -16,15 +16,23 @@ class SpellList : public Resource
     Q_PROPERTY(QAbstractItemModel* model READ model NOTIFY modelChanged)
     Q_PROPERTY(QAbstractItemModel* availableSpells
                READ availableSpells NOTIFY availableSpellsChanged)
+    Q_PROPERTY(Attribute* totalCasts READ totalCasts
+               WRITE setTotalCasts NOTIFY totalCastsChanged)
+    Q_PROPERTY(Attribute* remainingCasts READ remainingCasts
+               WRITE setRemainingCasts NOTIFY remainingCastsChanged)
 public:
     class Model;
 
     SpellList(QQuickItem *parent = nullptr);
 
     QString className() const;
-    Model* 	model()	const;
     int 	level() const;
+
+    Model* 	model()	const;
     Model*  availableSpells() const;
+
+    Attribute* totalCasts() const;
+    Attribute* remainingCasts() const;
 
     // Resource interface
 public:
@@ -33,9 +41,13 @@ public:
 
 signals:
     void classNameChanged(QString className);
-    void modelChanged(Model* model);
     void levelChanged(int level);
+
+    void modelChanged(Model* model);
     void availableSpellsChanged(Model* availableSpells);
+
+    void totalCastsChanged(Attribute* totalCasts);
+    void remainingCastsChanged(Attribute* remainingCasts);
 
 public slots:
     void setClassName(QString className);
@@ -44,15 +56,20 @@ public slots:
     void createNewSlot();
     void updateSpellSlot(int slot, int spellId);
 
+    void setTotalCasts(Attribute* totalCasts);
+    void setRemainingCasts(Attribute* remainingCasts);
+
 private:
     class Entry;
 
     void updateAvailableSpells();
 
     QString m_className;
-    Model* 	m_model;
     int 	m_level;
-    Model* m_availableSpells;
+    Model* 	m_model;
+    Model*  m_availableSpells;
+    Attribute* m_totalCasts;
+    Attribute* m_remainingCasts;
 };
 
 // I choose to split this into a separate class, and use
