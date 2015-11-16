@@ -61,6 +61,10 @@ void ResourceRefList::setUriFilter(QStringList uriFilter)
 
     connect(ResourceManager::instance(), &ResourceManager::resourceCreated,
             this, &ResourceRefList::onResourceCreated);
+
+    for (Resource *res : ResourceManager::instance()->existingResources()) {
+        onResourceCreated(res);
+    }
 }
 
 int ResourceRefList::rowCount(const QModelIndex &parent) const
@@ -78,6 +82,7 @@ QVariant ResourceRefList::data(const QModelIndex &index, int role) const
 QHash<int, QByteArray> ResourceRefList::roleNames() const
 {
     return {
-        { Qt::UserRole, "modelData" }
+        { Qt::UserRole, "modelData" },
+        { Qt::UserRole, "model" }
     };
 }
