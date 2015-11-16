@@ -58,6 +58,30 @@ Item {
                     }
                 ]
             }
+            Attribute {
+                id: saveDC
+                name: "Level %1 Spell Save DC".arg(spellLevel)
+                uri: "attr://spells/savingThrow/" + spellLevel
+
+                modifiers: [
+                    Bonus {
+                        name: "Base"
+                        amount: 10
+                    },
+                    Bonus {
+                        name: "Spell Level"
+                        amount: spellLevel
+                    },
+                    Bonus {
+                        name: intTempRef.target.name
+                        amount: intTempRef.target.value
+                    },
+                    Bonus {
+                        source: potentMagic
+                        amount: 2
+                    }
+                ]
+            }
 
             SpellList {
 
@@ -85,6 +109,17 @@ Item {
     }
 
 
+    BonusSource {
+        id: potentMagic
+
+        name: "Potent Magic (Arcanist Exploit)"
+        uri: "msrc://classFeatures/arcanist/exploits/potentMagic"
+
+        conditional: true
+        active: false
+    }
+
+
     AttributeRef {
         id: levelRef
         targetUri: "attr://level"
@@ -92,5 +127,9 @@ Item {
     AttributeRef {
         id: intRef
         targetUri: "attr://abilityScores/intelligence/permanent/modifier"
+    }
+    AttributeRef {
+        id: intTempRef
+        targetUri: "attr://abilityScores/intelligence/temporary/modifier"
     }
 }
