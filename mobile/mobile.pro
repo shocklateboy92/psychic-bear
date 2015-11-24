@@ -1,6 +1,7 @@
 TEMPLATE = app
 
 QT += qml quick widgets sql
+CONFIG += c++11
 
 SOURCES += main.cpp \
            ../app/ui-module.cpp
