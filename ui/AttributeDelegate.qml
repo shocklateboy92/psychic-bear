@@ -1,5 +1,6 @@
-import QtQuick 2.0
+import QtQuick 2.5
 import QtQuick.Controls 1.2
+import QtQuick.Layouts 1.1
 
 import org.lasath.psychic_bear 1.0
 
@@ -9,26 +10,34 @@ ListDelegate {
     property bool strikeout: false
 
     id: root
-    width: text_row.width
     height: text_row.height + padding
 
-    Row {
+    FontMetrics {
+        id: labelMetrics
+        font: valueLabel.font
+    }
+
+    RowLayout {
         id: text_row
         anchors.verticalCenter: parent.verticalCenter
-        spacing: 10
+        width: parent.width
+        spacing: labelMetrics.averageCharacterWidth * 0.75
 
         Label {
+            id: valueLabel
             text: root.value
-            font.pointSize: 16
-            width: 36
+            font.pointSize: Qt.platform.os == "android" ? 24 : 16
             horizontalAlignment: Text.AlignRight
             font.strikeout: root.strikeout
+
+            Layout.minimumWidth: labelMetrics.averageCharacterWidth * 4
         }
         Label {
             text: root.text
             verticalAlignment: Text.AlignVCenter
             height: parent.height
             font.strikeout: root.strikeout
+            Layout.fillWidth: true
         }
     }
 }
