@@ -64,7 +64,7 @@ Item {
 
     MouseArea {
         id: mouse_area
-        hoverEnabled: true
+        hoverEnabled: Qt.platform.os != "android"
         anchors.fill: parent
         onClicked: activationRequest()
     }
