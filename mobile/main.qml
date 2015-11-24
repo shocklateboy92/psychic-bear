@@ -7,6 +7,7 @@ import "qrc:/ui/scores"
 import "qrc:/ui/attrs"
 import "qrc:/ui/info"
 import "qrc:/ui/conds"
+import "qrc:/ui/spells"
 
 ApplicationWindow {
     title: qsTr("Hello World")
@@ -35,21 +36,14 @@ ApplicationWindow {
 
     property list<Item> modules
     modules: [
-        AbilityScoresModule {
-            id: asm
-        },
-        CombatAttributesModule {
-            id: cam
-        },
-        SkillAttributesModule {
-            id: sam
-        },
-        AttributeInfoModule {
-            id: aim
-        },
-        ConditionsModule {
-            id: cm
-        }
+        AbilityScoresModule {},
+        CombatAttributesModule {},
+        SkillAttributesModule {},
+        AttributeInfoModule {},
+        ConditionsModule {},
+        PreparedSpellsModule {},
+        SpontaneousSpellsModule {},
+        CastingAttributesModule {}
     ]
 
     StackView {
