@@ -8,6 +8,7 @@ import "qrc:/ui/attrs"
 import "qrc:/ui/info"
 import "qrc:/ui/conds"
 import "qrc:/ui/spells"
+import "qrc:/ui"
 
 ApplicationWindow {
     title: qsTr("Hello World")
@@ -39,7 +40,9 @@ ApplicationWindow {
         AbilityScoresModule {},
         CombatAttributesModule {},
         SkillAttributesModule {},
-        AttributeInfoModule {},
+        AttributeInfoModule {
+            id: infoModule
+        },
         ConditionsModule {},
         PreparedSpellsModule {},
         SpontaneousSpellsModule {},
@@ -70,6 +73,13 @@ ApplicationWindow {
                 stack.pop();
                 event.accepted = true;
             }
+        }
+    }
+
+    Connections {
+        target: UiInfo
+        onActiveAttributeChanged: {
+            stack.push(infoModule);
         }
     }
 }
