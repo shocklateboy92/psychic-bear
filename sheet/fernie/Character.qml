@@ -73,9 +73,10 @@ Item {
         ]
     }
 
-    Skill {
+    ClassSkill {
         name: "Acrobatics"
         ability: dexterity
+        ranks: 1
     }
 
     ClassSkill {
@@ -190,7 +191,17 @@ Item {
     Skill {
         name: "Linguistics"
         ability: intelligence
-        ranks: 1
+        ranks: 2
+
+        // Should think of a better way of doing this
+        modifiers: [
+            Bonus {
+                name: "Ignan"
+            },
+            Bonus {
+                name: "Aquan"
+            }
+        ]
     }
 
     ClassSkill {
