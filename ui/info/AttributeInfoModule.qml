@@ -67,7 +67,9 @@ Module {
                 }
             }
 
-            Button {
+            GridLayout {
+                property bool editing: false
+
                 id: attributeNewModifier
                 anchors {
                     left: parent.left
@@ -75,32 +77,58 @@ Module {
                     bottom: parent.bottom
                 }
                 visible: !targetAttribute.readOnly
-                text: "New Static Modifier"
-                onClicked: {
-                    new_mod_dialog.open();
+
+                columns: 2
+                Button {
+                    visible: !attributeNewModifier.editing
+                    Layout.fillWidth: true
+
+                    text: "New Static Modifier"
+                    onClicked: attributeNewModifier.editing = true
+                }
+                Label {
+                    visible: attributeNewModifier.editing
+                    text: "Amount: "
+                }
+                SpinBox {
+                    id: amountSpinner
+                    visible: attributeNewModifier.editing
+                    minimumValue: -9000
+
+                    Keys.onEscapePressed: {
+                        attributeNewModifier.editing = false;
+                    }
+                }
+
+                Label {
+                    visible: attributeNewModifier.editing
+                    text: "Description: "
+                }
+                TextField {
+                    id: descText
+                    visible: attributeNewModifier.editing
+                    Layout.fillWidth: true
+                    placeholderText: "Press Enter to accept"
+
+                    onAccepted: {
+                        if (amountSpinner.value == 0 || this.text.length === 0) {
+                            console.log("Static modifiers must have a non-zero value and a description");
+                            return;
+                        }
+
+                        targetAttribute.createStaticModifier(amountSpinner.value, this.text);
+                        attributeNewModifier.editing = false;
+                    }
+                    Keys.onEscapePressed: {
+                        attributeNewModifier.editing = false;
+                    }
+                }
+
+                onEditingChanged: {
+                    descText.text = "";
+                    amountSpinner.forceActiveFocus();
                 }
             }
-        }
-    }
-
-    Dialog {
-        id: new_mod_dialog
-        height: 100
-        width: 450
-        standardButtons: StandardButton.Ok | StandardButton.Cancel
-
-        NewModifierDialog {
-            id: content
-            anchors.centerIn: parent
-        }
-
-        onAccepted: {
-            if (content.amount == 0 || content.description.length == 0) {
-                console.log("Static modifiers must have a non-zero value and a description");
-                return;
-            }
-
-            targetAttribute.createStaticModifier(content.amount, content.description);
         }
     }
 }
