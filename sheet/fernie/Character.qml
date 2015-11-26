@@ -296,6 +296,10 @@ Item {
                     amount: 8
                 },
                 Bonus {
+                    name: "Level 5 Health Roll"
+                    amount: 6
+                },
+                Bonus {
                     name: "Favoured Class (All Levels)"
                     amount: level.value
                 }
@@ -522,7 +526,7 @@ Item {
 
         modifiers: Bonus {
             name: "Elementalist"
-            amount: 4
+            amount: 5
         }
     }
 
