@@ -34,6 +34,14 @@ ApplicationWindow {
             }
         }
     }
+    toolBar: Label {
+        anchors.fill: parent
+        anchors.leftMargin: 24
+
+        text: stack.currentItem.name ? stack.currentItem.name : "Hello World"
+        verticalAlignment: Text.AlignVCenter
+    }
+
 
     property list<Item> modules
     modules: [
