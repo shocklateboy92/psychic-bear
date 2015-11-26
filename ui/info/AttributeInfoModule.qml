@@ -98,6 +98,9 @@ Module {
                     Keys.onEscapePressed: {
                         attributeNewModifier.editing = false;
                     }
+                    Keys.onReturnPressed: {
+                        descText.forceActiveFocus();
+                    }
                 }
 
                 Label {
@@ -125,8 +128,18 @@ Module {
                 }
 
                 onEditingChanged: {
+                    if (!editing) {
+                        return;
+                    }
+
                     descText.text = "";
                     amountSpinner.forceActiveFocus();
+                }
+
+                Keys.onPressed: {
+                    if (event.key === Qt.Key_Back) {
+                        editing = false;
+                    }
                 }
             }
         }
