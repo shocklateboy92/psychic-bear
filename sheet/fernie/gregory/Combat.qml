@@ -1,6 +1,6 @@
 import QtQuick 2.3
 
-import "../"
+import "qrc:/sheet"
 import org.lasath.psychic_bear 1.0
 
 Item {

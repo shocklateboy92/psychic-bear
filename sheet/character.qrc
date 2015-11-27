@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/sheet">
         <file>AbilityScore.qml</file>
-        <file>fernie/Character.qml</file>
+        <file>fernie/mr_tree/Character.qml</file>
         <file>Skill.qml</file>
         <file>ClassSkill.qml</file>
         <file>zedestructor/Anya.qml</file>
@@ -16,9 +16,9 @@
         <file>ArmourClassHelper.qml</file>
         <file>shared/rules/ShootingIntoCombat.qml</file>
         <file>shared/classes/Arcanist.qml</file>
-        <file>fernie/Gregory.qml</file>
-        <file>fernie/Skills.qml</file>
-        <file>fernie/Combat.qml</file>
+        <file>fernie/gregory/Gregory.qml</file>
+        <file>fernie/gregory/Skills.qml</file>
+        <file>fernie/gregory/Combat.qml</file>
     </qresource>
     <qresource prefix="/doc/spel">
         <file>spell_full.json</file>

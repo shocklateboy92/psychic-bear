@@ -1,10 +1,10 @@
 import QtQuick 2.3
 
-import "../"
+import "qrc:/sheet/"
 import org.lasath.psychic_bear 1.0
 
-import "../shared/feats" as Feats
-import "../shared/rules" as Rules
+import "qrc:/sheet/shared/feats" as Feats
+import "qrc:/sheet/shared/rules" as Rules
 
 Item {
     AbilityScore {

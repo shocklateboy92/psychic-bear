@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<UiModule>("org.lasath.psychic_bear.ui", 1, 0, "Module");
 
     ProjectContext context;
-    context.createCharacter(QUrl(QStringLiteral("qrc:/sheet/%1.qml").arg("fernie/Character")));
+    context.createCharacter(QUrl(QStringLiteral("qrc:/sheet/%1.qml").arg("fernie/mr_tree/Character")));
 
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
