@@ -32,6 +32,11 @@ Item {
             Bonus {
                 source: race
                 amount: 4
+            },
+            Bonus {
+                id: l4dingPoint
+                name: "Level4 dingPoint"
+                amount: 1
             }
 		]
 	}
@@ -138,19 +143,19 @@ Item {
     ClassSkill {
         name: "Disable Device"
         ability: dexterity
-        ranks: 0
+        ranks: 1
     }
 
     Skill {
         name: "Disguise"
-        ability: dexterity
+        ability: charisma
         ranks: 0
     }
 
     ClassSkill {
         name: "Escape Artist"
         ability: dexterity
-        ranks: 1
+        ranks: 2
     }
 
     ClassSkill {
@@ -219,6 +224,12 @@ Item {
         ranks: 0
     }
 
+    ClassSkill {
+        name: "Knowledge (Navigation)"
+        ability: intelligence
+        ranks: 1
+    }
+
     Skill {
         name: "Knowledge (Nobility)"
         ability: intelligence
@@ -249,6 +260,18 @@ Item {
         ranks: level.value
     }
 
+    Skill {
+        name: "Perform: Testimony"
+        ability: charisma
+        ranks: 3
+    }
+
+    ClassSkill {
+        name: "Profession: Chess"
+        ability: intelligence
+        ranks: 1
+    }
+
     ClassSkill {
         name: "Ride"
         ability: dexterity
@@ -258,7 +281,7 @@ Item {
     Skill {
         name: "Sense Motive"
         ability: wisdom
-        ranks: 0
+        ranks: 1
     }
 
     ClassSkill {
@@ -293,7 +316,7 @@ Item {
 
     Skill {
         name: "Use Magic Device"
-        ability: strength
+        ability: intelligence
         ranks: 0
     }
 
@@ -326,6 +349,14 @@ Item {
                 Bonus {
                     name: "Level 3 Health Roll"
                     amount: 10
+                },
+                Bonus {
+                    name: "Level 4 Health Roll"
+                    amount: 6
+                },
+                Bonus {
+                    name: "Level 5 Health Roll"
+                    amount: 8
                 },
                 Bonus {
                     name: "Favoured Class (All Levels)"
@@ -406,6 +437,60 @@ Item {
                     amount: dexterity.temporary.modifier.value
                 }
             ]
+        }
+
+        Attribute {
+            name: "Point Blank Shot (30ft radius)"
+            uri: parent.uri + "/ranged"
+            modifiers: [
+                Bonus {
+                    name: baseAttackBonus.name
+                    amount: baseAttackBonus.amount
+                },
+                Bonus {
+                    name: dexterity.temporary.modifier.name
+                    amount: dexterity.temporary.modifier.value
+                },
+                Bonus {
+                     name: "Point Blank Shot"
+                     amount: 1
+                }
+            ]
+        }
+
+        Attribute {
+            name: "Ranged Damage Bonus"
+            uri: parent.uri + "/ranged"
+            modifiers: [
+                Bonus {
+                    name: dexterity.temporary.modifier.name
+                    amount: dexterity.temporary.modifier.value
+                }
+            ]
+        }
+
+        Attribute {
+            name: "Point Blank Shot Damage Bonus"
+            uri: parent.uri + "/ranged"
+            modifiers: [
+                Bonus {
+                    name: dexterity.temporary.modifier.name
+                    amount: dexterity.temporary.modifier.value
+                },
+                Bonus {
+                     name: "Point Blank Shot"
+                     amount: 1
+                }
+            ]
+        }
+
+        BonusSource {
+            id: pointBlankShot
+            name: "Point-Blank Shot (Combat)"
+            conditional: false
+            //description: "Benefit: You get a +1 bonus on attack and damage rolls with ranged weapons at ranges of up to 30 feet."
+            //rangeInFeet: 30
+            //range:
         }
 
         Attribute {
@@ -525,7 +610,7 @@ Item {
 
         modifiers: Bonus {
             name: "Weapon Specialist"
-            amount: 3
+            amount: 5
         }
     }
 
@@ -577,11 +662,9 @@ Item {
     }
 
     BonusSource {
-        id: pointBlankShot
-        name: "Point-Blank Shot (Combat)"
+        id: skillfulFlyer
+        name: "Skillful Flyer"
         conditional: false
-        //description: "Benefit: You get a +1 bonus on attack and damage rolls with ranged weapons at ranges of up to 30 feet."
-        //rangeInFeet: 30
-        //range:
+        //description: "At 4th level, the specialist improves his/her fly speed to 60ft/good and at 8th level this becomes 70ft/perfect"
     }
 }
