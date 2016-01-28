@@ -359,6 +359,10 @@ Item {
                     amount: 8
                 },
                 Bonus {
+                    name: "Level 6 Health Roll"
+                    amount: 1
+                },
+                Bonus {
                     name: "Favoured Class (All Levels)"
                     amount: level.value
                 }
@@ -454,6 +458,25 @@ Item {
                 Bonus {
                      name: "Point Blank Shot"
                      amount: 1
+                }
+            ]
+        }
+
+        Attribute {
+            name: "Rapid Shot"
+            uri: parent.uri + "/ranged"
+            modifiers: [
+                Bonus {
+                    name: baseAttackBonus.name
+                    amount: baseAttackBonus.amount
+                },
+                Bonus {
+                    name: dexterity.temporary.modifier.name
+                    amount: dexterity.temporary.modifier.value
+                },
+                Bonus {
+                     name: "Rapid Shot"
+                     amount: -2
                 }
             ]
         }
@@ -610,7 +633,7 @@ Item {
 
         modifiers: Bonus {
             name: "Weapon Specialist"
-            amount: 5
+            amount: 6
         }
     }
 
@@ -650,6 +673,20 @@ Item {
     }
 
     BonusSource {
+        id: gracefulAttacks
+        name: "Graceful Attacks"
+        conditional: false
+        //description: "Dex bonus applies to damage"
+    }
+
+    BonusSource {
+        id: skillfulFlyer
+        name: "Skillful Flyer"
+        conditional: false
+        //description: "At 4th level, the specialist improves his/her fly speed to 60ft/good and at 8th level this becomes 70ft/perfect"
+    }
+
+    BonusSource {
         id: armourBonus
         name: "Mithral Shirt"
         conditional: true
@@ -659,12 +696,5 @@ Item {
         id: deflectionBonus
         name: "Hawk Badge"
         conditional: true
-    }
-
-    BonusSource {
-        id: skillfulFlyer
-        name: "Skillful Flyer"
-        conditional: false
-        //description: "At 4th level, the specialist improves his/her fly speed to 60ft/good and at 8th level this becomes 70ft/perfect"
     }
 }
