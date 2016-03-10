@@ -83,12 +83,19 @@ Item {
     Skill {
         name: "Bluff"
         ability: charisma
+        ranks: 7
+        modifiers: [
+            Bonus {
+                name: "Skill proficiency bluff"
+                amount: 3
+            }
+        ]
     }
 
     ClassSkill {
         name: "Climb"
         ability: strength
-        ranks: level.value
+        ranks: 6
         modifiers: [
             Bonus {
                 name: acPenalty.name
@@ -155,7 +162,7 @@ Item {
     ClassSkill {
         name: "Intimidate"
         ability: charisma
-        ranks: level.value
+        ranks: 6
         modifiers: [
             Bonus {
                 name: "Intimidating Prowress"
@@ -193,7 +200,7 @@ Item {
     ClassSkill {
         name: "Knowledge (Nobility)"
         ability: intelligence
-        ranks: level.value
+        ranks: 6
     }
 
     Skill {
@@ -328,7 +335,14 @@ Item {
                     name: "Level 5 Health Roll"
                     amount: 6
                 },
-
+                Bonus {
+                    name: "Level 6 Health Roll"
+                    amount: 2
+                },
+                Bonus {
+                    name: "Level 7 Health Roll"
+                    amount: 2
+                },
                 Bonus {
                     name: "Favoured Class (All Levels)"
                     amount: level.value
@@ -520,7 +534,7 @@ Item {
                 Bonus {
                     source: paBarraniWeapon
                     name: paBarraniWeapon.name
-                    amount: 1
+                    amount: 2
                 },
                 Bonus {
                     name: strength.temporary.modifier.name
@@ -600,7 +614,7 @@ Item {
 
         modifiers: Bonus {
             name: "Weapon master"
-            amount: 5
+            amount: 7
         }
     }
 
