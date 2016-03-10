@@ -298,6 +298,7 @@ Item {
                 name: "Points from Knowledge (Navigate)"
                 amount: 1
             }
+
         ]
     }
 
@@ -450,6 +451,11 @@ Item {
                 Bonus {
                     name: "Flat Footed Penalty"
                     amount: -acDexBonus.amount
+                },
+                Bonus {
+                    source: wearArmour
+                    name: wearArmour.name
+                    amount: 6
                 }
             ]
         }
@@ -491,6 +497,7 @@ Item {
                 id: baseAttackBonus
             }
         ]
+
 
         Attribute {
             name: "Melee To Hit Bonus"
@@ -565,6 +572,7 @@ Item {
                     name: boMasterWeapon.name
                     amount: 2
                 }
+
             ]
         }
 
