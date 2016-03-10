@@ -161,7 +161,7 @@ Item {
     ClassSkill {
         name: "Fly"
         ability: dexterity
-        ranks: level.value
+        ranks: level.value + 16
     }
 
     Skill {
