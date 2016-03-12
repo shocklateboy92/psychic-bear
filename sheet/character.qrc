@@ -9,6 +9,7 @@
         <file>CarryCapacity.qml</file>
         <file>jarjee/JeanClaude.qml</file>
         <file>shared/feats/Toughness.qml</file>
+        <file>riddleofsteel/Template.qml</file>
         <file>Feat.qml</file>
         <file>str_utils.js</file>
         <file>CommonTypes.qml</file>
