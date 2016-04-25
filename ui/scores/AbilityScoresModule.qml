@@ -31,7 +31,7 @@ Module {
         anchors.margins: 10
 
         flow: GridLayout.TopToBottom
-        rows: 8
+        rows: 22
 
         Label {
             text: ""

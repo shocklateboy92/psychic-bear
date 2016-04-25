@@ -19,7 +19,9 @@ const QStringList ContainerWindow::MODULE_SRC_PATHS = {
     "qrc:/ui/conds/ConditionsModule.qml",
     "qrc:/ui/spells/SpontaneousSpellsModule.qml",
     "qrc:/ui/spells/PreparedSpellsModule.qml",
-    "qrc:/ui/attrs/CastingAttributesModule.qml"
+    "qrc:/ui/attrs/CastingAttributesModule.qml",
+    "qrc:/ui/attrs/RiddleAttribute.qml",
+    "qrc:/ui/attrs/RiddleSaps.qml"
 };
 
 static const int SETTINGS_VERSION = 8;

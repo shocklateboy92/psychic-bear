@@ -5,61 +5,61 @@ import "../"
 
 Item {
     //Attributes
-	AbilityScore {
+    Attribute {
 		id: strength
 		name: "Strength"
 	}
 
-	AbilityScore {
+    Attribute {
         id: agility
         name: "Agility"
 	}
 
-    AbilityScore {
+    Attribute {
         id: toughness
         name: "Toughness"
     }
 
-    AbilityScore {
+    Attribute {
         id: endurance
         name: "Endurance"
     }
 
-    AbilityScore {
+    Attribute {
         id: health
         name: "Health"
     }
 
-    AbilityScore {
+    Attribute {
         id: social
         name: "Social"
     }
 
-    AbilityScore {
+    Attribute {
         id: wits
         name: "Wits"
     }
 
-    AbilityScore {
+    Attribute {
         id: willpower
         name: "Willpower"
     }
 
-    AbilityScore {
+    Attribute {
         id: perception
         name: "Perception"
     }
 
-    AbilityScore {
+    Attribute {
         id: mentalaptitude
         name: "Mental Aptitude"
     }
 
     //Derived Sorcery Attributes
-    AbilityScore {
+    Attribute {
         id: kaa
         name: "Kaa"
-        permanent.modifiers: [
+        modifiers: [
             Bonus {
                 name: "Derived"
                 amount: (toughness.temporary.value + health.temporary.value + willpower.temporary.value) / 2
@@ -68,10 +68,10 @@ Item {
         ]
     }
 
-    AbilityScore {
+    Attribute {
         id: form
         name: "Form"
-        permanent.modifiers: [
+        modifiers: [
             Bonus {
                 name: "Derived"
                 amount: (wits.temporary.value + perception.temporary.value) / 2
@@ -79,10 +79,10 @@ Item {
         ]
     }
 
-    AbilityScore {
+    Attribute {
         id: dicipline
         name: "Discipline"
-        permanent.modifiers: [
+        modifiers: [
             Bonus {
                 name: "Derived"
                 amount: (willpower.temporary.value + endurance.temporary.value) / 2
@@ -90,10 +90,10 @@ Item {
         ]
     }
 
-    AbilityScore {
+    Attribute {
         id: draw
         name: "Draw"
-        permanent.modifiers: [
+        modifiers: [
             Bonus {
                 name: "Derived"
                 amount: (strength.temporary.value + willpower.temporary.value) / 2
@@ -101,10 +101,10 @@ Item {
         ]
     }
 
-    AbilityScore {
+    Attribute {
         id: art
         name: "Art"
-        permanent.modifiers: [
+        modifiers: [
             Bonus {
                 name: "Derived"
                 amount: (mentalaptitude.temporary.value + endurance.temporary.value) / 2
@@ -113,10 +113,10 @@ Item {
     }
 
     //Derived attributes
-    AbilityScore {
+    Attribute {
         id: aim
         name: "Aim"
-        permanent.modifiers: [
+        modifiers: [
             Bonus {
                 name: "Derived"
                 amount: (agility.temporary.value + perception.temporary.value) / 2
@@ -124,10 +124,10 @@ Item {
         ]
     }
 
-    AbilityScore {
+    Attribute {
         id: reflex
         name: "Reflex"
-        permanent.modifiers: [
+        modifiers: [
             Bonus {
                 name: "Derived"
                 amount: (agility.temporary.value + wits.temporary.value) / 2
@@ -135,10 +135,10 @@ Item {
         ]
     }
 
-    AbilityScore {
+    Attribute {
         id: move
         name: "Move"
-        permanent.modifiers: [
+        modifiers: [
             Bonus {
                 name: "Derived"
                 amount: (strength.temporary.value + agility.temporary.value + endurance.temporary.value) / 2
@@ -146,10 +146,10 @@ Item {
         ]
     }
 
-    AbilityScore {
+    Attribute {
         id: knockout
         name: "Knockout"
-        permanent.modifiers: [
+        modifiers: [
             Bonus {
                 name: "Derived"
                 amount: toughness.temporary.value + (willpower.temporary.value/2)
@@ -157,10 +157,10 @@ Item {
         ]
     }
 
-    AbilityScore {
+    Attribute {
         id: knockdown
         name: "Knockdown"
-        permanent.modifiers: [
+        modifiers: [
             Bonus {
                 name: "Derived"
                 amount: (strength.temporary.value + agility.temporary.value) / 2

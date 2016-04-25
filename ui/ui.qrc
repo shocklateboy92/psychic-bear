@@ -17,5 +17,7 @@
         <file>spells/SpellsModule.qml</file>
         <file>spells/PreparedSpellsModule.qml</file>
         <file>spells/SpontaneousSpellsModule.qml</file>
+        <file>attrs/RiddleAttribute.qml</file>
+        <file>attrs/RiddleSaps.qml</file>
     </qresource>
 </RCC>

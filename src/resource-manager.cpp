@@ -1,4 +1,5 @@
 #include "resource-manager.h"
+#include <QCollator>
 
 Q_GLOBAL_STATIC(ResourceManager, singleton)
 
@@ -20,8 +21,13 @@ void ResourceManager::registerResource(Resource *res)
     emit resourceCreated(res);
 }
 
-Resource::List ResourceManager::existingResources() const
+Resource::List ResourceManager::existingResources()
 {
+    std::sort(m_resources.begin(), m_resources.end(), [](const Resource * r1, const Resource * r2) -> bool {
+        QCollator qc = QCollator();
+        qc.setNumericMode(true);
+        return qc(r1->name(), r2->name());
+    });
     return m_resources;
 }
 

@@ -22,6 +22,11 @@ public:
     DbUtil &db();
     const DbUtil &db() const;
 
+    bool operator< (Resource &r2)
+    {
+        return this->name() < r2.name();
+    }
+
     virtual bool isDynamic() const;
     virtual bool initDb();
 

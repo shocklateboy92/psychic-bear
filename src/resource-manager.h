@@ -10,7 +10,7 @@ public:
     explicit ResourceManager(QObject *parent = 0);
 
     static ResourceManager* instance();
-    Resource::List existingResources() const;
+    Resource::List existingResources();
 
 signals:
     void resourceCreated(Resource *res);

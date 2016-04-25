@@ -42,7 +42,6 @@ int Attribute::value() const
             } else {
                 typeMap[b->type()] = std::max(typeMap[b->type()], b->amount());
             }
-
         }
     }
 
