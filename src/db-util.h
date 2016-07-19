@@ -5,13 +5,15 @@
 #include<QString>
 #include<QVariant>
 
+#include "pb-core.h"
+
 template<typename T>
 class QList;
 class QQuickItem;
 
 class Bonus;
 
-class DbUtil
+class PB_SHARED_EXPORT DbUtil
 {
 public:
     DbUtil(QString tableName);

@@ -5,7 +5,7 @@
 
 #include "resource.h"
 
-class ResourceRefList : public QAbstractListModel
+class PB_SHARED_EXPORT ResourceRefList : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(QStringList uriFilter READ uriFilter
